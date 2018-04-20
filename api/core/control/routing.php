@@ -3,8 +3,8 @@
     /*
     //  lớp này dùng xác định Datanode để định tuyến request về đúng controller.
     //  
-    //  URI có dạng /node-parent/node-child1/node-child2/...?params=param1,param2,param3
-    //  ví dụ: student/16020123/stu-fixed-info?params=class,student_code,emailVNU
+    //  URI có dạng /node-parent/node-child1/node-child2/...?fields=param1,param2,param3
+    //  ví dụ: student/16020123/stu-fixed-info?fields=class,student_code,emailVNU
     */
     class Routing {
         /*

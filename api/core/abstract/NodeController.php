@@ -14,6 +14,8 @@ abstract class NodeController {
     protected $accessToken = '';
     // mảng các id của node. ví dụ: /api/student/16020991/inbox/112233 thì id = array(16020991, 112233)
     protected $nodeIds = array();
+    // mảng các parameter.
+    protected $fields = '';
     function __construct($nodeIds) {
         // init
         $this->nodeIds = $nodeIds;
@@ -33,6 +35,8 @@ abstract class NodeController {
                 die();
             break;
         }
+        $this->fields = $_GET['fields'];
+        $this->accessToken = $_GET['accessToken'];
     }
     /*
     *   Hàm này để tiến hành chạy controller.

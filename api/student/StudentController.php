@@ -8,9 +8,8 @@ require_once("/core/abstract/NodeController.php");
             
         }
         protected function _GET() {
-            foreach($this->nodeIds as $id) {
-                echo $id;
-            }
+            
+            $this->response(200, array("a" => "b"));
         }
         protected function _PUT() {
             

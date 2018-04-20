@@ -1,0 +1,10 @@
+<?php
+/*
+* Model 
+*
+*
+*/
+    class StudentModel {
+        
+    }
+?>
