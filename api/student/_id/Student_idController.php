@@ -8,7 +8,7 @@ require_once("/core/abstract/NodeController.php");
             
         }
         protected function _GET() {
-            $this->response('404', array("message" => "gọi thành công"));
+            $this->response('404', array("studentID:" => $this->nodeIds[0]));
         }
         protected function _PUT() {
             
