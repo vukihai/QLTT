@@ -9,7 +9,7 @@ require_once("/core/abstract/NodeController.php");
         }
         protected function _GET() {
             
-            $this->response(200, array("a" => "b"));
+            $this->response(200, array("page" => "Student default page"));
         }
         protected function _PUT() {
             
