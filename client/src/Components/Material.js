@@ -9,9 +9,12 @@ import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -21,8 +24,14 @@ import SendIcon from '@material-ui/icons/Send';
 import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/Report';
+import RssFeedIcon from '@material-ui/icons/RssFeed';
+import SchoolIcon from '@material-ui/icons/School';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Menu, { MenuItem } from 'material-ui/Menu';
+import Badge from 'material-ui/Badge';
+
 
 const drawerWidth = 240;
 
@@ -89,6 +98,9 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing.unit * 3,
     },
+    flex: {
+        flex: 1
+    }
 });
 
 class MiniDrawer extends React.Component {
@@ -132,26 +144,53 @@ class MiniDrawer extends React.Component {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="title" color="inherit" noWrap>
+                        <Typography variant="title" color="inherit" noWrap className={classNames(classes.flex, this.state.open && classes.hide)}>
                             QLTT
                         </Typography>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={open}
-                            onClose={this.handleClose}
-                        >
-                            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                        </Menu>
+                        <Typography variant="title" color="inherit" noWrap className={classes.flex}>
+                            Search....
+                        </Typography>
+
+                        <div>
+
+                            <IconButton
+                                aria-owns={open ? 'menu-appbar' : null}
+                                aria-haspopup="true"
+                                onClick={this.handleMenu}
+                                color="inherit"
+                            >
+                                <Badge className={classes.margin} badgeContent={4} color="primary">
+                                    <NotificationsIcon />
+                                </Badge>
+
+                            </IconButton>
+
+                            <IconButton
+                                aria-owns={open ? 'menu-appbar' : null}
+                                aria-haspopup="true"
+                                onClick={this.handleMenu}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open}
+                                onClose={this.handleClose}
+                            >
+                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={this.handleClose}><ExitToAppIcon />Logout</MenuItem>
+                            </Menu>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -162,35 +201,40 @@ class MiniDrawer extends React.Component {
                     open={this.state.open}
                 >
                     <div className={classes.toolbar}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        <IconButton onClick={this.handleDrawerClose} className={classes.menuButton}>
+                            {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
+                            <MenuIcon />
                         </IconButton>
+                        <Typography variant="title" color="inherit" noWrap className={classes.flex}>
+                            QLTT
+                        </Typography>
+
                     </div>
                     <Divider />
                     <List>
                         <ListItem button>
                             <ListItemIcon>
-                                <InboxIcon />
+                                <RssFeedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Inbox" />
+                            <ListItemText primary="Bài đăng" />
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
                                 <StarIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Starred" />
+                            <ListItemText primary="Đang theo dõi" />
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
-                                <SendIcon />
+                                <SchoolIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Send mail" />
+                            <ListItemText primary="Giảng viên" />
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
-                                <DraftsIcon />
+                                <AssignmentIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Drafts" />
+                            <ListItemText primary="Báo cáo" />
                         </ListItem>
                     </List>
                     <Divider />
