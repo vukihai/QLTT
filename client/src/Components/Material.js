@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
@@ -28,9 +30,16 @@ import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SchoolIcon from '@material-ui/icons/School';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HomeIcon from '@material-ui/icons/Home';
 
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Badge from 'material-ui/Badge';
+import Home from './Home';
+import BaiDangPage from './BaiDang';
+import TheoDoiPage from './TheoDoi';
+import GiangVienPage from './GiangVien';
+import BaoCaoPage from './BaoCao';
+import './material.css';
 
 
 const drawerWidth = 240;
@@ -100,7 +109,15 @@ const styles = theme => ({
     },
     flex: {
         flex: 1
-    }
+    },
+    routeItem: {
+        '&:focus': {
+            backgroundColor: theme.palette.primary.main,
+            '& $primary, & $icon': {
+                color: theme.palette.common.white,
+            },
+        },
+    },
 });
 
 class MiniDrawer extends React.Component {
@@ -117,10 +134,10 @@ class MiniDrawer extends React.Component {
         this.setState({ open: false });
     };
 
-    handleMenu = event => {
+    handleMenuOpen = event => {
         this.setState({ anchorEl: event.currentTarget });
     };
-    handleClose = () => {
+    handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
 
@@ -130,120 +147,156 @@ class MiniDrawer extends React.Component {
         const open = Boolean(anchorEl);
 
         return (
-            <div className={classes.root}>
-                <AppBar
-                    position="absolute"
-                    className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                >
-                    <Toolbar disableGutters={!this.state.open}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(classes.menuButton, this.state.open && classes.hide)}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="title" color="inherit" noWrap className={classNames(classes.flex, this.state.open && classes.hide)}>
-                            QLTT
-                        </Typography>
-                        <Typography variant="title" color="inherit" noWrap className={classes.flex}>
-                            Search....
-                        </Typography>
-
-                        <div>
-
+            <Router>
+                <div className={classes.root}>
+                    <AppBar
+                        position="absolute"
+                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+                    >
+                        <Toolbar disableGutters={!this.state.open}>
                             <IconButton
                                 aria-owns={open ? 'menu-appbar' : null}
                                 aria-haspopup="true"
                                 onClick={this.handleMenu}
                                 color="inherit"
+                                aria-label="open drawer"
+                                onClick={this.handleDrawerOpen}
+                                className={classNames(classes.menuButton, this.state.open && classes.hide)}
                             >
-                                <Badge className={classes.margin} badgeContent={4} color="primary">
-                                    <NotificationsIcon />
-                                </Badge>
-
+                                <MenuIcon />
                             </IconButton>
+                            <Typography variant="title" color="inherit" noWrap className={classNames(classes.flex, this.state.open && classes.hide)}>
+                                <Switch>
+                                    <Route exact path='/' render={() => <div>QLTT</div>} />
+                                    <Route exact path='/baidang' render={() => <div>Bài đăng</div>} />
+                                    <Route exact path='/theodoi' render={() => <div>Theo dõi</div>} />
+                                    <Route exact path='/giangvien' render={() => <div>Giảng viên</div>} />
+                                    <Route exact path='/baocao' render={() => <div>Báo cáo</div>} />
+                                </Switch>
+                            </Typography>
+                            <Typography variant="title" color="inherit" noWrap className={classes.flex}>
+                                Search....
+                            </Typography>
 
-                            <IconButton
-                                aria-owns={open ? 'menu-appbar' : null}
-                                aria-haspopup="true"
-                                onClick={this.handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
+                            <div>
+
+                                <IconButton
+                                    aria-owns={open ? 'menu-appbar' : null}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenuOpen}
+                                    color="inherit"
+                                >
+                                    <Badge className={classes.margin} badgeContent={4} color="secondary">
+                                        <NotificationsIcon />
+                                    </Badge>
+
+                                </IconButton>
+
+                                <IconButton
+                                    aria-owns={open ? 'menu-appbar' : null}
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenuOpen}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={open}
+                                    onClose={this.handleMenuClose}
+                                >
+                                    <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+                                    <MenuItem onClick={this.handleMenuClose}><ExitToAppIcon />Logout</MenuItem>
+                                </Menu>
+                            </div>
+                        </Toolbar>
+                    </AppBar>
+                    <Drawer
+                        variant="permanent"
+                        classes={{
+                            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                        }}
+                        open={this.state.open}
+                    >
+                        <div className={classes.toolbar}>
+                            <IconButton onClick={this.handleDrawerClose} className={classes.menuButton}>
+                                {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
+                                <MenuIcon />
                             </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={this.handleClose}
-                            >
-                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={this.handleClose}><ExitToAppIcon />Logout</MenuItem>
-                            </Menu>
+                            <Typography variant="title" color="inherit" noWrap className={classes.flex}>
+                                QLTT
+                        </Typography>
+
                         </div>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-                    }}
-                    open={this.state.open}
-                >
-                    <div className={classes.toolbar}>
-                        <IconButton onClick={this.handleDrawerClose} className={classes.menuButton}>
-                            {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="title" color="inherit" noWrap className={classes.flex}>
-                            QLTT
-                        </Typography>
+                        <Divider />
+                        <List>
+                            <NavLink exact={true} to="/">
+                                <ListItem button className={classes.routeItem}>
+                                    <ListItemIcon>
+                                        <HomeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Trang chủ" />
 
-                    </div>
-                    <Divider />
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <RssFeedIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Bài đăng" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <StarIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Đang theo dõi" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <SchoolIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Giảng viên" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <AssignmentIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Báo cáo" />
-                        </ListItem>
-                    </List>
-                    <Divider />
-                </Drawer>
-                <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    <Typography noWrap>{'Chào mừng bạn đến với Quản lí thực tập...'}</Typography>
-                </main>
-            </div>
+                                </ListItem>
+                            </NavLink>
+                            <NavLink to="/baidang">
+                                <ListItem button className={classes.routeItem}>
+
+                                    <ListItemIcon>
+                                        <RssFeedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Bài đăng" />
+
+                                </ListItem>
+                            </NavLink>
+                            <NavLink to="/theodoi">
+                                <ListItem button className={classes.routeItem}>
+                                    <ListItemIcon>
+                                        <StarIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Đang theo dõi" />
+                                </ListItem>
+                            </NavLink>
+                            <NavLink to="/giangvien">
+                                <ListItem button className={classes.routeItem}>
+                                    <ListItemIcon>
+                                        <SchoolIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Giảng viên" />
+                                </ListItem>
+                            </NavLink>
+                            <NavLink to="/baocao">
+                                <ListItem button className={classes.routeItem}>
+                                    <ListItemIcon>
+                                        <AssignmentIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Báo cáo" />
+                                </ListItem>
+                            </NavLink>
+                        </List>
+                    </Drawer>
+                    <main className={classes.content}>
+                        <div className={classes.toolbar} />
+                        <Switch>
+                            <Route exact path='/' component={Home} />
+                            <Route exact path='/baidang' component={BaiDangPage} />
+                            <Route exact path='/theodoi' component={TheoDoiPage} />
+                            <Route exact path='/giangvien' component={GiangVienPage} />
+                            <Route exact path='/baocao' component={BaoCaoPage} />
+                        </Switch>
+                        <Typography noWrap>{'Chào mừng bạn đến với Quản lí thực tập...'}</Typography>
+                    </main>
+                </div>
+            </Router >
         );
     }
 }

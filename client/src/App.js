@@ -8,9 +8,9 @@ class App extends Component {
     return (
         <div>
             <Material />
-            <Header />
+            {/* <Header />
             <button className="btn btn-danger">Hello world!!</button>
-            <Footer />
+            <Footer /> */}
         </div>
     );
   }
