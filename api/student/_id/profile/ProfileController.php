@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ ."../../../core/abstract/NodeController.php");
-require_once(__DIR__ ."/../StudentModel.php");
+require_once(__DIR__ ."../../../../core/abstract/NodeController.php");
+require_once(__DIR__ ."/../../StudentModel.php");
 
 
 
-    class Student_idController extends NodeController {
+    class ProfileController extends NodeController {
         protected function _POST() {
             
         }

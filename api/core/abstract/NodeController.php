@@ -25,7 +25,17 @@ abstract class NodeController {
                 $this->data = $_POST;
                 break;
             case 'PUT':
-                $this->data = file_get_contents("php://input");
+                parse_str(file_get_contents("php://input"), $_PUT);
+
+                foreach ($_PUT as $key => $value)
+                {
+                    unset($_PUT[$key]);
+            
+                    $_PUT[str_replace('amp;', '', $key)] = $value;
+                }
+            
+                $_REQUEST = array_merge($_REQUEST, $_PUT);
+                $this->data = $_PUT;
                 break;
             case 'GET':
             case 'DELETE':

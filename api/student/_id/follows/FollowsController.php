@@ -1,10 +1,9 @@
 <?php
-require_once(__DIR__ ."../../../core/abstract/NodeController.php");
-require_once(__DIR__ ."/../StudentModel.php");
+require_once(__DIR__ ."../../../../core/abstract/NodeController.php");
+require_once(__DIR__ ."/../../StudentModel.php");
 
 
-
-    class Student_idController extends NodeController {
+    class FollowsController extends NodeController {
         protected function _POST() {
             
         }
@@ -17,7 +16,7 @@ require_once(__DIR__ ."/../StudentModel.php");
 
             // get từ CSDL
             $model = new StudentModel();
-            $data = $model->getStudentInfo($fieldsArr, $std_id);
+            $data = $model->getFollows($fieldsArr, $std_id);
 
             // res về client
             $this->response('200', $data);

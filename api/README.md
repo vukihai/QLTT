@@ -6,33 +6,36 @@
 /api/student/{student-id}
 
 ### GET 
-
-1. GET thông tin tự quản lí
+1. GET thông tin STUDENT chung
 - GET /api/student/{student-id} ?fields=id, avatar, skype, ...
+2. GET thông tin tài khoản
+- GET /api/student/{student-id}/my_account (done)
+3. GET thông tin tự quản lí
+- GET /api/student/{student-id}/profile ?fields=id, avatar, skype, ... (done)
 - ?GET giảng viên hướng dẫn
     - GET /api/student/{student-id} ?fields=lecturer
-2. GET thông tin nhà trường cấp
-- GET /api/student/{student-id}fixed-info ?fields=hoten, diachi, khoa, nganh, ...
-3. GET thông tin kĩ năng nghề nghiệp
-- GET /api/student/{student-id}/skill-info
-4. GET LIST các bài đăng đã follow
-- GET /api/student/{student-id}/follow
-5. GET LIST các tin nhắn
-- GET /api/student/{student-id}/messages
+4. GET thông tin nhà trường cấp
+- GET /api/student/{student-id}/fixed_info ?fields=hoten, diachi, khoa, nganh, ... (done)
+5. GET thông tin kĩ năng nghề nghiệp
+- GET /api/student/{student-id}/skill_info
+6. GET LIST các bài đăng đã follow
+- GET /api/student/{student-id}/follows (done)
+7. GET LIST các tin nhắn
+- GET /api/student/{student-id}/messages (done)
 - GET 1 tin nhắn
     - GET /api/messages/{message-id}
-6. ?GET LIST các thông báo
+8. ?GET LIST các thông báo
 - GET /api/student/{student-id}/notifications
-7. GET LIST các bài nộp báo cáo
-- GET /api/student/{student-id}/reports
+9. GET LIST các bài nộp báo cáo
+- GET /api/student/{student-id}/reports (done)
 - GET 1 báo cáo
     - GET /api/reports/{report-id}
 
 ### PUT
 1. Sửa thông tin tự quản lí
 - PUT /api/student/{student-id} ?avatar={newAvatarUrl} & ...
-2. Đổi mật khẩu
-- PUT /api/student/{student-id} ?password={newPassword}
+2. Đổi mật khẩu (PUT bằng form-url-encoded)
+- PUT /api/student/{student-id}/my_account ?password={oldPassword} ?newPassword={newPassword} (done)
 
 
 ### POST

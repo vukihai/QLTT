@@ -11,7 +11,7 @@
 		public function __construct() {
 			try {
 			    /* Ket noi CSDL */
-				$this->db = new PDO("mysql:host=localhost;dbname=ex;", "root", "12345678");
+				$this->db = new PDO("mysql:host=localhost;dbname=qltt;", "root", "12345678");
 			} catch(PDOException $ex) { echo $ex->getMessage();	}
 		}
 		
@@ -75,6 +75,24 @@
 		    $count = 0;
 			try {
 				$count = $this->db->exec($sql);
+			} catch(PDOException $ex) {
+				$count = -1;
+			}
+			return $count;
+		}
+
+		/**
+		* Thuc hien cap nhat theo câu lệnh chuẩn bị trước
+		* $sql: Cau lenh insert, update, delete
+		* return: so ban ghi duoc cap nhat
+		*/
+		public function doPreparedSql($sql, $paras) {
+		    $count = 0;
+			try {
+				$stmt = $this->db->prepare($sql);
+				foreach ($paras as $k=>$v) $stmt->bindValue($k+1, $v);
+				$stmt->execute();
+				$count = $stmt->rowCount();
 			} catch(PDOException $ex) {
 				$count = -1;
 			}
