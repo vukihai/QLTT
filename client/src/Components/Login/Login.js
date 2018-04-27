@@ -4,7 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
-import './login.css';
 import { TextField, Button, Grid } from 'material-ui';
 
 const styles = theme => ({
