@@ -13,32 +13,27 @@ import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import StarIcon from '@material-ui/icons/Star';
-import SendIcon from '@material-ui/icons/Send';
 import MailIcon from '@material-ui/icons/Mail';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SchoolIcon from '@material-ui/icons/School';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
+import HelpIcon from '@material-ui/icons/Help';
 
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Badge from 'material-ui/Badge';
-import Home from './Home';
-import BaiDangPage from './BaiDang';
-import TheoDoiPage from './TheoDoi';
-import GiangVienPage from './GiangVien';
-import BaoCaoPage from './BaoCao';
+import Home from './Page/Home';
+import BaiDangPage from './Page/BaiDang';
+import TheoDoiPage from './Page/TheoDoi';
+import GiangVienPage from './Page/GiangVien';
+import BaoCaoPage from './Page/BaoCao';
 import './material.css';
 
 
@@ -47,7 +42,7 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        height: 430,
+        height: 100 + '%',
         zIndex: 1,
         overflow: 'hidden',
         position: 'relative',
@@ -172,6 +167,7 @@ class MiniDrawer extends React.Component {
                                     <Route exact path='/theodoi' render={() => <div>Theo dõi</div>} />
                                     <Route exact path='/giangvien' render={() => <div>Giảng viên</div>} />
                                     <Route exact path='/baocao' render={() => <div>Báo cáo</div>} />
+                                    <Route exact path='/tinnhan' render={() => <div>Tin nhắn</div>} />
                                 </Switch>
                             </Typography>
                             <Typography variant="title" color="inherit" noWrap className={classes.flex}>
@@ -282,9 +278,39 @@ class MiniDrawer extends React.Component {
                                     <ListItemText primary="Báo cáo" />
                                 </ListItem>
                             </NavLink>
+                            <NavLink to="/tinnhan">
+                                <ListItem button className={classes.routeItem}>
+                                    <ListItemIcon>
+                                        <MailIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Tin nhắn" />
+                                </ListItem>
+                            </NavLink>
+                        </List>
+                        <Divider />
+                        <List>
+                            <NavLink to="/caidat">
+                                <ListItem button className={classes.routeItem}>
+                                    <ListItemIcon>
+                                        <SettingsIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Cài đặt" />
+
+                                </ListItem>
+                            </NavLink>
+                            <NavLink to="/trogiup">
+                                <ListItem button className={classes.routeItem}>
+
+                                    <ListItemIcon>
+                                        <HelpIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Trợ giúp" />
+
+                                </ListItem>
+                            </NavLink>
                         </List>
                     </Drawer>
-                    <main className={classes.content}>
+                    <main className={classes.content} style={{ overflow: 'scroll' }}>
                         <div className={classes.toolbar} />
                         <Switch>
                             <Route exact path='/' component={Home} />
@@ -292,8 +318,9 @@ class MiniDrawer extends React.Component {
                             <Route exact path='/theodoi' component={TheoDoiPage} />
                             <Route exact path='/giangvien' component={GiangVienPage} />
                             <Route exact path='/baocao' component={BaoCaoPage} />
+                            <Route exact path='/tinnhan' component={BaoCaoPage} />
                         </Switch>
-                        <Typography noWrap>{'Chào mừng bạn đến với Quản lí thực tập...'}</Typography>
+                        <Typography noWrap>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
                     </main>
                 </div>
             </Router >
