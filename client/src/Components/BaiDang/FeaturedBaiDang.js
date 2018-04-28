@@ -21,7 +21,7 @@ const styles = theme => ({
     },
     media: {
         height: 0,
-        paddingTop: '56.25%', // 16:9
+        paddingTop: '25%', // 4:1
     },
     actions: {
         display: 'flex',
@@ -41,7 +41,7 @@ const styles = theme => ({
     },
 });
 
-class BaiDang extends React.Component {
+class FeaturedBaiDang extends React.Component {
     state = { expanded: false };
 
     handleExpandClick = () => {
@@ -55,35 +55,8 @@ class BaiDang extends React.Component {
                 <Card className={classes.card}>
                     <CardMedia
                         className={classes.media}
-                        image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
+                        image="https://material-ui-next.com/static/images/cards/contemplative-reptile.jpg"
                         title="Contemplative Reptile"
-                    />
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>
-                                B
-                            </Avatar>
-                        }
-                        action={
-                            <div>
-                                <Button size={SMALL} disabled style={{minWidth: '0', padding: 0}}>10k</Button>
-                                <IconButton>
-                                    <FavoriteIcon color="primary"/>
-                                </IconButton>
-                                <IconButton
-                                    className={classnames(classes.expand, {
-                                        [classes.expandOpen]: this.state.expanded,
-                                    })}
-                                    onClick={this.handleExpandClick}
-                                    aria-expanded={this.state.expanded}
-                                    aria-label="Show more"
-                                >
-                                    <ExpandMoreIcon />
-                                </IconButton>
-                            </div>
-                        }
-                        title="Bầu Trời Xa Corporation"
-                        subheader="April 26, 2018"
                     />
                     <CardContent>
                         <Typography component="p">
@@ -119,15 +92,41 @@ class BaiDang extends React.Component {
                             </Typography>
                         </CardContent>
                     </Collapse>
-                    
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="Recipe" className={classes.avatar}>
+                                B
+                            </Avatar>
+                        }
+                        action={
+                            <div>
+                                <Button size={SMALL} disabled style={{minWidth: '0', padding: 0}}>10k</Button>
+                                <IconButton>
+                                    <FavoriteIcon color="primary"/>
+                                </IconButton>
+                                <IconButton
+                                    className={classnames(classes.expand, {
+                                        [classes.expandOpen]: this.state.expanded,
+                                    })}
+                                    onClick={this.handleExpandClick}
+                                    aria-expanded={this.state.expanded}
+                                    aria-label="Show more"
+                                >
+                                    <ExpandMoreIcon />
+                                </IconButton>
+                            </div>
+                        }
+                        title="Bầu Trời Xa Corporation"
+                        subheader="April 26, 2018"
+                    />
                 </Card>
             </div>
         );
     }
 }
 
-BaiDang.propTypes = {
+FeaturedBaiDang.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BaiDang);
+export default withStyles(styles)(FeaturedBaiDang);

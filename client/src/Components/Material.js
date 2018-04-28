@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
+//material-ui-framework component import
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
@@ -11,12 +12,12 @@ import List from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
+import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
+// material.io/icons import
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import StarIcon from '@material-ui/icons/Star';
 import MailIcon from '@material-ui/icons/Mail';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
@@ -26,19 +27,25 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
-
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Badge from 'material-ui/Badge';
+
+//component import
 import Home from './Page/Home';
 import BaiDangPage from './Page/BaiDang';
 import TheoDoiPage from './Page/TheoDoi';
 import GiangVienPage from './Page/GiangVien';
 import BaoCaoPage from './Page/BaoCao';
-import './material.css';
+import TinNhanPage from './Page/TinNhan'
 import Notification from './Notification.js';
 import AccountPanel from './AccountPanel.js';
+
+//extension-file import
+import './material.css';
+
 const drawerWidth = 240;
 
+// style
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -115,12 +122,14 @@ const styles = theme => ({
     },
 });
 
-class MiniDrawer extends React.Component {
+class MaterialDrawer extends React.Component {
+    //state
     state = {
         open: false,
         anchorEl: null,
     };
 
+    //event function
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -135,7 +144,7 @@ class MiniDrawer extends React.Component {
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
-
+    // main render
     render() {
         const { classes, theme } = this.props;
         const { auth, anchorEl } = this.state;
@@ -144,6 +153,7 @@ class MiniDrawer extends React.Component {
         return (
             <Router>
                 <div className={classes.root}>
+                    {/* Top bar */}
                     <AppBar
                         position="absolute"
                         className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
@@ -180,6 +190,7 @@ class MiniDrawer extends React.Component {
                             </div>
                         </Toolbar>
                     </AppBar>
+                    {/* Left Drawer show when click Hamberger button */}
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -187,6 +198,7 @@ class MiniDrawer extends React.Component {
                         }}
                         open={this.state.open}
                     >
+                        {/* Hamberger button on Drawer */}
                         <div className={classes.toolbar}>
                             <IconButton onClick={this.handleDrawerClose} className={classes.menuButton}>
                                 {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
@@ -194,10 +206,10 @@ class MiniDrawer extends React.Component {
                             </IconButton>
                             <Typography variant="title" color="inherit" noWrap className={classes.flex}>
                                 QLTT
-                        </Typography>
-
+                            </Typography>
                         </div>
                         <Divider />
+                        {/* Nav-link on Drawer */}
                         <List>
                             <NavLink exact={true} to="/">
                                 <ListItem button className={classes.routeItem}>
@@ -274,6 +286,7 @@ class MiniDrawer extends React.Component {
                             </NavLink>
                         </List>
                     </Drawer>
+                    {/* Main app space */}
                     <main className={classes.content} style={{ overflow: 'scroll' }}>
                         <div className={classes.toolbar} />
                         <Switch>
@@ -282,7 +295,7 @@ class MiniDrawer extends React.Component {
                             <Route exact path='/theodoi' component={TheoDoiPage} />
                             <Route exact path='/giangvien' component={GiangVienPage} />
                             <Route exact path='/baocao' component={BaoCaoPage} />
-                            <Route exact path='/tinnhan' component={BaoCaoPage} />
+                            <Route exact path='/tinnhan' component={TinNhanPage} />
                         </Switch>
                         <Typography noWrap>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
                     </main>
@@ -292,9 +305,9 @@ class MiniDrawer extends React.Component {
     }
 }
 
-MiniDrawer.propTypes = {
+MaterialDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer);
+export default withStyles(styles, { withTheme: true })(MaterialDrawer);
