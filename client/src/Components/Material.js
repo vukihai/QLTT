@@ -35,8 +35,8 @@ import TheoDoiPage from './Page/TheoDoi';
 import GiangVienPage from './Page/GiangVien';
 import BaoCaoPage from './Page/BaoCao';
 import './material.css';
-
-
+import Notification from './Notification.js';
+import AccountPanel from './AccountPanel.js';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -175,44 +175,8 @@ class MiniDrawer extends React.Component {
                             </Typography>
 
                             <div>
-
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenuOpen}
-                                    color="inherit"
-                                >
-                                    <Badge className={classes.margin} badgeContent={4} color="secondary">
-                                        <NotificationsIcon />
-                                    </Badge>
-
-                                </IconButton>
-
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenuOpen}
-                                    color="inherit"
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleMenuClose}
-                                >
-                                    <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleMenuClose}><ExitToAppIcon />Logout</MenuItem>
-                                </Menu>
+                                <Notification />
+                                <AccountPanel />
                             </div>
                         </Toolbar>
                     </AppBar>
