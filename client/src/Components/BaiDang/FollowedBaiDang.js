@@ -41,7 +41,7 @@ const styles = theme => ({
     },
 });
 
-class BaiDang extends React.Component {
+class FollowedBaiDang extends React.Component {
     state = {
         expanded: false,
         followed: false
@@ -60,11 +60,6 @@ class BaiDang extends React.Component {
         return (
             <div>
                 <Card className={classes.card}>
-                    <CardMedia
-                        className={classes.media}
-                        image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
-                        title="Contemplative Reptile"
-                    />
                     <CardHeader
                         avatar={
                             <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -73,10 +68,10 @@ class BaiDang extends React.Component {
                         }
                         action={
                             <div>
-                                <Button size={SMALL} disabled style={{minWidth: '0', padding: 0}}>10k</Button>
                                 <IconButton onClick={this.handleFollowClick}>
                                     <FavoriteIcon color="primary" color={this.state.followed?"secondary":"primary"}/>
                                 </IconButton>
+                                <Button size={SMALL} disabled style={{minWidth: '0', padding: 0}}>chờ phỏng vấn</Button>
                                 <IconButton
                                     className={classnames(classes.expand, {
                                         [classes.expandOpen]: this.state.expanded,
@@ -133,8 +128,8 @@ class BaiDang extends React.Component {
     }
 }
 
-BaiDang.propTypes = {
+FollowedBaiDang.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BaiDang);
+export default withStyles(styles)(FollowedBaiDang);

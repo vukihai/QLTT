@@ -5,6 +5,7 @@ import MyLecturer from '../GiangVien/MyLecturer';
 import { Grid } from 'material-ui';
 import { Button } from 'material-ui';
 import { withStyles } from 'material-ui';
+import MyLecturer2 from '../GiangVien/MyLecturer2';
 
 const styles = theme => ({
   leftCenter: {
@@ -19,7 +20,10 @@ class GiangVienPage extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <h1>Giảng Viên Concept</h1>
+        <MyLecturer2 />
         <h1>Giảng Viên của tôi</h1>
+        
 
         <Grid container spacing={8}>
           <Grid item xs={12}>

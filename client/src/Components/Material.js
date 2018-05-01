@@ -297,7 +297,7 @@ class MaterialDrawer extends React.Component {
                             <Route exact path='/baocao' component={BaoCaoPage} />
                             <Route exact path='/tinnhan' component={TinNhanPage} />
                         </Switch>
-                        <Typography noWrap>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
+                        <Typography noWrap style={{marginTop: 50+'px'}}>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
                     </main>
                 </div>
             </Router >
