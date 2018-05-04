@@ -7,6 +7,14 @@
 
 require_once("core/control/routing.php");
 require_once("core/abstract/NodeController.php");
+require_once("./authentication/auth.php");
+
+//set múi giờ để xác định ngày giờ cho token
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+$auth = new \authentication\Auth;
+$auth->proc();
+
 $controller = \api\core\control\routing::proc();
 
 // xử lý trường hợp không tìm thấy controller
