@@ -16,7 +16,13 @@ require_once("LoginModel.php");
             } else {
                 // đăng nhập thành công
                 $accessToken = $loginModel->getToken();
-                $this->response("200", array("accessToken" => $accessToken));
+                $role = $loginModel->getUserRole();
+                $lastLogin = $loginModel->getLastLogin();
+                $responseContent = array("role" => $role,
+                                        "lastLogin" =>$lastLogin,
+                                         "accessToken" => $accessToken
+                                        );
+                $this->response("200", $responseContent);
             }  
         }
         protected function _GET() {

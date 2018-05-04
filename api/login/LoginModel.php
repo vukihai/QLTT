@@ -9,6 +9,8 @@
     class LoginModel {
         protected $db;
         private $token;
+        private $userRole;
+        private $lastLogin;
         public function __construct() {
 			$this->db = new core\data\model\PDOData();
         }
@@ -16,13 +18,13 @@
 			$this->db = null;
         }
         /*
-        * Hàm đăng nhập và tạo token.
+        *   Hàm đăng nhập và tạo token.
         *   đăng nhập thành công return true.
         *
         */
         public function login($userName, $encrypted_password) {
             $userAccount = array($userName, $encrypted_password);
-            $data = $this->db->doPreparedQuery("SELECT vnuID, lastLogin FROM VNUaccount WHERE username = ? AND password = ?",$userAccount);
+            $data = $this->db->doPreparedQuery("SELECT vnuID, role, lastLogin FROM VNUaccount WHERE username = ? AND password = ?",$userAccount);
             if(count($data) == 1) {
                 $tokenData = array();
                 $tokenData["id"] = $data[0][vnuID];
@@ -32,6 +34,9 @@
 
                 $auth = new \authentication\Auth;
                 $this->token = $auth->createToken($tokenData);
+                
+                $this->userRole = $data[0]["role"];
+                $this->lastLogin = $data[0]["lastLogin"];
             } else {
                 return false;
                 exit();
@@ -42,6 +47,17 @@
         public function getToken() {
             return $this->token;
         }
+        public function getUserRole() {
+            return $this->userRole;
+        }
+        public function getLastLogin() {
+            return $this->lastLogin;
+        }
+        /*
+        *   Hàm này trả lại IP của client.
+        *
+        *
+        */
         private function getIP() {
             $ip_address;
             if (!empty($_SERVER['HTTP_CLIENT_IP'])){  

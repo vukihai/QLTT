@@ -8,15 +8,16 @@
 require_once("core/control/routing.php");
 require_once("core/abstract/NodeController.php");
 require_once("./authentication/auth.php");
-
-//set múi giờ để xác định ngày giờ cho token
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
+
+// định danh và phân quyền
 $auth = new \authentication\Auth;
 $auth->proc();
 
-$controller = \api\core\control\routing::proc();
 
+// định tuyến
+$controller = \api\core\control\routing::proc();
 // xử lý trường hợp không tìm thấy controller
 if(!file_exists($controller['controllerPath'])) {
     header("HTTP/1.1 " . 404 . " " . "not found!");
@@ -24,7 +25,6 @@ if(!file_exists($controller['controllerPath'])) {
     echo json_encode(array("error" => "node not found!"));
     die();
 }
-
 // tạo và chạy controller.
 require_once($controller['controllerPath']);
 $controller = new $controller['controllerName'] ($controller['nodeIds']);
