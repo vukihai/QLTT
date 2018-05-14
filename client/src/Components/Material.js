@@ -39,9 +39,12 @@ import BaoCaoPage from './Page/BaoCao';
 import TinNhanPage from './Page/TinNhan'
 import Notification from './Notification.js';
 import AccountPanel from './AccountPanel.js';
+import ProfileForm from './Form/Profile';
 
 //extension-file import
 import './material.css';
+import ChangePassForm from './Form/ChangePass';
+import { TextField } from 'material-ui';
 
 const drawerWidth = 240;
 
@@ -170,7 +173,7 @@ class MaterialDrawer extends React.Component {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="title" color="inherit" noWrap className={classNames(classes.flex, this.state.open && classes.hide)}>
+                            <Typography variant="title" color="inherit" noWrap className={this.state.open && classes.hide} style={{marginRight: 20+'px'}}>
                                 <Switch>
                                     <Route exact path='/' render={() => <div>QLTT</div>} />
                                     <Route exact path='/baidang' render={() => <div>Bài đăng</div>} />
@@ -180,9 +183,19 @@ class MaterialDrawer extends React.Component {
                                     <Route exact path='/tinnhan' render={() => <div>Tin nhắn</div>} />
                                 </Switch>
                             </Typography>
-                            <Typography variant="title" color="inherit" noWrap className={classes.flex}>
+                            {/* <input type="text" placeholder="Search..."/> */}
+                            <TextField
+                                id="searchKeyword"
+                                label="Tìm kiếm..."
+                                // value={this.state.repeatPass}
+                                // onChange={this.handleChange('repeatPass')}
+                                type="search"
+                                fullWidth
+                                className={classes.flex}
+                                />
+                            {/* <Typography variant="title" color="inherit" noWrap className={classes.flex}>
                                 Search....
-                            </Typography>
+                            </Typography> */}
 
                             <div>
                                 <Notification />
@@ -296,6 +309,8 @@ class MaterialDrawer extends React.Component {
                             <Route exact path='/giangvien' component={GiangVienPage} />
                             <Route exact path='/baocao' component={BaoCaoPage} />
                             <Route exact path='/tinnhan' component={TinNhanPage} />
+                            <Route exact path='/profile' component={ProfileForm} />
+                            <Route exact path='/changepass' component={ChangePassForm} />
                         </Switch>
                         <Typography noWrap style={{marginTop: 50+'px'}}>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
                     </main>
