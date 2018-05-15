@@ -33,28 +33,35 @@ const theme = createMuiTheme({
 
 class App extends Component {
   state = {
-    logedin: true
+    logedin: localStorage.getItem('logedin'),
+    role: localStorage.getItem('role'),
   }
-  render() {
-    
-    if (this.state.logedin) {
-      return (
-        <MuiThemeProvider theme={theme}>
-          <Material />
-        </MuiThemeProvider>
-        // <Header />
-        // <button className="btn btn-danger">Hello world!!</button>
-        // <Footer />
-      );
-    } else {
-      return (
-        <div style={{height: 100 + '%'}}>
-          <LoginPage />
-        </div>
-      );
-    }
+  updateState() {
+      this.setState( {
+           logedin: localStorage.getItem('logedin'),
+            role: localStorage.getItem('role'),
+      })
+  }
+  loginCallback() {
+     this.updateState();
+  }
+    render() {
+        return (
+            <div>
+                {(this.state.logedin && this.state.role == 3) ? (
+                <MuiThemeProvider theme={theme}>
+                    <Material />
+                </MuiThemeProvider>
+               ): ""}
 
-  }
+               {!this.state.logedin ? (
+                   <div style={{height: 100 + '%'}}>
+                        <LoginPage loginCallback={this.loginCallback.bind(this)}/>
+                    </div>
+               ):""}
+            </div>
+        );
+    }
 }
 
 export default App;

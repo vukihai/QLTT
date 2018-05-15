@@ -16,12 +16,49 @@ const styles = theme => ({
 class LoginPage extends React.Component {
   state = {
     username : "",
-    password: ""
+    password: "",
+    error: false,
+    isLoaded: false,
+    items: ""
   }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
+  };
+
+  loginClientProc() {
+      localStorage.setItem('token', this.state.items.accessToken);
+      localStorage.setItem('role', this.state.items.role);
+      localStorage.setItem('lastLogin', this.state.items.lastLogin);
+      localStorage.setItem('logedin', this.state.items.lastLogin);
+      this.props.loginCallback( );
+  }
+  login() {
+      var data = new FormData();
+      data.append("username", this.state.username);
+      data.append("password", this.state.password);
+      fetch("http://localhost/QLTT/api/login/", {
+          method: 'POST',
+          body: data
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+          this.loginClientProc();
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+      
   };
   render() {
     const { classes } = this.props;
@@ -58,10 +95,9 @@ class LoginPage extends React.Component {
               Bạn quên mật khẩu của bạn?
           </Typography>
           </a>
-          <Button variant="raised" color="primary" className={classes.button}>
+          <Button variant="raised" color="primary" className={classes.button} onClick={() => {this.login()}}>
             ĐĂNG NHẬP
           </Button>
-
         </Paper>
       </div>
     );
