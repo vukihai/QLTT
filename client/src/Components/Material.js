@@ -176,11 +176,12 @@ class MaterialDrawer extends React.Component {
                             <Typography variant="title" color="inherit" noWrap className={this.state.open && classes.hide} style={{marginRight: 20+'px'}}>
                                 <Switch>
                                     <Route exact path='/' render={() => <div>QLTT</div>} />
-                                    <Route exact path='/baidang' render={() => <div>Bài đăng</div>} />
-                                    <Route exact path='/theodoi' render={() => <div>Theo dõi</div>} />
-                                    <Route exact path='/giangvien' render={() => <div>Giảng viên</div>} />
-                                    <Route exact path='/baocao' render={() => <div>Báo cáo</div>} />
-                                    <Route exact path='/tinnhan' render={() => <div>Tin nhắn</div>} />
+                                    <Route path='/baidang' render={() => <div>Bài đăng</div>} />
+                                    <Route path='/theodoi' render={() => <div>Theo dõi</div>} />
+                                    <Route path='/giangvien' render={() => <div>Giảng viên</div>} />
+                                    <Route path='/baocao' render={() => <div>Báo cáo</div>} />
+                                    <Route path='/tinnhan' render={() => <div>Tin nhắn</div>} />
+                                    <Route path='/profile' render={() => <div>Hồ sơ</div>} />
                                 </Switch>
                             </Typography>
                             {/* <input type="text" placeholder="Search..."/> */}
@@ -310,7 +311,7 @@ class MaterialDrawer extends React.Component {
                             <Route exact path='/baocao' component={BaoCaoPage} />
                             <Route exact path='/tinnhan' component={TinNhanPage} />
                             <Route exact path='/profile' component={ProfileForm} />
-                            <Route exact path='/changepass' component={ChangePassForm} />
+                            <Route exact path='/profile/changepass' component={ChangePassForm} />
                         </Switch>
                         <Typography noWrap style={{marginTop: 50+'px'}}>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
                     </main>

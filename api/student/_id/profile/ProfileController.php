@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__ ."../../../../core/abstract/NodeController.php");
-require_once(__DIR__ ."/../../StudentModel.php");
+require_once("core/abstract/NodeController.php");
+require_once("student/StudentModel.php");
 
 
 

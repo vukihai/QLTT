@@ -10,6 +10,7 @@ require_once("core/abstract/NodeController.php");
 require_once("./authentication/auth.php");
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
+header('Access-Control-Allow-Origin: *'); 
 
 // định danh và phân quyền
 $auth = new \authentication\Auth;

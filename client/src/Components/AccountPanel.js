@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Manager, Target, Popper } from 'react-popper';
+import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+
 import Button from 'material-ui/Button';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Collapse from 'material-ui/transitions/Collapse';
@@ -75,7 +77,7 @@ class AccountPanel extends React.Component {
                 <Paper>
                   <MenuList role="menu">
                     <MenuItem onClick={this.handleClose}>iM Vukihai</MenuItem>
-                    <MenuItem onClick={this.handleClose}>Hồ sơ</MenuItem>
+                    <MenuItem onClick={this.handleClose}><NavLink to="/profile">Hồ sơ </NavLink></MenuItem>
                     <MenuItem onClick={this.handleClose}>Tài khoản</MenuItem>
                     <MenuItem onClick={this.handleClose}>Đăng xuất</MenuItem>
                   </MenuList>

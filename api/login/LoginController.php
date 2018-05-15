@@ -1,5 +1,5 @@
 <?php
-require_once("/core/abstract/NodeController.php");
+require_once("core/abstract/NodeController.php");
 require_once("LoginModel.php");
 
     class LoginController extends NodeController {
@@ -26,7 +26,7 @@ require_once("LoginModel.php");
             }  
         }
         protected function _GET() {
-
+            $this->response("200", array("GET" => "please POST instead of GET"));
         }
         protected function _PUT() {
             

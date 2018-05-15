@@ -1,5 +1,5 @@
 <?php
-    require_once(__DIR__."/../core/data/PDOData.php");
+    require_once("core/data/PDOData.php");
     require_once("/authentication/auth.php");
 /*
 * Login model
