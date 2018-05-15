@@ -39,11 +39,12 @@ import BaoCaoPage from './Page/BaoCao';
 import TinNhanPage from './Page/TinNhan'
 import Notification from './Notification.js';
 import AccountPanel from './AccountPanel.js';
-import ProfileForm from './Form/Profile';
+import ProfileForm from './Profile/Profile';
+import ChangePassForm from './Profile/ChangePass';
 
 //extension-file import
 import './material.css';
-import ChangePassForm from './Form/ChangePass';
+
 import { TextField } from 'material-ui';
 
 const drawerWidth = 240;
