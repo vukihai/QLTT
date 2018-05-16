@@ -25,7 +25,7 @@ class TinNhanPage extends React.Component {
                         <ListItem button>
                             <Avatar>
                                 A
-                        </Avatar>
+                            </Avatar>
                             <ListItemText
                                 primary="Admin"
                                 secondary="Thông báo nộp tiền học phí thực tập :v "
@@ -37,7 +37,7 @@ class TinNhanPage extends React.Component {
                         <ListItem button>
                             <Avatar>
                                 T
-                        </Avatar>
+                            </Avatar>
                             <ListItemText
                                 primary="Lê Đình Thanh"
                                 secondary="Thông báo phạt vì đi học muộn :v"

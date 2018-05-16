@@ -44,7 +44,7 @@ class App extends Component {
   }
     render() {
         return (
-            <div>
+            <div style={{height: 100 + '%'}}>
                 {(this.state.logedin && this.state.role == 3) ? (
                 <MuiThemeProvider theme={theme}>
                     <Material rerenderCallback={this.updateState.bind(this)} />
