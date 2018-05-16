@@ -19,11 +19,13 @@ class LoginPage extends React.Component {
     password: "",
     error: false,
     isLoaded: false,
-    items: ""
+    items: "",
+    errorMessage: ""
   }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
+      errorMessage: ""
     });
   };
 
@@ -31,7 +33,11 @@ class LoginPage extends React.Component {
       localStorage.setItem('token', this.state.items.accessToken);
       localStorage.setItem('role', this.state.items.role);
       localStorage.setItem('lastLogin', this.state.items.lastLogin);
-      localStorage.setItem('logedin', this.state.items.lastLogin);
+      if(!("error" in this.state.items)) {
+          localStorage.setItem('logedin', true);
+      } else {
+          this.state.errorMessage = this.state.items.error;
+      }
       this.props.rerenderCallback();
   }
   login() {
@@ -98,6 +104,9 @@ class LoginPage extends React.Component {
           <Button variant="raised" color="primary" className={classes.button} onClick={() => {this.login()}}>
             ĐĂNG NHẬP
           </Button>
+              <span style={{ marginLeft: 30 + 'px', color: 'red' }}>
+                {this.state.errorMessage}
+                </span>
         </Paper>
       </div>
     );

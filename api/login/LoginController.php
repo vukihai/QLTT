@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once("core/abstract/NodeController.php");
 require_once("LoginModel.php");
 
@@ -12,7 +12,7 @@ require_once("LoginModel.php");
             
             if(!$loginModel->login($userName, $encryptedPass)) {
                 // đăng nhập thất bại
-                $this->response("401", array("error" => "login error"));
+                $this->response("401", array("error" => "đăng nhập thất bại"));
             } else {
                 // đăng nhập thành công
                 $accessToken = $loginModel->getToken();
