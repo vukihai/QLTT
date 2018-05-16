@@ -131,6 +131,7 @@ class MaterialDrawer extends React.Component {
     state = {
         open: false,
         anchorEl: null,
+        rerender: false
     };
 
     //event function
@@ -148,6 +149,11 @@ class MaterialDrawer extends React.Component {
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
+    rerender() {
+        this.setState({
+            rerender: !this.state.rerender,
+        });
+    }
     // main render
     render() {
         const { classes, theme } = this.props;
@@ -201,7 +207,7 @@ class MaterialDrawer extends React.Component {
 
                             <div>
                                 <Notification />
-                                <AccountPanel />
+                                <AccountPanel rerenderCallback={this.props.rerenderCallback}/>
                             </div>
                         </Toolbar>
                     </AppBar>

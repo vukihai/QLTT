@@ -43,7 +43,10 @@ class AccountPanel extends React.Component {
 
     this.setState({ open: false });
   };
-
+  logout() {
+      localStorage.clear();
+      this.props.rerenderCallback();
+  }
   render() {
     const { classes } = this.props;
     const { open } = this.state;
@@ -79,7 +82,7 @@ class AccountPanel extends React.Component {
                     <MenuItem onClick={this.handleClose}>iM Vukihai</MenuItem>
                     <MenuItem onClick={this.handleClose}><NavLink to="/profile">Hồ sơ </NavLink></MenuItem>
                     <MenuItem onClick={this.handleClose}>Tài khoản</MenuItem>
-                    <MenuItem onClick={this.handleClose}>Đăng xuất</MenuItem>
+                    <MenuItem onClick={this.handleClose}><a onClick={() => this.logout()}>Đăng xuất</a></MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>

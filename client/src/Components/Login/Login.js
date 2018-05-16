@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
       localStorage.setItem('role', this.state.items.role);
       localStorage.setItem('lastLogin', this.state.items.lastLogin);
       localStorage.setItem('logedin', this.state.items.lastLogin);
-      this.props.loginCallback( );
+      this.props.rerenderCallback();
   }
   login() {
       var data = new FormData();

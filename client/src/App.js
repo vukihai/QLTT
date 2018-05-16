@@ -42,21 +42,18 @@ class App extends Component {
             role: localStorage.getItem('role'),
       })
   }
-  loginCallback() {
-     this.updateState();
-  }
     render() {
         return (
             <div>
                 {(this.state.logedin && this.state.role == 3) ? (
                 <MuiThemeProvider theme={theme}>
-                    <Material />
+                    <Material rerenderCallback={this.updateState.bind(this)} />
                 </MuiThemeProvider>
                ): ""}
 
                {!this.state.logedin ? (
                    <div style={{height: 100 + '%'}}>
-                        <LoginPage loginCallback={this.loginCallback.bind(this)}/>
+                        <LoginPage rerenderCallback={this.updateState.bind(this)}/>
                     </div>
                ):""}
             </div>
