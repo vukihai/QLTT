@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Typography } from 'material-ui/Typography';
-import BaiDang from '../BaiDang/BaiDang';
 import { Grid } from 'material-ui';
 import MyLecturer from '../GiangVien/MyLecturer';
-class Home extends Component {
+class HomePage extends Component {
   render() {
     return (
       <div>
@@ -14,4 +13,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default HomePage;

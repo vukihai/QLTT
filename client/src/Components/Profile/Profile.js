@@ -32,7 +32,7 @@ class ProfileForm extends React.Component {
     this.update = this.update.bind(this);
   }
   componentDidMount() {
-    return fetch('http://web.bautroixa.vn/api/student/1')
+    return fetch('http://web.bautroixa.vn/api/student/'+localStorage.getItem('id'))
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -62,7 +62,7 @@ class ProfileForm extends React.Component {
     for (var k in sendData) {
       formData.append(k, sendData[k]);
     }
-    return fetch('http://web.bautroixa.vn/api/student/1/', {
+    return fetch('http://web.bautroixa.vn/api/student/'+localStorage.getItem('id')+'/', {
       method: 'POST',
       headers: {
       },

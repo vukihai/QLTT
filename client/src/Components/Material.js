@@ -31,16 +31,11 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import Badge from 'material-ui/Badge';
 
 //component import
-import Home from './Page/Home';
-import BaiDangPage from './Page/BaiDang';
-import TheoDoiPage from './Page/TheoDoi';
-import GiangVienPage from './Page/GiangVien';
-import BaoCaoPage from './Page/BaoCao';
-import TinNhanPage from './Page/TinNhan'
+
 import Notification from './Notification.js';
 import AccountPanel from './AccountPanel.js';
-import ProfileForm from './Profile/Profile';
-import ChangePassForm from './Profile/ChangePass';
+import RouteName from './Routing/RouteName';
+import Routing from './Routing/Routing';
 
 //extension-file import
 import './material.css';
@@ -181,15 +176,7 @@ class MaterialDrawer extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="title" color="inherit" noWrap className={this.state.open && classes.hide} style={{marginRight: 20+'px'}}>
-                                <Switch>
-                                    <Route exact path='/' render={() => <div>QLTT</div>} />
-                                    <Route path='/baidang' render={() => <div>Bài đăng</div>} />
-                                    <Route path='/theodoi' render={() => <div>Theo dõi</div>} />
-                                    <Route path='/giangvien' render={() => <div>Giảng viên</div>} />
-                                    <Route path='/baocao' render={() => <div>Báo cáo</div>} />
-                                    <Route path='/tinnhan' render={() => <div>Tin nhắn</div>} />
-                                    <Route path='/profile' render={() => <div>Hồ sơ</div>} />
-                                </Switch>
+                                <RouteName />
                             </Typography>
                             {/* <input type="text" placeholder="Search..."/> */}
                             <TextField
@@ -310,16 +297,7 @@ class MaterialDrawer extends React.Component {
                     {/* Main app space */}
                     <main className={classes.content} style={{ overflow: 'scroll' }}>
                         <div className={classes.toolbar} />
-                        <Switch>
-                            <Route exact path='/' component={Home} />
-                            <Route exact path='/baidang' component={BaiDangPage} />
-                            <Route exact path='/theodoi' component={TheoDoiPage} />
-                            <Route exact path='/giangvien' component={GiangVienPage} />
-                            <Route exact path='/baocao' component={BaoCaoPage} />
-                            <Route exact path='/tinnhan' component={TinNhanPage} />
-                            <Route exact path='/profile' component={ProfileForm} />
-                            <Route exact path='/profile/changepass' component={ChangePassForm} />
-                        </Switch>
+                        <Routing />
                         <Typography noWrap style={{marginTop: 50+'px'}}>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>
                     </main>
                 </div>

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TableSinhVien from '../GiangVien/TableSinhVien';
-import MyLecturer from '../GiangVien/MyLecturer';
 import { Grid } from 'material-ui';
 import { Button } from 'material-ui';
 import { withStyles } from 'material-ui';
-import MyLecturer2 from '../GiangVien/MyLecturer2';
-import GiangVienCuaToi from '../GiangVien/GiangVienCuaToi';
 
 const styles = theme => ({
   leftCenter: {
@@ -16,19 +13,20 @@ const styles = theme => ({
   }
 });
 
-class GiangVienPage extends Component {
+class HocVienPage extends Component {
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <GiangVienCuaToi />
+        <h1>Danh sách sinh viên:</h1>
+        <TableSinhVien />
       </div>
     );
   }
 }
 
-GiangVienPage.propTypes = {
+HocVienPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(GiangVienPage);
+export default withStyles(styles)(HocVienPage);

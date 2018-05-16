@@ -58,7 +58,7 @@
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
         public function getFollowsWithPost($fieldsArr, $id){
-            $data = $this->db->doPreparedQuery("SELECT postId, status, partnerID, content, postTime, exp FROM stu_follow sf JOIN post p ON sf.postId = p.id WHERE sf.studentID=?",array($id));
+            $data = $this->db->doPreparedQuery("SELECT postId, status, pa.name as partnerName, content, postTime, exp FROM stu_follow sf JOIN post p ON sf.postId = p.id JOIN partner pa ON p.partnerID = pa.id WHERE sf.studentID=?",array($id));
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
         public function getMessages($fieldsArr, $id){

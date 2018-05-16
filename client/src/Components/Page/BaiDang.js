@@ -1,39 +1,108 @@
 import React, { Component } from 'react';
-import BaiDang from '../BaiDang/BaiDang';
-import { Grid } from 'material-ui';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import ColGrid from '../ColGrid/ColGrid';
+
+import { Button } from '@material-ui/core';
+import Typography from 'material-ui/Typography';
+
 import FeaturedBaiDang from '../BaiDang/FeaturedBaiDang';
+import ThumbnailBaiDang from '../BaiDang/ThumbnailBaiDang';
+import Partner from '../Partner/Partner';
+
+const styles = theme => ({
+  margins: {
+    '& > *': {
+      marginRight: '15px',
+    }
+  },
+});
+
 class BaiDangPage extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <div>
-
-        <h1>Nổi bật</h1>
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <FeaturedBaiDang />
-          </Grid>
-          <Grid item xs={12}>
-            <h1> Nhiều hơn... </h1>
-          </Grid>
-          <Grid item xs={12} lg={4} md={6}>
-            <BaiDang />
-          </Grid>
-          <Grid item xs={12} lg={4} md={6}>
-            <BaiDang />
-          </Grid>
-          <Grid item xs={12} lg={4} md={6}>
-            <BaiDang />
-          </Grid>
-          <Grid item xs={12} lg={4} md={6}>
-            <BaiDang />
-          </Grid>
-          <Grid item xs={12} lg={4} md={6}>
-            <BaiDang />
-          </Grid>
-        </Grid>
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: 1 }}>
+            <Typography variant="subheading">
+              PARTNER
+            </Typography>
+          </div>
+          <div style={{ flex: 1, textAlign: 'right' }}>
+            <Link to="/partner">
+              <Button color="primary"> Xem tất cả </Button>
+            </Link>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flex: 1, overflow: 'auto', marginBottom: '40px' }}>
+          <div className={classes.margins} style={{ display: 'flex', minHeight: 'min-content' }}>
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+          </div>
+        </div>
+        <ColGrid container>
+          <ColGrid item>
+            <ThumbnailBaiDang
+              postID={1}
+              title="Bầu Trời Xa Corporation tuyển lập trình viên công nghệ thông tin HTML, CSS, JS làm front-end cho dự án mới nhất của công ty: Web site chụp ảnh thuê"
+              partnerAvatar="https://material-ui-next.com/static/images/remy.jpg"
+              partnerName="Bầu Trời Xa"
+              postTime="16/05/2018"
+            />
+          </ColGrid>
+          <ColGrid item>
+            <ThumbnailBaiDang
+              postID={2}
+              title="Tuyển nhân viên bán hàng"
+              partnerAvatar="https://material-ui-next.com/static/images/remy.jpg"
+              partnerName="Xa Bầu Trời"
+              postTime="16/05/2018"
+            />
+          </ColGrid>
+          <ColGrid item>
+            <ThumbnailBaiDang
+              postID={3}
+              title="Tuyển hacker, hack nick facebook"
+              partnerAvatar=""
+              partnerName="Trời Xa Bầu"
+              postTime="16/05/2018"
+            />
+          </ColGrid>
+          <ColGrid item>
+            <ThumbnailBaiDang
+              postID={4}
+              title="Bầu Trời Xa Corporation tuyển nhân viên chụp ảnh cảnh nghệ thuật để đăng lên mạng cho vui"
+              partnerAvatar=""
+              partnerName="VC Corp"
+              postTime="16/05/2018"
+            />
+          </ColGrid>
+          <ColGrid item>
+            <ThumbnailBaiDang
+              postID={5}
+              title="Bầu Trời Xa Corporation tuyển lập trình viên back-end cho dự án mới nhất của mình, Công ti của chúng tôi yêu cầu trình độ php hoặc là nodejs. Biết lập trình hướng đối tượng. Học tốt cấu trúc dữ liệu và giải thuật, khả năng tư duy xây dựng hướng api. Có 1-2 năm kinh nghiệm là một lợi thế"
+              partnerAvatar=""
+              partnerName="FPT"
+              postTime="16/05/2018"
+            />
+          </ColGrid>
+        </ColGrid>
       </div>
     );
   }
 }
+BaiDangPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default BaiDangPage;
+export default withStyles(styles)(BaiDangPage);

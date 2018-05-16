@@ -4,7 +4,6 @@ class TheoDoiPage extends Component {
   render() {
     return (
       <div>
-        <h1>Đang theo dõi</h1>
         <FollowedBaiDang />
         <FollowedBaiDang />
       </div>
