@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import { ListItemSecondaryAction } from 'material-ui';
+import { ListItemSecondaryAction, Paper } from 'material-ui';
 import { Button } from 'material-ui';
 import NhanTinUI from '../TinNhan/NhanTinUI';
+import MailUI from '../TinNhan/MailUI';
+import { Typography } from 'material-ui';
+import MailForm from '../TinNhan/MailForm';
 
 const styles = theme => ({
     root: {
@@ -75,7 +78,19 @@ class TinNhanPage extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <h1> Hộp thư</h1>
+                <h1> Thư </h1>
+                <div style={{marginTop: 50+ 'px'}}>
+                    <Paper>
+                        <Typography variant="headline" style={{padding: '15px'}}>[Subject here] Hỏi về cách gửi mail </Typography>
+                        <MailUI avatar="" senderName="Phạm Ngọc Duy" subject={"Hỏi về cách gửi mail".substring(0,50)} dateTime="17:01 17/05/2018" content="GỬi thế nào nhỉ?" attachments={[{fileName: "attackment.docx"},{fileName: "attackment2.docx"}]}/>
+                        <MailUI avatar="" senderName="Vũ Đình Hướng" subject={"Re: GỬi thế nào nhỉ?".substring(0,50)} dateTime="17:21 17/05/2018" content="Không biết gửi how to hỏi :v"/>
+                    </Paper>
+                </div>
+
+                <h1> Soạn thư </h1>
+                <MailForm />
+
+                <h1> Hộp thư </h1>
                 <div className={classes.root}>
                     <List>
                         {this.listMailView()}

@@ -7,6 +7,7 @@ import { Button } from 'material-ui';
 import { withStyles } from 'material-ui';
 import MyLecturer2 from '../GiangVien/MyLecturer2';
 import GiangVienCuaToi from '../GiangVien/GiangVienCuaToi';
+import LecturerList from '../GiangVien/LecturerList';
 
 const styles = theme => ({
   leftCenter: {
@@ -17,11 +18,25 @@ const styles = theme => ({
 });
 
 class GiangVienPage extends Component {
+  state = {
+    selected: false,
+    name: "Lê Đình Thanh",
+    avatar: ""
+  }
+  selectLecturer =  (lecturerName) => {
+    this.setState({selected: !this.state.selected});
+    this.setState({name: lecturerName});
+  }
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <GiangVienCuaToi />
+        {this.state.selected?(
+          <GiangVienCuaToi deselectLecturer={this.selectLecturer} name={this.state.name} avatar={this.state.avatar} />
+        ): (
+          <LecturerList selectLecturer={this.selectLecturer}/>
+        )}
+        
       </div>
     );
   }

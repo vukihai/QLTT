@@ -45,16 +45,16 @@ class GiangVienCuaToi extends React.Component {
                         Hiện đang hướng dẫn thực tập
                     </Typography>
                     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: 25 + 'px' }}>
-                        <Avatar className={classes.bigAvatar}>
-                            L
+                        <Avatar className={classes.bigAvatar} src={this.props.avatar}>
+                        {this.props.avatar!=""?"":  this.props.name.substring(0,1)}
                     </Avatar>
                         <div style={{ display: 'flex', flex: '1', marginTop: 10 + 'px', marginBottom: 40 + 'px' }}>
-                            Lê Đình Thanh
+                            {this.props.name}
                     </div>
                         <Button color="primary" className={classes.button}>
                             Trò truyện
                         </Button>
-                        <Button color="primary" className={classes.button}>
+                        <Button color="primary" className={classes.button} onClick={this.props.deselectLecturer}>
                             Bỏ Lựa chọn
                         </Button>
                     </div>
