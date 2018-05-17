@@ -15,49 +15,70 @@ const styles = theme => ({
 });
 
 class TinNhanPage extends React.Component {
+    state = {
+        id: localStorage.getItem('id'),
+        items: []
+    }
+
+    componentDidMount() {
+        this.getMail();
+        var interval = setInterval(()=>{
+            this.getMail();
+        }, 5000);
+    }
+    mail(sender, title, sendTime, seen) {
+        var mail = <ListItem button>
+                            <Avatar>
+                                {sender[0].toUpperCase()}
+                            </Avatar>
+                            <ListItemText
+                                primary= {sender}
+                                secondary= {title}
+                            />
+                            <ListItemSecondaryAction>
+                                <Button>{sendTime}</Button>
+                            </ListItemSecondaryAction>
+                        </ListItem>;
+        return mail;
+    }
+    listMailView() {
+        let listMail = [];
+        for(var i=0; i< this.state.items.length; i++) {
+            var item = this.state.items[i];
+            listMail.push(this.mail(item.senderID, item.title, item.sendTime, item.seen));
+        }
+        if(listMail.length == 0) {
+            listMail.push(<ListItemText
+                primary= {"hộp thư rỗng! "}
+             />);
+        }
+        return listMail;
+    }
+    getMail() {
+        fetch("http://localhost:80/QLTT/api/student/" + this.state.id + "/messages")
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    isLoaded: true,
+                    items: result
+                });
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+            });
+            })
+    }
     render() {
         const { classes } = this.props;
         return (
             <div>
-                <h1> Hộp thư </h1>
+                <h1> Hộp thư</h1>
                 <div className={classes.root}>
                     <List>
-                        <ListItem button>
-                            <Avatar>
-                                A
-                            </Avatar>
-                            <ListItemText
-                                primary="Admin"
-                                secondary="Thông báo nộp tiền học phí thực tập :v "
-                            />
-                            <ListItemSecondaryAction>
-                                <Button>21:51 20/04/2018</Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <ListItem button>
-                            <Avatar>
-                                T
-                            </Avatar>
-                            <ListItemText
-                                primary="Lê Đình Thanh"
-                                secondary="Thông báo phạt vì đi học muộn :v"
-                            />
-                            <ListItemSecondaryAction>
-                                <Button>22:00 Hôm qua</Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                        <ListItem button>
-                            <Avatar>
-                                D
-                        </Avatar>
-                            <ListItemText
-                                primary="Phạm Ngọc Duy"
-                                secondary="Điểm danh chưa ông ơi?"
-                            />
-                            <ListItemSecondaryAction>
-                                <Button>Vừa xong</Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        {this.listMailView()}
                     </List>
                 </div>
                 <h1> Thảo luận </h1>

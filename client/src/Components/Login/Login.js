@@ -30,10 +30,11 @@ class LoginPage extends React.Component {
   };
 
   loginClientProc() {
-      localStorage.setItem('token', this.state.items.accessToken);
-      localStorage.setItem('role', this.state.items.role);
-      localStorage.setItem('lastLogin', this.state.items.lastLogin);
       if(!("error" in this.state.items)) {
+          localStorage.setItem('token', this.state.items.accessToken);
+          localStorage.setItem('role', this.state.items.role);
+          localStorage.setItem('lastLogin', this.state.items.lastLogin);
+          localStorage.setItem('id', this.state.items.id);
           localStorage.setItem('logedin', true);
       } else {
           this.state.errorMessage = this.state.items.error;
@@ -44,7 +45,7 @@ class LoginPage extends React.Component {
       var data = new FormData();
       data.append("username", this.state.username);
       data.append("password", this.state.password);
-      fetch("http://localhost/QLTT/api/login/", {
+      fetch("http://localhost:80/QLTT/api/login/", {
           method: 'POST',
           body: data
       })

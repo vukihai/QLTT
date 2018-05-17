@@ -11,6 +11,7 @@
         private $token;
         private $userRole;
         private $lastLogin;
+        private $id;
         public function __construct() {
 			$this->db = new core\data\model\PDOData();
         }
@@ -35,6 +36,7 @@
                 $auth = new \authentication\Auth;
                 $this->token = $auth->createToken($tokenData);
                 
+                $this->id = $data[0][vnuID];
                 $this->userRole = $data[0]["role"];
                 $this->lastLogin = $data[0]["lastLogin"];
             } else {
@@ -49,6 +51,9 @@
         }
         public function getUserRole() {
             return $this->userRole;
+        }
+        public function getId() {
+            return $this->id;
         }
         public function getLastLogin() {
             return $this->lastLogin;

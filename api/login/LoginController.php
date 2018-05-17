@@ -17,8 +17,10 @@ require_once("LoginModel.php");
                 // đăng nhập thành công
                 $accessToken = $loginModel->getToken();
                 $role = $loginModel->getUserRole();
+		        $id = $loginModel->getId();
                 $lastLogin = $loginModel->getLastLogin();
-                $responseContent = array("role" => $role,
+                $responseContent = array("id" => $id,
+					"role" => $role,
                                         "lastLogin" =>$lastLogin,
                                          "accessToken" => $accessToken
                                         );
