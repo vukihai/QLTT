@@ -15,6 +15,8 @@ import { withStyles } from 'material-ui/styles';
 
 import IconButton from 'material-ui/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { Typography, Avatar } from '@material-ui/core';
+import red from 'material-ui/colors/red';
 const styles = theme => ({
   root: {
     display: 'inline-block',
@@ -44,8 +46,8 @@ class AccountPanel extends React.Component {
     this.setState({ open: false });
   };
   logout() {
-      localStorage.clear();
-      this.props.rerenderCallback();
+    localStorage.clear();
+    this.props.rerenderCallback();
   }
   render() {
     const { classes } = this.props;
@@ -60,14 +62,14 @@ class AccountPanel extends React.Component {
                 this.target1 = node;
               }}
             >
-                <IconButton
-                    aria-owns={open ? 'menu-appbar' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleToggle}
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : null}
+                aria-haspopup="true"
+                onClick={this.handleToggle}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
             </div>
           </Target>
           <Popper
@@ -78,6 +80,17 @@ class AccountPanel extends React.Component {
             <ClickAwayListener onClickAway={this.handleClose}>
               <Grow in={open} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
                 <Paper>
+                  <div style={{display: 'flex', padding: '16px', backgroundColor: '#eeeeee'}}>
+                      <div style={{marginRight: '16px'}}>
+                        <Avatar style={{backgroundColor: red[500]}}>
+                          P
+                        </Avatar>
+                      </div>
+                      <div style={{flex: '1'}}>
+                        <Typography variant="subheading" style={{fontWeight: 'bold'}}>Phạm Ngọc Duy</Typography>
+                        <Typography>16020925@vnu.edu.vn</Typography>
+                      </div>
+                  </div>
                   <MenuList role="menu">
                     <MenuItem onClick={this.handleClose}>iM Vukihai</MenuItem>
                     <MenuItem onClick={this.handleClose}><NavLink to="/profile">Hồ sơ </NavLink></MenuItem>

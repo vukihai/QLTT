@@ -13,7 +13,9 @@ import { withStyles } from 'material-ui/styles';
 
 import IconButton from 'material-ui/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Badge from 'material-ui/Badge';
+import { Typography } from '@material-ui/core';
 const styles = theme => ({
   root: {
     display: 'inline-block',
@@ -56,17 +58,17 @@ class Notification extends React.Component {
                 this.target1 = node;
               }}
             >
-                <IconButton
-                    aria-owns={open ? 'menu-appbar' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleToggle}
-                    color="inherit"
-                >
-                    <Badge className={classes.margin} badgeContent={4} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : null}
+                aria-haspopup="true"
+                onClick={this.handleToggle}
+                color="inherit"
+              >
+                <Badge className={classes.margin} badgeContent={4} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
 
-                </IconButton>
+              </IconButton>
             </div>
           </Target>
           <Popper
@@ -77,6 +79,16 @@ class Notification extends React.Component {
             <ClickAwayListener onClickAway={this.handleClose}>
               <Grow in={open} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
                 <Paper>
+                  <div style={{ display: 'flex', padding: '0 16px', backgroundColor: '#eeeeee', alignItems: 'center' }}>
+                    <div style={{ flex: '1' }}>
+                      <Typography variant="subheading" style={{ fontWeight: 'bold' }}>Thông báo</Typography>
+                    </div>
+                    <div style={{ flex: '1', textAlign: 'right' }}>
+                      <IconButton>
+                        <SettingsIcon />
+                      </IconButton>
+                    </div>
+                  </div>
                   <MenuList role="menu">
                     <MenuItem onClick={this.handleClose}>á á á.................................</MenuItem>
                     <MenuItem onClick={this.handleClose}>ớ ớ</MenuItem>

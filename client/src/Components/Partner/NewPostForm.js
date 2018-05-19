@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import { TextField, Button, IconButton } from 'material-ui';
-import AttachmentFIle from './AttachmentFIle';
+import AttachmentFIle from '../TinNhan/AttachmentFIle';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -19,11 +19,10 @@ const styles = theme => ({
   },
 });
 
-class MailForm extends React.Component {
+class NewPostForm extends React.Component {
   state = {
-    receiver : "16020925",
-    subject: "Hỏi về cách gửi mail",
-    content: "GỬi thế nào nhỉ?",
+    subject: "Bầu Trời Xa tuyển thực tập code php",
+    content: "code api php cho dự án QLTT",
   }
   handleChange = name => event => {
     this.setState({
@@ -36,17 +35,9 @@ class MailForm extends React.Component {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Paper className={classes.root} elevation={4}>
           <Typography variant="headline" component="h3">
-            Soạn thư
+            Đăng bài
         </Typography>
           <form style={{marginBottom : 20 + 'px'}}>
-            <TextField
-              id="receiver"
-              label="Người nhận"
-              value={this.state.receiver}
-              onChange={this.handleChange('receiver')}
-              margin="normal"
-              fullWidth
-            />
             <TextField
               id="subject"
               label="Chủ đề"
@@ -66,12 +57,12 @@ class MailForm extends React.Component {
                 margin="normal"
                 fullWidth
             />
-            <AttachmentFIle fileName="attachment.docx" fileSize="12kb"/>
+            <AttachmentFIle fileName="banner.png" fileSize="12kb"/>
           <Button variant="raised" color="primary" className={classes.button}>
-            Gửi
+            Đăng
           </Button>
           <input
-            accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+            accept="image/*"
             style={{display: 'none'}}
             id="att-file"
             multiple
@@ -79,7 +70,7 @@ class MailForm extends React.Component {
           />
           <label htmlFor="att-file">
             <IconButton component="span">
-                <AttachFileIcon />
+                <PhotoCameraIcon />
             </IconButton>
           </label>
         </form>
@@ -90,8 +81,8 @@ class MailForm extends React.Component {
   }
 }
 
-MailForm.propTypes = {
+NewPostForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MailForm);
+export default withStyles(styles)(NewPostForm);

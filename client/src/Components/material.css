@@ -1,17 +1,17 @@
 .active > div{
-    background-color: #009688;
-    color: white;
+    background-color: #e2e2e2;
+    color: #009688;
 }
 .active > div > * > *{
-    color: white;
+    color: #009688;
 }
 .active :hover{
-    background-color: #009688 !important;
-    color: white;
+    background-color: #e2e2e2 !important;
+    color: #009688;
 }
 .active > * > *:hover{
-    background-color: #009688 !important;
-    color: white;
+    background-color: #e2e2e2 !important;
+    color: #009688;
 }
 
 a{

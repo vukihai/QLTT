@@ -1,19 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import classnames from 'classnames';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Collapse from 'material-ui/transitions/Collapse';
+import Card, { CardHeader, CardMedia, CardContent } from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Badge, Chip } from 'material-ui';
+
 import { Button } from 'material-ui';
 import { SMALL } from 'material-ui/utils/withWidth';
 
@@ -34,13 +30,32 @@ class BaiDang extends React.Component {
         super(props);
         this.state = {
             role: localStorage.getItem('role'),
-            partnerName: "Bầu Trời Xa",
+            partnerName: "Not found",
             partnerAvatar: "",
-            postTime: "16/05/2018",
-            title: "Tuyển gì đó",
-            content: "rỗng"
+            postTime: "",
+            title: "Not found",
+            content: "Bài viết bạn đang tìm kiếm hiện không có",
+            image: ""
         }
     }
+    componentDidMount() {
+        return fetch('http://localhost/QLTT/api/post/'+this.props.match.params.id)
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+                isLoading: false,
+                partnerName: responseJson.partnerName,
+                partnerAvatar: "",
+                postTime: responseJson.postTime,
+                title: responseJson.title,
+                content: responseJson.content,
+                image: responseJson.image
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     render() {
         const { classes } = this.props;
         return (
@@ -79,7 +94,7 @@ class BaiDang extends React.Component {
                     </CardContent>
                     <CardMedia
                         className={classes.media}
-                        image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
+                        image={this.state.image}
                         title="Contemplative Reptile"
                     />
                 </Card>

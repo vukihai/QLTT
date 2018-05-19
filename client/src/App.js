@@ -45,11 +45,11 @@ class App extends Component {
     render() {
         return (
             <div style={{height: 100 + '%'}}>
-                {(this.state.logedin && this.state.role == 3) ? (
+                {(this.state.logedin) ? (
                 <MuiThemeProvider theme={theme}>
                     <Material rerenderCallback={this.updateState.bind(this)} />
                 </MuiThemeProvider>
-               ): ""}
+               ): "Please relogin"}
 
                {!this.state.logedin ? (
                    <div style={{height: 100 + '%'}}>

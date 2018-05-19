@@ -10,7 +10,7 @@ class RouteName extends Component {
         return (
             <div>
                 <Switch>
-                    <Route exact path='/' render={() => <div>QLTT</div>} />
+                    <Route exact path='/' render={() => <div>Trang chủ</div>} />
                     <Route path='/baidang' render={() => <div>Bài đăng</div>} />
                     <Route path='/theodoi' render={() => <div>Theo dõi</div>} />
                     <Route path='/giangvien' render={() => <div>Giảng viên</div>} />

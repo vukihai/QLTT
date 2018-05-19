@@ -2,20 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import classnames from 'classnames';
+
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Collapse from 'material-ui/transitions/Collapse';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
+
+
 import Typography from 'material-ui/Typography';
-import red from 'material-ui/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Badge, Chip } from 'material-ui';
-import { Button } from 'material-ui';
-import { SMALL } from 'material-ui/utils/withWidth';
 
 const styles = theme => ({
     card: {
@@ -50,12 +42,12 @@ class ThumbnailGiangVien extends React.Component {
                             {this.props.lecturerName}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small" color="secondary" onClick={() => this.props.selectLecturer(this.props.lecturerName)}>
+                    <CardActions style={{color: 'yellow'}}>
+                        <Button size="small" color="inherit" onClick={() => this.props.selectLecturer(this.props.lecturerName)}>
                             Lựa chọn
                         </Button>
-                        <Link to={'/giangvien/'+this.props.lecturerID}>
-                            <Button size="small" color="secondary">
+                        <Link to={'/giangvien/'+this.props.lecturerID} style={{color: 'white'}}>
+                            <Button size="small" color="inherit">
                                 Xem thông tin
                             </Button>
                         </Link>

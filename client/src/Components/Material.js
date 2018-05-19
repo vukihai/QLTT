@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, NavLink } from "react-router-dom";
 
 //material-ui-framework component import
 import PropTypes from 'prop-types';
@@ -16,19 +16,14 @@ import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 // material.io/icons import
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import StarIcon from '@material-ui/icons/Star';
 import MailIcon from '@material-ui/icons/Mail';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SchoolIcon from '@material-ui/icons/School';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import Badge from 'material-ui/Badge';
 
 //component import
 
@@ -36,6 +31,7 @@ import Notification from './Notification.js';
 import AccountPanel from './AccountPanel.js';
 import RouteName from './Routing/RouteName';
 import Routing from './Routing/Routing';
+import SearchBar from './Material/SearchBar';
 
 //extension-file import
 import './material.css';
@@ -62,8 +58,9 @@ const styles = theme => ({
         }),
     },
     appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        // marginLeft: drawerWidth,
+        // width: `calc(100% - ${drawerWidth}px)`,
+        width: '100%',
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -103,6 +100,7 @@ const styles = theme => ({
         padding: '0 8px',
         ...theme.mixins.toolbar,
     },
+    //main content 
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
@@ -111,12 +109,10 @@ const styles = theme => ({
     flex: {
         flex: 1
     },
+    // item in left navbar (drawer)
     routeItem: {
         '&:focus': {
-            backgroundColor: theme.palette.primary.main,
-            '& $primary, & $icon': {
-                color: theme.palette.common.white,
-            },
+            backgroundColor: '#e2e2e2',
         },
     },
 });
@@ -131,7 +127,7 @@ class MaterialDrawer extends React.Component {
 
     //event function
     handleDrawerOpen = () => {
-        this.setState({ open: true });
+        this.setState({ open: !this.state.open });
     };
 
     handleDrawerClose = () => {
@@ -163,35 +159,32 @@ class MaterialDrawer extends React.Component {
                         position="absolute"
                         className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
                     >
-                        <Toolbar disableGutters={!this.state.open}>
+                        <Toolbar disableGutters>
                             <IconButton
-                                aria-owns={open ? 'menu-appbar' : null}
+                                aria-owns={!open ? 'menu-appbar' : null}
                                 aria-haspopup="true"
                                 onClick={this.handleMenu}
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={this.handleDrawerOpen}
-                                className={classNames(classes.menuButton, this.state.open && classes.hide)}
+                                className={classNames(classes.menuButton)}
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="title" color="inherit" noWrap className={this.state.open && classes.hide} style={{marginRight: 20+'px'}}>
-                                <RouteName />
+                            {/* Heading Page Name */}
+                            <Typography variant="title" color="inherit" noWrap style={{paddingRight: '20px', borderRight: '1px solid #e2e2e2'}}>
+                                QLTT
                             </Typography>
-                            {/* <input type="text" placeholder="Search..."/> */}
-                            <TextField
-                                id="searchKeyword"
-                                label="Tìm kiếm..."
-                                // value={this.state.repeatPass}
-                                // onChange={this.handleChange('repeatPass')}
-                                type="search"
-                                fullWidth
-                                className={classes.flex}
-                                />
-                            {/* <Typography variant="title" color="inherit" noWrap className={classes.flex}>
-                                Search....
-                            </Typography> */}
-
+                            <div style={{padding: '0 20px'}}>
+                                <Typography variant="title" color="inherit" noWrap>
+                                    <RouteName />
+                                </Typography>
+                            </div>
+                            {/* search bar*/}
+                            <div className={classes.flex} style={{width: '100%'}}>
+                                <SearchBar />
+                            </div>
+                            {/* account and notify button */}
                             <div>
                                 <Notification />
                                 <AccountPanel rerenderCallback={this.props.rerenderCallback}/>
@@ -206,15 +199,9 @@ class MaterialDrawer extends React.Component {
                         }}
                         open={this.state.open}
                     >
-                        {/* Hamberger button on Drawer */}
+                        {/*Top in Drawer : hidden*/}
                         <div className={classes.toolbar}>
-                            <IconButton onClick={this.handleDrawerClose} className={classes.menuButton}>
-                                {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="title" color="inherit" noWrap className={classes.flex}>
-                                QLTT
-                            </Typography>
+
                         </div>
                         <Divider />
                         {/* Nav-link on Drawer */}

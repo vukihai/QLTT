@@ -4,11 +4,6 @@ import { withStyles } from 'material-ui/styles';
 
 import Grid from '@material-ui/core/Grid';
 
-import { Button } from '@material-ui/core';
-import Typography from 'material-ui/Typography';
-
-import FeaturedBaiDang from '../BaiDang/FeaturedBaiDang';
-import ThumbnailBaiDang from '../BaiDang/ThumbnailBaiDang';
 import Partner from '../Partner/Partner';
 
 const styles = theme => ({

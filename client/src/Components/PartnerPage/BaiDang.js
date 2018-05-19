@@ -10,6 +10,7 @@ import Typography from 'material-ui/Typography';
 
 import ThumbnailBaiDang from '../BaiDang/ThumbnailBaiDang';
 import Partner from '../Partner/Partner';
+import NewPost from '../Partner/NewPost';
 
 const styles = theme => ({
   margins: {
@@ -19,17 +20,16 @@ const styles = theme => ({
   },
 });
 
-class BaiDangPage extends Component {
+class BaiDangPartnerPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       postList: [],
-      partnerList: [],
     }
   }
   componentDidMount() {
-    fetch('http://localhost/QLTT/api/post/?fields=id,partnerName,image,title,postTime,exp')
+    fetch('http://web.bautroixa.vn/api/post/?fields=id,partnerName,image,title,postTime,exp')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -40,52 +40,17 @@ class BaiDangPage extends Component {
       .catch((error) => {
         console.error(error);
       });
-    fetch('http://localhost/QLTT/api/partner/')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          partnerList: responseJson,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   }
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
-            <Typography variant="subheading">
-              PARTNER
-            </Typography>
-          </div>
-          <div style={{ flex: 1, textAlign: 'right' }}>
-            <Link to="/partner">
-              <Button color="primary"> Xem tất cả </Button>
-            </Link>
-          </div>
-        </div>
-        <div style={{ display: 'flex', flex: 1, overflow: 'auto', marginBottom: '40px' }}>
-          <div className={classes.margins} style={{ display: 'flex', minHeight: 'min-content' }}>
-          {
-            this.state.partnerList.map(partner => (
-              <Partner partnerID={partner.id} partnerName={partner.name} fixedWidth />
-            ))
-          }
-            <Partner partnerID={1} partnerName="Sample data" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-          </div>
-        </div>
         <ColGrid container>
+            <ColGrid item>
+              <Link to='./baidang/new'>
+                <NewPost />
+              </Link>
+            </ColGrid>
           {
             this.state.postList.map(post => (
               <ColGrid item>
@@ -114,8 +79,8 @@ class BaiDangPage extends Component {
             <ThumbnailBaiDang
               postID={2}
               title="Tuyển nhân viên bán hàng"
-              image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
               partnerAvatar="https://material-ui-next.com/static/images/remy.jpg"
+              image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
               partnerName="Xa Bầu Trời"
               postTime="16/05/2018"
             />
@@ -133,8 +98,8 @@ class BaiDangPage extends Component {
           <ColGrid item>
             <ThumbnailBaiDang
               postID={4}
-              image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
               title="Bầu Trời Xa Corporation tuyển nhân viên chụp ảnh cảnh nghệ thuật để đăng lên mạng cho vui"
+              image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
               partnerAvatar=""
               partnerName="VC Corp"
               postTime="16/05/2018"
@@ -155,8 +120,8 @@ class BaiDangPage extends Component {
     );
   }
 }
-BaiDangPage.propTypes = {
+BaiDangPartnerPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BaiDangPage);
+export default withStyles(styles)(BaiDangPartnerPage);
