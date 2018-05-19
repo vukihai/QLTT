@@ -1,46 +1,12 @@
 <?php
-    require_once(__DIR__."/../core/data/PDOData.php");
+    require_once("core/data/PDOData.php");
+    require_once("core/abstract/Model.php");
 /*
 * Model 
 *
 *
 */
-    class StudentModel {
-        protected $db;
-        public function __construct() {
-			$this->db = new core\data\model\PDOData();
-        }
-        public function __destruct() {
-			$this->db = null;
-        }
-        private function fieldsFilter($fieldsArr, $data){
-            $ret = array();
-            if (!isset($fieldsArr)) {
-                $ret = $data;
-            } else {
-                foreach($fieldsArr as $k => $v) {
-                    $ret[$v] = $data[$v];
-                }
-            }
-            return $ret;
-        }
-        private function fieldsFilterForArray($fieldsArr, $dataArr){
-            $ret = array();
-            foreach ($dataArr as $key => $value) {
-                $ret[] = $this->fieldsFilter($fieldsArr, $value);
-            }
-            return $ret;
-        }
-        private function fieldsFilterForSettingData($data){
-            $query = " ";
-            // thêm trường vào. VD: SET 'key' = 'value'
-            foreach ($data as $key => $value) {
-                $query.=$key." = '".$value."' ,";
-            }
-            //xóa dấu , thừa cuối xâu
-            $query = substr($query, 0, -1);
-            return $query;
-        }
+    class StudentModel extends Model {
         public function getAccount($fieldsArr, $id){
             $data = $this->db->doPreparedQuery("SELECT vnuID,username,role,lastLogin FROM vnuaccount WHERE vnuaccount.vnuID=?",array($id));
             return $this->fieldsFilter($fieldsArr, $data[0]);

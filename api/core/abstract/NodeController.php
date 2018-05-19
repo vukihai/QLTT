@@ -89,6 +89,7 @@ abstract class NodeController {
         
         header("HTTP/1.1 " . $status_code . " " . $status[$status_code]);
         header("Content-Type: application/json");
+        header('Access-Control-Allow-Origin: *');
         echo json_encode($data);
         die();
     }
