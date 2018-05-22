@@ -9,7 +9,7 @@ import { Button } from '@material-ui/core';
 import Typography from 'material-ui/Typography';
 
 import ThumbnailBaiDang from '../BaiDang/ThumbnailBaiDang';
-import Partner from '../Partner/Partner';
+import ThumbnailPartner from '../Partner/ThumbnailPartner';
 import NewPost from '../Partner/NewPost';
 
 const styles = theme => ({

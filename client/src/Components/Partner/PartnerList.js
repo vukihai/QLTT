@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 
 import Grid from '@material-ui/core/Grid';
 
-import Partner from '../Partner/Partner';
+import ThumbnailPartner from '../Partner/ThumbnailPartner';
 
 const styles = theme => ({
     
@@ -17,16 +17,16 @@ class PartnerList extends Component {
             <div>
                 <Grid container spacing={8}>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                 </Grid>
             </div>

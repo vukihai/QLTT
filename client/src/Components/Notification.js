@@ -16,6 +16,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Badge from 'material-ui/Badge';
 import { Typography } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 const styles = theme => ({
   root: {
     display: 'inline-block',
@@ -78,7 +83,7 @@ class Notification extends React.Component {
           >
             <ClickAwayListener onClickAway={this.handleClose}>
               <Grow in={open} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
-                <Paper>
+                <Paper style={{width: '500px'}}>
                   <div style={{ display: 'flex', padding: '0 16px', backgroundColor: '#eeeeee', alignItems: 'center' }}>
                     <div style={{ flex: '1' }}>
                       <Typography variant="subheading" style={{ fontWeight: 'bold' }}>Thông báo</Typography>
@@ -89,9 +94,34 @@ class Notification extends React.Component {
                       </IconButton>
                     </div>
                   </div>
+                  <div>
+                    <List dense={false}>
+                      <ListItem button>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <NotificationsIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="Bạn đã trúng tuyển vào thực tập cho Bầu Trời Xa Corporation trong 6 tháng"
+                          secondary="12:59 22/05/2018"
+                        />
+                      </ListItem>
+                      <ListItem button>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <NotificationsIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="Giảng viên Lê Đình Thanh đã xác nhận bạn làm học viên của mình"
+                          secondary="12:29 22/05/2018"
+                        />
+                      </ListItem>
+                    </List>
+                  </div>
                   <MenuList role="menu">
-                    <MenuItem onClick={this.handleClose}>á á á.................................</MenuItem>
-                    <MenuItem onClick={this.handleClose}>ớ ớ</MenuItem>
+                    <MenuItem onClick={this.handleClose}>Xem tất cả</MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>

@@ -10,18 +10,13 @@ import Tabs from '@material-ui/core/Tabs';
 import { TextField, Button, Grid, Avatar } from 'material-ui';
 import red from 'material-ui/colors/red';
 
-import ContactInfoForm from './ContactInfo';
-import GeneralInfoForm from './GeneralInfo';
-import SkillInfoForm from './SkillInfo';
-import HobbiesInfoForm from './HobbiesInfo';
-
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
   }),
 });
 
-class ProfileForm extends React.Component {
+class GiangVien extends React.Component {
 
   constructor(props) {
     super(props);
@@ -44,19 +39,17 @@ class ProfileForm extends React.Component {
           <div style={{ display: 'flex', padding: '16px', alignItems: 'center' }}>
             <div style={{ marginRight: '16px' }}>
               <Avatar style={{ backgroundColor: red[500], width: '80px', height: '80px' }}>
-                P
+                L
               </Avatar>
             </div>
             <div style={{ flex: '1' }}>
-              <Typography variant="display1" style={{ fontWeight: 'bold' }}>Phạm Ngọc Duy</Typography>
-              <Typography>16020925@vnu.edu.vn</Typography>
+              <Typography variant="display1" style={{ fontWeight: 'bold' }}>Lê Đình Thanh</Typography>
+              <Typography>Giảng viên trường Đại học Công Nghệ </Typography>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <Link to="/profile/changepass">
                 <Button variant="raised" className={classes.button}>
-                  Đổi mật khẩu tài khoản
-                      </Button>
-              </Link>
+                  Lựa chọn
+                </Button>
             </div>
           </div>
           <div>
@@ -68,17 +61,11 @@ class ProfileForm extends React.Component {
               scrollable
               scrollButtons="auto"
             >
-              <Link to="/profile/tab-0">
-                <Tab label="Thông tin chung" />
+              <Link to={'/giangvien/'+this.props.match.params.tab+'/tab-0'}>
+                <Tab label="Thông tin" />
               </Link>
-              <Link to="/profile/tab-1">
+              <Link to={'/giangvien/'+this.props.match.params.tab+'/tab-1'}>
                 <Tab label="Liên hệ" />
-              </Link>
-              <Link to="/profile/tab-2">
-                <Tab label="Kỹ năng" />
-              </Link>
-              <Link to="/profile/tab-3">
-                <Tab label="Sở thích" />
               </Link>
             </Tabs>
           </div>
@@ -86,22 +73,18 @@ class ProfileForm extends React.Component {
         <div>
           {
             this.state.tab === 0 && (
-              <GeneralInfoForm />
+                <Paper className={classes.root} elevation={4}>
+                    Các thông tin cơ bản về thầy chẳng hạn :3
+                    + Chuyên ngành
+                    + Giải thưởng
+                </Paper>
             )
           }
           {
             this.state.tab === 1 && (
-              <ContactInfoForm />
-            )
-          }
-          {
-            this.state.tab === 2 && (
-              <SkillInfoForm />
-            )
-          }
-          {
-            this.state.tab === 3 && (
-              <HobbiesInfoForm />
+                <Paper className={classes.root} elevation={4}>
+                    Các thông tin ở đây: VNUmail, gmail, SĐT, ...
+                </Paper>
             )
           }
         </div>
@@ -110,8 +93,8 @@ class ProfileForm extends React.Component {
   }
 }
 
-ProfileForm.propTypes = {
+GiangVien.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProfileForm);
+export default withStyles(styles)(GiangVien);

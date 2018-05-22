@@ -9,7 +9,7 @@ import { Button } from '@material-ui/core';
 import Typography from 'material-ui/Typography';
 
 import ThumbnailBaiDang from '../BaiDang/ThumbnailBaiDang';
-import Partner from '../Partner/Partner';
+import ThumbnailPartner from '../Partner/ThumbnailPartner';
 
 const styles = theme => ({
   margins: {
@@ -63,7 +63,7 @@ class BaiDangPage extends Component {
             </Typography>
           </div>
           <div style={{ flex: 1, textAlign: 'right' }}>
-            <Link to="/partner">
+            <Link to="/baidang/partner">
               <Button color="primary"> Xem tất cả </Button>
             </Link>
           </div>
@@ -72,17 +72,17 @@ class BaiDangPage extends Component {
           <div className={classes.margins} style={{ display: 'flex', minHeight: 'min-content' }}>
           {
             this.state.partnerList.map(partner => (
-              <Partner partnerID={partner.id} partnerName={partner.name} fixedWidth />
+              <ThumbnailPartner partnerID={partner.id} partnerName={partner.name} fixedWidth />
             ))
           }
-            <Partner partnerID={1} partnerName="Sample data" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <Partner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Sample data" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
           </div>
         </div>
         <ColGrid container>

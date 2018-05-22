@@ -1,13 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Button from 'material-ui/Button';
+import Card, { CardMedia, CardContent, CardActions } from 'material-ui/Card';
+
 
 
 import Typography from 'material-ui/Typography';
+
+
+
+
+
+
+import { Button } from 'material-ui';
+
 
 const styles = theme => ({
     card: {
@@ -22,7 +30,7 @@ const styles = theme => ({
     }
 });
 
-class ThumbnailGiangVien extends React.Component { 
+class ThumbnailPartner extends React.Component { 
     constructor(props){
         super(props);
     }
@@ -30,7 +38,7 @@ class ThumbnailGiangVien extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                
+                <Link to={'/partner/'+this.props.partnerID}>
                 <Card className={classes.card} style={{width: this.props.fixedWidth? '230px':'100%',}}>
                     <CardMedia
                         className={classes.media}
@@ -39,28 +47,23 @@ class ThumbnailGiangVien extends React.Component {
                     />
                     <CardContent>
                         <Typography variant="subheading" className={classes.text}>
-                            {this.props.lecturerName}
+                            {this.props.partnerName}
                         </Typography>
                     </CardContent>
                     <CardActions style={{color: 'yellow'}}>
-                        <Button size="small" color="inherit" onClick={() => alert('Bạn đã chọn '+this.props.lecturerName)}>
-                            Lựa chọn
+                        <Button size="small" color="inherit">
+                            Xem thông tin
                         </Button>
-                        <Link to={'/giangvien/'+this.props.lecturerID} style={{color: 'white'}}>
-                            <Button size="small" color="inherit">
-                                Xem thông tin
-                            </Button>
-                        </Link>
                     </CardActions>
                 </Card>
-                
+                </Link>
             </div>
         );
     }
 }
 
-ThumbnailGiangVien.propTypes = {
+ThumbnailPartner.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ThumbnailGiangVien);
+export default withStyles(styles)(ThumbnailPartner);

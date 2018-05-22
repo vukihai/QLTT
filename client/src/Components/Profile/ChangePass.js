@@ -9,7 +9,7 @@ import { TextField, Button, Grid, Avatar } from 'material-ui';
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
-    width: 450 + 'px'
+    width: 100 + '%',
   }),
   bigAvatar: {
     width: 60,
@@ -34,10 +34,7 @@ class ChangePassForm extends React.Component {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 100 + '%' }}>
         <Paper className={classes.root} elevation={4}>
           <Typography variant="headline" component="h3">
-            Thông tin cá nhân
-        </Typography>
-          <Typography component="p" style={{marginBottom : 10 + 'px'}}>
-            Đổi mật khẩu của bạn
+          Đổi mật khẩu của bạn
         </Typography>
           <form style={{marginBottom : 20 + 'px'}}>
             <TextField

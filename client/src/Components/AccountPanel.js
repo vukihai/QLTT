@@ -12,9 +12,14 @@ import Paper from 'material-ui/Paper';
 import Portal from 'material-ui/Portal';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import IconButton from 'material-ui/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { Typography, Avatar } from '@material-ui/core';
 import red from 'material-ui/colors/red';
 const styles = theme => ({
@@ -80,22 +85,36 @@ class AccountPanel extends React.Component {
             <ClickAwayListener onClickAway={this.handleClose}>
               <Grow in={open} id="menu-list-grow" style={{ transformOrigin: '0 0 0' }}>
                 <Paper>
-                  <div style={{display: 'flex', padding: '16px', backgroundColor: '#eeeeee'}}>
-                      <div style={{marginRight: '16px'}}>
-                        <Avatar style={{backgroundColor: red[500]}}>
-                          P
+                  <div style={{ display: 'flex', padding: '16px', backgroundColor: '#eeeeee' }}>
+                    <div style={{ marginRight: '16px' }}>
+                      <Avatar style={{ backgroundColor: red[500] }}>
+                        P
                         </Avatar>
-                      </div>
-                      <div style={{flex: '1'}}>
-                        <Typography variant="subheading" style={{fontWeight: 'bold'}}>Phạm Ngọc Duy</Typography>
-                        <Typography>16020925@vnu.edu.vn</Typography>
-                      </div>
+                    </div>
+                    <div style={{ flex: '1' }}>
+                      <Typography variant="subheading" style={{ fontWeight: 'bold' }}>Phạm Ngọc Duy</Typography>
+                      <Typography>16020925@vnu.edu.vn</Typography>
+                    </div>
                   </div>
                   <MenuList role="menu">
-                    <MenuItem onClick={this.handleClose}>iM Vukihai</MenuItem>
-                    <MenuItem onClick={this.handleClose}><NavLink to="/profile">Hồ sơ </NavLink></MenuItem>
-                    <MenuItem onClick={this.handleClose}>Tài khoản</MenuItem>
-                    <MenuItem onClick={this.handleClose}><a onClick={() => this.logout()}>Đăng xuất</a></MenuItem>
+                    <NavLink to="/profile"><MenuItem onClick={this.handleClose}>
+                      <ListItemIcon>
+                        <AccountBoxIcon />
+                      </ListItemIcon>
+                      <ListItemText inset primary="Hồ sơ" />
+                    </MenuItem></NavLink>
+                    <NavLink to="/profile/changepass"><MenuItem onClick={this.handleClose}>
+                      <ListItemIcon>
+                        <VpnKeyIcon />
+                      </ListItemIcon>
+                      <ListItemText inset primary="Đổi mật khẩu" />
+                    </MenuItem></NavLink>
+                    <a onClick={() => this.logout()}><MenuItem onClick={this.handleClose}>
+                      <ListItemIcon>
+                        <ExitToAppIcon />
+                      </ListItemIcon>
+                      <ListItemText inset primary="Đăng xuất" />
+                    </MenuItem></a>
                   </MenuList>
                 </Paper>
               </Grow>

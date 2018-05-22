@@ -11,6 +11,7 @@ class RouteName extends Component {
             <div>
                 <Switch>
                     <Route exact path='/' render={() => <div>Trang chủ</div>} />
+                    <Route path='/timkiem' render={() => <div>Tìm kiếm</div>} />
                     <Route path='/baidang' render={() => <div>Bài đăng</div>} />
                     <Route path='/theodoi' render={() => <div>Theo dõi</div>} />
                     <Route path='/giangvien' render={() => <div>Giảng viên</div>} />

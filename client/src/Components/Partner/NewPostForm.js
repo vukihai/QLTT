@@ -11,7 +11,7 @@ import AttachmentFIle from '../TinNhan/AttachmentFIle';
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
-    width: 450 + 'px'
+    width: '100%',
   }),
   bigAvatar: {
     width: 60,

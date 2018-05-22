@@ -38,8 +38,7 @@ const styles = theme => ({
 
 class FollowedBaiDang extends React.Component {
     state = {
-        expanded: false,
-        followed: false
+        followed: true,
     };
 
     handleFollowClick = () => {
@@ -66,9 +65,18 @@ class FollowedBaiDang extends React.Component {
                         }
                         action={
                             <div>
-                                <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>chờ phỏng vấn</Button>
+                                <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>
+                                    {
+                                        this.props.status==0?"Không trúng tuyển":
+                                        this.props.status==1?"Đã theo dõi":
+                                        this.props.status==2?"Chờ phỏng vấn":
+                                        this.props.status==3?"Đã trúng tuyển":"ERR"
+                                    }
+                                </Button>
                                 <IconButton onClick={this.handleFollowClick}>
-                                    <FavoriteIcon color="primary" color={this.state.followed ? "secondary" : "primary"} />
+                                {
+                                        (this.props.status==0 || this.props.status==3)?"":<FavoriteIcon color="primary" color={this.state.followed ? "secondary" : "primary"} />
+                                }
                                 </IconButton>
                             </div>
                         }

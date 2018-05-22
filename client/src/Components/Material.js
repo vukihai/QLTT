@@ -16,19 +16,13 @@ import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 // material.io/icons import
 import MenuIcon from '@material-ui/icons/Menu';
-import StarIcon from '@material-ui/icons/Star';
-import MailIcon from '@material-ui/icons/Mail';
-import RssFeedIcon from '@material-ui/icons/RssFeed';
-import SchoolIcon from '@material-ui/icons/School';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import HomeIcon from '@material-ui/icons/Home';
-import SettingsIcon from '@material-ui/icons/Settings';
-import HelpIcon from '@material-ui/icons/Help';
+
 
 //component import
 
 import Notification from './Notification.js';
 import AccountPanel from './AccountPanel.js';
+import LeftPanel from './LeftPanel';
 import RouteName from './Routing/RouteName';
 import Routing from './Routing/Routing';
 import SearchBar from './Material/SearchBar';
@@ -109,18 +103,12 @@ const styles = theme => ({
     flex: {
         flex: 1
     },
-    // item in left navbar (drawer)
-    routeItem: {
-        '&:focus': {
-            backgroundColor: '#e2e2e2',
-        },
-    },
 });
 
 class MaterialDrawer extends React.Component {
     //state
     state = {
-        open: false,
+        open: true,
         anchorEl: null,
         rerender: false
     };
@@ -205,81 +193,7 @@ class MaterialDrawer extends React.Component {
                         </div>
                         <Divider />
                         {/* Nav-link on Drawer */}
-                        <List>
-                            <NavLink exact={true} to="/">
-                                <ListItem button className={classes.routeItem}>
-                                    <ListItemIcon>
-                                        <HomeIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Trang chủ" />
-
-                                </ListItem>
-                            </NavLink>
-                            <NavLink to="/baidang">
-                                <ListItem button className={classes.routeItem}>
-
-                                    <ListItemIcon>
-                                        <RssFeedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Bài đăng" />
-
-                                </ListItem>
-                            </NavLink>
-                            <NavLink to="/theodoi">
-                                <ListItem button className={classes.routeItem}>
-                                    <ListItemIcon>
-                                        <StarIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Đang theo dõi" />
-                                </ListItem>
-                            </NavLink>
-                            <NavLink to="/giangvien">
-                                <ListItem button className={classes.routeItem}>
-                                    <ListItemIcon>
-                                        <SchoolIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Giảng viên" />
-                                </ListItem>
-                            </NavLink>
-                            <NavLink to="/baocao">
-                                <ListItem button className={classes.routeItem}>
-                                    <ListItemIcon>
-                                        <AssignmentIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Báo cáo" />
-                                </ListItem>
-                            </NavLink>
-                            <NavLink to="/tinnhan">
-                                <ListItem button className={classes.routeItem}>
-                                    <ListItemIcon>
-                                        <MailIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Tin nhắn" />
-                                </ListItem>
-                            </NavLink>
-                        </List>
-                        <Divider />
-                        <List>
-                            <NavLink to="/caidat">
-                                <ListItem button className={classes.routeItem}>
-                                    <ListItemIcon>
-                                        <SettingsIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Cài đặt" />
-
-                                </ListItem>
-                            </NavLink>
-                            <NavLink to="/trogiup">
-                                <ListItem button className={classes.routeItem}>
-
-                                    <ListItemIcon>
-                                        <HelpIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Trợ giúp" />
-
-                                </ListItem>
-                            </NavLink>
-                        </List>
+                        <LeftPanel />
                     </Drawer>
                     {/* Main app space */}
                     <main className={classes.content} style={{ overflow: 'scroll' }}>
