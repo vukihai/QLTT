@@ -20,13 +20,13 @@ class PartnerList extends Component {
                         <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={2} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={3} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                     <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
+                        <ThumbnailPartner partnerID={4} partnerName="Bầu Trời Xa Corp" />
                     </Grid>
                 </Grid>
             </div>

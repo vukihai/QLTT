@@ -75,14 +75,15 @@ class BaiDangPage extends Component {
               <ThumbnailPartner partnerID={partner.id} partnerName={partner.name} fixedWidth />
             ))
           }
-            <ThumbnailPartner partnerID={1} partnerName="Sample data" fixedWidth />
+            <ThumbnailPartner partnerID={3} partnerName="Sample data" fixedWidth />
             <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
-            <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={5} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={6} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={7} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={8} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={9} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={10} partnerName="Bầu Trời Xa Corp" fixedWidth />
+            <ThumbnailPartner partnerID={11} partnerName="Bầu Trời Xa Corp" fixedWidth />
           </div>
         </div>
         <ColGrid container>
