@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
-import TableSinhVien from '../GiangVien/TableSinhVien';
-import MyLecturer from '../GiangVien/MyLecturer';
 import { Grid } from 'material-ui';
 import { Button } from 'material-ui';
 import { withStyles } from 'material-ui';
-import MyLecturer2 from '../GiangVien/MyLecturer2';
-import GiangVienCuaToi from '../GiangVien/GiangVienCuaToi';
 import LecturerList from '../GiangVien/LecturerList';
 
 const styles = theme => ({
@@ -32,7 +29,7 @@ class GiangVienPage extends Component {
     return (
       <div>
         {this.state.selected?(
-          <GiangVienCuaToi deselectLecturer={this.selectLecturer} name={this.state.name} avatar={this.state.avatar} />
+          <Redirect to= {'/giangvien/1/tab-0'} />
         ): (
           <LecturerList selectLecturer={this.selectLecturer}/>
         )}

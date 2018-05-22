@@ -33,7 +33,7 @@ class HobbiesInfoForm extends React.Component {
         this.update = this.update.bind(this);
     }
     componentDidMount() {
-        return fetch('http://web.bautroixa.vn/api/student/' + localStorage.getItem('id') + '/')
+        return fetch('http://localhost/QLTT/api/student/' + localStorage.getItem('id') + '/')
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -54,7 +54,7 @@ class HobbiesInfoForm extends React.Component {
         for (var k in sendData) {
             formData.append(k, sendData[k]);
         }
-        return fetch('http://web.bautroixa.vn/api/student/' + localStorage.getItem('id') + '/', {
+        return fetch('http://localhost/QLTT/api/student/' + localStorage.getItem('id') + '/', {
             method: 'POST',
             headers: {
             },

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography } from 'material-ui/Typography';
 import { Grid } from 'material-ui';
-import MyLecturer from '../GiangVien/MyLecturer';
+
 class HomePage extends Component {
   render() {
     return (
