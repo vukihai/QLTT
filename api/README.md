@@ -55,7 +55,7 @@
 
 ### GET
 0. GET danh sách bài đăng
-- GET /api/post
+- GET /api/post (done)
 1. GET bài đăng
 - GET /api/post/{post-id} ?fields=content, partnerID, ... (done)
 2. GET LIST sinh viên Follow
@@ -79,7 +79,7 @@ body: content={post-content} & exp={post-expiration-time} & ...
 2. GET thông tin của chính partner
 - GET /api/partner/{partner-id} ?fields=contact, ...
 3. GET danh sách partner
-- GET /api/partner
+- GET /api/partner (done)
 
 ### POST
 
