@@ -27,6 +27,12 @@ const styles = theme => ({
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
     },
+    backgroundDrawer: {
+        backgroundColor: '#fafafa',
+    },
+    dividerPadding: {
+        margin: '10px 0',
+    }
 });
 
 class LeftPanel extends React.Component {
@@ -65,14 +71,14 @@ class LeftPanel extends React.Component {
         const role = localStorage.getItem('role');
         return (
             <div>
-                <List>
+                <List className={classes.backgroundDrawer}>
                     <div>
                         {
                             this.pageForRole[role].map(page => 
                                 this.PanelItem(page[0], page[1], page[2], page[3])
                             )
                         }
-                        <Divider />
+                        <Divider className={classes.dividerPadding}/>
                         {
                             this.pageForRole.default.map(page => 
                                 this.PanelItem(page[0], page[1], page[2], page[3])

@@ -11,9 +11,9 @@
             $data = $this->db->doQuery("SELECT pa.id, pa.name, pa.contact FROM partner pa");
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
-        public function getPost($fieldsArr, $id){
-            $data = $this->db->doPreparedQuery("SELECT p.id, p.partnerID, pa.name as partnerName, p.image, p.title, p.content, p.postTime, p.exp FROM post p JOIN partner pa ON p.partnerID = pa.id WHERE p.id=?",array($id));
-            return $this->fieldsFilter($fieldsArr, $data[0]);
+        public function getPostList($fieldsArr, $id){
+            $data = $this->db->doPreparedQuery("SELECT p.id, p.partnerID, pa.name as partnerName, p.image, p.title, p.content, p.postTime, p.exp FROM post p JOIN partner pa ON p.partnerID = pa.id WHERE pa.id=?",array($id));
+            return $this->fieldsFilterForArray($fieldsArr, $data);
         }
     }
 ?>

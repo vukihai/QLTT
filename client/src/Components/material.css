@@ -1,16 +1,13 @@
 .active > div{
-    background-color: #e2e2e2;
     color: #009688;
 }
 .active > div > * > *{
     color: #009688;
 }
 .active :hover{
-    background-color: #e2e2e2 !important;
     color: #009688;
 }
 .active > * > *:hover{
-    background-color: #e2e2e2 !important;
     color: #009688;
 }
 

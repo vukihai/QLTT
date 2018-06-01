@@ -68,6 +68,8 @@ const styles = theme => ({
         display: 'none',
     },
     drawerPaper: {
+        backgroundColor: '#fafafa',
+        borderRight: 'none',
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
@@ -77,6 +79,7 @@ const styles = theme => ({
         }),
     },
     drawerPaperClose: {
+        backgroundColor: '#fafafa',
         overflowX: 'hidden',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -87,13 +90,7 @@ const styles = theme => ({
             width: theme.spacing.unit * 9,
         },
     },
-    toolbar: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    },
+    toolbar: theme.mixins.toolbar,
     //main content 
     content: {
         flexGrow: 1,
@@ -103,6 +100,9 @@ const styles = theme => ({
     flex: {
         flex: 1
     },
+    paddingDrawer: {
+        paddingTop: "15px",
+    }
 });
 
 class MaterialDrawer extends React.Component {
@@ -187,16 +187,16 @@ class MaterialDrawer extends React.Component {
                         }}
                         open={this.state.open}
                     >
-                        {/*Top in Drawer : hidden*/}
-                        <div className={classes.toolbar}>
+                        {/*Top (toolbar) of Drawer : hidden*/}
+                        <div className={classes.toolbar} />
 
-                        </div>
-                        <Divider />
                         {/* Nav-link on Drawer */}
-                        <LeftPanel />
+                        <div className={classes.paddingDrawer}>
+                            <LeftPanel />
+                        </div>
                     </Drawer>
                     {/* Main app space */}
-                    <main className={classes.content} style={{ overflow: 'scroll' }}>
+                    <main className={classes.content} style={{ overflow: 'auto' }}>
                         <div className={classes.toolbar} />
                         <Routing />
                         <Typography noWrap style={{marginTop: 50+'px'}}>{'Phần mềm Quản lí thực tập (c) 2018 DHT Team - Web development course - UET - VNU'}</Typography>

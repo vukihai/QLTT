@@ -29,7 +29,7 @@ class BaiDangPartnerPage extends Component {
     }
   }
   componentDidMount() {
-    fetch('http://web.bautroixa.vn/api/post/?fields=id,partnerName,image,title,postTime,exp')
+    fetch('http://localhost/QLTT/api/partner/'+localStorage.getItem('id')+'/feed?fields=id,partnerName,image,title,postTime,exp')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

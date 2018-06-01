@@ -61,10 +61,10 @@ class GiangVien extends React.Component {
               scrollable
               scrollButtons="auto"
             >
-              <Link to={'/giangvien/'+this.props.match.params.tab+'/tab-0'}>
+              <Link to={'/giangvien/'+this.props.match.params.id+'/tab-0'}>
                 <Tab label="Thông tin" />
               </Link>
-              <Link to={'/giangvien/'+this.props.match.params.tab+'/tab-1'}>
+              <Link to={'/giangvien/'+this.props.match.params.id+'/tab-1'}>
                 <Tab label="Liên hệ" />
               </Link>
             </Tabs>

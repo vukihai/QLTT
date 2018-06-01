@@ -19,5 +19,9 @@
             $query = "UPDATE post SET ".$this->fieldsFilterForSettingData($data)." WHERE post.id = ".$id.";";
             return $this->db->doSql($query);
         }
+        public function getPostFollower($fieldsArr, $id){
+            $data = $this->db->doPreparedQuery("SELECT * FROM stu_follow sf JOIN stu_fixed_info sfi ON sf.studentId = sfi.studentID WHERE sf.postId = ?",array($id));
+            return $this->fieldsFilterForArray($fieldsArr, $data);
+        }
     }
 ?>
