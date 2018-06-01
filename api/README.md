@@ -50,10 +50,12 @@
 ---
 
 ## BÀI ĐĂNG API
-/api/partner-post/{post-id}
+/api/post/{post-id}
 
 
 ### GET
+0. GET danh sách bài đăng
+- GET /api/post
 1. GET bài đăng
 - GET /api/post/{post-id} ?fields=content, partnerID, ... (done)
 2. GET LIST sinh viên Follow
