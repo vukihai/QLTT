@@ -55,14 +55,15 @@
 
 ### GET
 1. GET bài đăng
-- GET /api/partner-post/{post-id} ?fields=content, partnerID, ...
+- GET /api/post/{post-id} ?fields=content, partnerID, ... (done)
 2. GET LIST sinh viên Follow
-- GET /api/partner-post/{post-id}/follow
+- GET /api/post/{post-id}/follow (done)
 
 ### PUT
 
 1. Cập nhật bài đăng
-- PUT /api/partner-post/{post-id} ?content={post-content} & exp={post-expiration-time} & ...
+- PUT /api/partner-post/{post-id}  (done)
+body: content={post-content} & exp={post-expiration-time} & ... 
 
 ---
 
@@ -72,9 +73,11 @@
 ### GET 
 
 1. GET LIST các bài đăng
-- GET /api/partner/{partner-id}/feed
+- GET /api/partner/{partner-id}/feed (done)
 2. GET thông tin của chính partner
 - GET /api/partner/{partner-id} ?fields=contact, ...
+3. GET danh sách partner
+- GET /api/partner
 
 ### POST
 
