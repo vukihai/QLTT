@@ -1,9 +1,9 @@
 <?php
 require_once("core/abstract/NodeController.php");
-require_once("student/_id/messages/MessagesModel.php");
+require_once("messages/MessagesModel.php");
 
 
-    class MessagesController extends NodeController {
+    class Messages_idController extends NodeController {
         protected function _POST() {
             
         }

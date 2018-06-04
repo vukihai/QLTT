@@ -32,7 +32,7 @@ class TinNhanPage extends React.Component {
     }
 
     getMail() {
-        fetch("http://localhost:80/QLTT/api/student/" + this.state.id + "/messages")
+        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id)
         .then(res => res.json())
         .then(
             (result) => {
@@ -52,7 +52,7 @@ class TinNhanPage extends React.Component {
         let listMail = [];
         for(var i=0; i< this.state.items.length; i++) {
             var item = this.state.items[i];
-            listMail.push(<NavLink to={"/xemtinnhan/" + item.id}><InboxItem sender={item.sender} subject={item.subject} sendTime={item.sendTime} seen={item.seen} /> </NavLink>);
+            listMail.push(<NavLink to={"/tinnhan/" + item.id}><InboxItem sender={item.sender} subject={item.subject} sendTime={item.sendTime} seen={item.seen} /> </NavLink>);
         }
         if(listMail.length == 0) {
             listMail.push(<ListItemText
