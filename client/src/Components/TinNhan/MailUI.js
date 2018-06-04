@@ -14,7 +14,11 @@ import ReplyIcon from '@material-ui/icons/Reply';
 
 
 
-
+import ExpansionPanel, {
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+} from 'material-ui/ExpansionPanel';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from 'material-ui';
 import { SMALL } from 'material-ui/utils/withWidth';
 import grey from 'material-ui/colors/grey'
@@ -55,7 +59,9 @@ class MailUI extends React.Component {
         this.state = {
             expanded: false,
             followed: false,
-            item: []
+            id: localStorage.getItem('id'),
+            items: [],
+            expanded: null
         };
     }
     componentDidMount() {
@@ -70,7 +76,6 @@ class MailUI extends React.Component {
         .then(
             (result) => {
                 this.setState({
-                    isLoaded: true,
                     items: result
                 });
             },
@@ -81,45 +86,93 @@ class MailUI extends React.Component {
             });
             })
     }
+    handleChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false,
+    });
+  };
+    MailView() {
+        let mailView = [];
+        for(var i=0; i< this.state.items.length; i++) {
+            var item = this.state.items[i];
+            if(i==0)
+                mailView.push(
+                    <Card>
+                        <CardHeader 
+                            avatar={
+                                <Avatar>
+                                    {item.sender}
+                                </Avatar>
+                            }
+                            action={
+                                <div>
+                                    <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>{item.dateTime}</Button>
+                                    <IconButton>
+                                        <ReplyIcon color="primary" />
+                                    </IconButton>
+                                </div>
+                            }
+                            title={item.senderName}
+                            subheader={item.subject}
+                        />
+                            <CardContent>
+                                <Typography>
+                                    {item.content}
+                                </Typography>
+                                <Grid container>
+
+                                    {item.attachments? item.attachments.map(att => (
+                                        <Grid item lg={3} md={4} sm={6} xs={12}> <AttachmentView fileName={att.fileName} fileLink={"public/"+att.fileName}/></Grid>
+                                    )):""}
+
+                                </Grid>  
+                            </CardContent>
+                    </Card>);
+            else
+                 mailView.push(
+                    <Card>
+                        <ExpansionPanel expanded={this.state.expanded === 'panel' + i.toString()} onChange={this.handleChange('panel' + i.toString())}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                            <CardHeader 
+                                avatar={
+                                    <Avatar>
+                                        {item.sender}
+                                    </Avatar>
+                                }
+                                action={
+                                    <div>
+                                        <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>{item.dateTime}</Button>
+                                    </div>
+                                }
+                                title={item.senderName}
+                                subheader={item.subject}
+                            />
+                        </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                            <CardContent>
+                                <Typography>
+                                    {item.content}
+                                </Typography>
+                                <Grid container>
+
+                                    {item.attachments? item.attachments.map(att => (
+                                        <Grid item lg={3} md={4} sm={6} xs={12}> <AttachmentView fileName={att.fileName} fileLink={"public/"+att.fileName}/></Grid>
+                                    )):""}
+
+                                </Grid>  
+                            </CardContent>
+                      </ExpansionPanelDetails>
+                </ExpansionPanel>
+                    </Card>);
+        }
+        return mailView;
+    }
+    
     render() {
         const { classes } = this.props;
         return (
             <div>
-                <Card className={classes.card}>
-                    <CardHeader
-                        avatar={
-                            <Avatar className={classes.avatar} src={this.props.avatar}>
-                                {this.props.avatar===""?this.props.senderName.substring(0,1):""}
-                            </Avatar>
-                        }
-                        action={
-                            <div>
-                                <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>{this.props.dateTime}</Button>
-                                <IconButton>
-                                    <ReplyIcon color="primary" />
-                                </IconButton>
-                            </div>
-                        }
-                        title={this.props.senderName}
-                        subheader={this.props.subject}
-                    />
-                        <CardContent>
-                            <Typography>
-                                {this.props.content}
-                            </Typography>
-                            <Grid container>
-                            
-                                {this.props.attachments? this.props.attachments.map(att => (
-                                    <Grid item lg={3} md={4} sm={6} xs={12}> <AttachmentView fileName={att.fileName} fileLink={"public/"+att.fileName}/></Grid>
-                                )):""}
-                            
-                            </Grid>
-                            
-                            
-                        </CardContent>
-
-
-                </Card>
+                    {this.MailView()}
             </div>
         );
     }

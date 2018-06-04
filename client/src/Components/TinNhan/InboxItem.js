@@ -32,7 +32,7 @@ class InboxItem extends React.Component {
                     </Avatar>
                     <ListItemText
                         primary= {this.props.sender}
-                        secondary= {this.props.title}
+                        secondary= {this.props.subject}
                     />
                     <ListItemSecondaryAction>
                         <Button>{this.props.sendTime}</Button>
