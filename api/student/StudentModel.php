@@ -32,7 +32,7 @@
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
         public function getReports($fieldsArr, $id){
-            $data = $this->db->doPreparedQuery("SELECT * FROM reports WHERE reports.studentID=?",array($id));
+            $data = $this->db->doPreparedQuery("SELECT * FROM reports r JOIN message m ON r.messageID = m.id WHERE r.studentID=?",array($id));
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
         public function getFixedInfo($fieldsArr, $id){

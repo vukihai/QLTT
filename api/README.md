@@ -6,7 +6,7 @@
 /api/student/{student-id}
 
 ### GET 
-1. GET thông tin STUDENT chung
+1. ?GET thông tin STUDENT chung
 - GET /api/student/{student-id} ?fields=id, avatar, skype, ...
 2. GET thông tin tài khoản
 - GET /api/student/{student-id}/my_account (done)
@@ -22,18 +22,19 @@
 - GET /api/student/{student-id}/follows (done)
 7. GET LIST các tin nhắn
 - GET /api/student/{student-id}/messages (done)
-- GET 1 tin nhắn
+- ?GET 1 tin nhắn
     - GET /api/messages/{message-id}
 8. ?GET LIST các thông báo
 - GET /api/student/{student-id}/notifications
 9. GET LIST các bài nộp báo cáo
 - GET /api/student/{student-id}/reports (done)
-- GET 1 báo cáo
+- ?GET 1 báo cáo
     - GET /api/reports/{report-id}
 
 ### PUT
 1. Sửa thông tin tự quản lí
-- PUT /api/student/{student-id} ?avatar={newAvatarUrl} & ...
+- PUT /api/student/{student-id} (done)
+bodyL ?avatar={newAvatarUrl} & ...
 2. Đổi mật khẩu (PUT bằng form-url-encoded)
 - PUT /api/student/{student-id}/my_account ?password={oldPassword} ?newPassword={newPassword} (done)
 
@@ -77,7 +78,7 @@ body: content={post-content} & exp={post-expiration-time} & ...
 1. GET LIST các bài đăng
 - GET /api/partner/{partner-id}/feed (done)
 2. GET thông tin của chính partner
-- GET /api/partner/{partner-id} ?fields=contact, ...
+- GET /api/partner/{partner-id}/info ?fields=contact, ...
 3. GET danh sách partner
 - GET /api/partner (done)
 

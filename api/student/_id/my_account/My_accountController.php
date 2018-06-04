@@ -24,8 +24,8 @@ require_once("student/StudentModel.php");
         }
         protected function _PUT() {
             $id = intval($this->nodeIds[0]);
-            isset($this->data['password'])?$password = $this->data['password']: null;
-            isset($this->data['newPassword'])?$newPassword = $this->data['newPassword']: null;
+            isset($this->data['password'])?$password = md5(md5($this->data['password'])): null;
+            isset($this->data['newPassword'])?$newPassword = md5(md5($this->data['newPassword'])): null;
             $model = new StudentModel();
             $result = $model->updatePassword($id,$password, $newPassword);
             $ret = array(
