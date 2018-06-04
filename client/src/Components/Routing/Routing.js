@@ -18,6 +18,8 @@ import NotFound from '../NotFound';
 import SearchPage from '../Page/Search';
 import Partner from '../Partner/Partner';
 import GiangVien from '../GiangVien/GiangVien';
+import MailForm from '../TinNhan/MailForm';
+import MailUI from '../TinNhan/MailUI';
 
 class RouteName extends Component {
     constructor(props) {
@@ -45,6 +47,8 @@ class RouteName extends Component {
                     <Route exact path='/hocvien' component={HocVienPage} />
                     <Route exact path='/baocao' component={BaoCaoPage} />
                     <Route exact path='/tinnhan' component={TinNhanPage} />
+                    <Route exact path='/guitinnhan' component={MailForm} />
+                    <Route exact path='/xemtinnhan/:id' component={MailUI} />
                     <Route exact path='/profile/changepass' component={ChangePassForm} />
                     <Route exact path='/profile/tab-:tab' render={(props) => <ProfileForm {...props} /> } />
                     <Route exact path='/profile' render={() => <Redirect to= '/profile/tab-0'/> } />

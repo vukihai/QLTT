@@ -54,11 +54,33 @@ class MailUI extends React.Component {
         super(props);
         this.state = {
             expanded: false,
-            followed: false
+            followed: false,
+            item: []
         };
     }
-    
-
+    componentDidMount() {
+        this.getMail();
+        var interval = setInterval(()=>{
+            this.getMail();
+        }, 5000);
+    }
+    getMail() {
+        fetch("http://localhost:80/QLTT/api/student/" + this.state.id + "/messages/" + this.props.match.params.id)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    isLoaded: true,
+                    items: result
+                });
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+            });
+            })
+    }
     render() {
         const { classes } = this.props;
         return (
