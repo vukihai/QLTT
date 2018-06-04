@@ -61,7 +61,7 @@ class MailUI extends React.Component {
             followed: false,
             id: localStorage.getItem('id'),
             items: [],
-            expanded: null
+            expanded: 'panel' + this.props.match.params.id
         };
     }
     componentDidMount() {
@@ -95,43 +95,9 @@ class MailUI extends React.Component {
         let mailView = [];
         for(var i=0; i< this.state.items.length; i++) {
             var item = this.state.items[i];
-            if(i==0)
-                mailView.push(
-                    <Card>
-                        <CardHeader 
-                            avatar={
-                                <Avatar>
-                                    {item.sender}
-                                </Avatar>
-                            }
-                            action={
-                                <div>
-                                    <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>{item.dateTime}</Button>
-                                    <IconButton>
-                                        <ReplyIcon color="primary" />
-                                    </IconButton>
-                                </div>
-                            }
-                            title={item.senderName}
-                            subheader={item.subject}
-                        />
-                            <CardContent>
-                                <Typography>
-                                    {item.content}
-                                </Typography>
-                                <Grid container>
-
-                                    {item.attachments? item.attachments.map(att => (
-                                        <Grid item lg={3} md={4} sm={6} xs={12}> <AttachmentView fileName={att.fileName} fileLink={"public/"+att.fileName}/></Grid>
-                                    )):""}
-
-                                </Grid>  
-                            </CardContent>
-                    </Card>);
-            else
                  mailView.push(
                     <Card>
-                        <ExpansionPanel expanded={this.state.expanded === 'panel' + i.toString()} onChange={this.handleChange('panel' + i.toString())}>
+                        <ExpansionPanel expanded={this.state.expanded === 'panel' + item.id.toString()} onChange={this.handleChange('panel' + item.id.toString())}>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <CardHeader 
                                 avatar={
@@ -163,7 +129,8 @@ class MailUI extends React.Component {
                             </CardContent>
                       </ExpansionPanelDetails>
                 </ExpansionPanel>
-                    </Card>);
+                    </Card>
+            );
         }
         return mailView;
     }
