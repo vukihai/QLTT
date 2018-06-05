@@ -18,7 +18,7 @@ const styles = theme => ({
     },
     media: {
         height: 0,
-        paddingTop: '56.25%', // 16:9
+        paddingTop: '25%', // 4:1
     },
     avatar: {
         backgroundColor: red[500],
@@ -33,34 +33,41 @@ class BaiDang extends React.Component {
             partnerName: "Not found",
             partnerAvatar: "",
             postTime: "",
+            exp: "",
             title: "Not found",
             content: "Bài viết bạn đang tìm kiếm hiện không có",
             image: ""
         }
     }
     componentDidMount() {
-        return fetch('http://localhost/QLTT/api/post/'+this.props.match.params.id)
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-                isLoading: false,
-                partnerName: responseJson.partnerName,
-                partnerAvatar: "",
-                postTime: responseJson.postTime,
-                title: responseJson.title,
-                content: responseJson.content,
-                image: responseJson.image
+        return fetch('http://localhost/QLTT/api/post/' + this.props.match.params.id)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    partnerName: responseJson.partnerName,
+                    partnerAvatar: "",
+                    postTime: responseJson.postTime,
+                    exp: responseJson.exp,
+                    title: responseJson.title,
+                    content: responseJson.content,
+                    image: responseJson.image
+                });
+            })
+            .catch((error) => {
+                console.error(error);
             });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+    }
     render() {
         const { classes } = this.props;
         return (
             <div>
                 <Card className={classes.card}>
+                    <CardMedia
+                        className={classes.media}
+                        image={this.state.image}
+                        title="Ảnh bìa của bài viết"
+                    />
                     <CardHeader
                         avatar={
                             <Avatar className={classes.avatar} src={this.state.partnerAvatar}>
@@ -68,10 +75,10 @@ class BaiDang extends React.Component {
                             </Avatar>
                         }
                         action={
-                            <div>
-                                <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0, marginRight: '5px' }}>{this.state.postTime}</Button>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0, marginRight: '5px' }}>{this.state.exp}</Button>
                                 {
-                                    (this.state.role != 3) ? (
+                                    (this.state.role != 0) ? (
                                         <IconButton onClick={this.handleFollowClick}>
                                             <MoreVertIcon color="primary" />
                                         </IconButton>
@@ -82,21 +89,13 @@ class BaiDang extends React.Component {
 
                             </div>
                         }
-                        title={<Typography variant="title">{this.state.partnerName}</Typography>}
+                        title={<Typography variant="title">{this.state.title}</Typography>}
                     />
                     <CardContent>
-                        <Typography variant="headline">
-                            {this.state.title}
-                        </Typography>
                         <Typography variant="subheading">
                             {this.state.content}
                         </Typography>
                     </CardContent>
-                    <CardMedia
-                        className={classes.media}
-                        image={this.state.image}
-                        title="Contemplative Reptile"
-                    />
                 </Card>
             </div>
         );

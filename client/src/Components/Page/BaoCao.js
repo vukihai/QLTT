@@ -7,6 +7,8 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AttachmentView from '../TinNhan/AttachmentView';
+import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -24,9 +26,28 @@ const styles = theme => ({
 });
 
 class BaoCaoPage extends React.Component {
-  state = {
-    expanded: null,
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: localStorage.getItem("id"),
+      expanded: null,
+      reportList: [],
+    };
+  }
+  componentDidMount() {
+    return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/reports?fields=id,weekStart,content,attachment')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          reportList: responseJson,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   handleChange = panel => (event, expanded) => {
     this.setState({
@@ -37,56 +58,39 @@ class BaoCaoPage extends React.Component {
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-
+    var panelID = 0;
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>30 Tháng một - 5 Tháng hai</Typography>
-            <Typography className={classes.secondaryHeading}>Đã nộp báo cáo</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nội dung báo cáo, file đính kèm
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>6 Tháng hai - 12 Tháng hai</Typography>
-            <Typography className={classes.secondaryHeading}>
-              Đã nộp báo cáo
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nội dung báo cáo, file đính kèm
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>13 Tháng hai - 19 Tháng hai</Typography>
-            <Typography className={classes.secondaryHeading}>
-              Đã nộp báo cáo
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nội dung báo cáo, file đính kèm
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>20 Tháng hai - 26 Tháng hai</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Form nhập báo cáo
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        {
+          this.state.reportList.length > 0 ? this.state.reportList.map(report => {
+            panelID++;
+            return (
+              <ExpansionPanel expanded={expanded === 'panel' + panelID} onChange={this.handleChange('panel' + panelID)}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography className={classes.heading}>Báo cáo tuần {panelID}</Typography>
+                  <Typography className={classes.secondaryHeading}>Bắt đầu ngày {report.weekStart} </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Grid container>
+                    <Grid item xs>
+                      <Typography> {report.content}</Typography>
+                    </Grid>
+                    {
+                      report.attachment != "" ? (
+                        <Grid item>
+                          <AttachmentView fileName={report.attachment} fileLink={"public/" + report.attachment} />
+                        </Grid>
+                      ):""
+                    }
+
+                  </Grid>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            )
+          }
+          ) : "Chưa có báo cáo nào"
+        }
+
       </div>
     );
   }

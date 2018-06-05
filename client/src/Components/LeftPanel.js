@@ -20,6 +20,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 
 const styles = theme => ({
     root: {
@@ -53,14 +54,15 @@ class LeftPanel extends React.Component {
         baidang: ["/baidang", false, <RssFeedIcon />, "Bài đăng"],
         theodoi: ["/theodoi", false, <StarIcon />, "Đang theo dõi"],
         giangvien: ["/giangvien", false, <SchoolIcon />, "Giảng viên"],
-        baocao: ["/baocao", false, <AssignmentIcon />, "Báo cáo"],
+        baocao: ["/baocao", false, <AssignmentIcon />, "Nộp báo cáo"],
+        tongket: ["/tongket", false, <VerifiedUserIcon />, "Tổng kết"],
         tinnhan: ["/tinnhan", false, <MailIcon />, "Tin nhắn"],
         hocvien: ["hocvien", false, <SchoolIcon />, "Học viên"],
         setting: ["setting", false, <SettingsIcon />, "Cài đặt"],
         help: ["help", false, <HelpIcon />, "Trợ giúp"],
     }
     pageForRole = {
-        0: [this.page.trangchu, this.page.baidang, this.page.theodoi, this.page.giangvien, this.page.baocao, this.page.tinnhan],
+        0: [this.page.trangchu, this.page.baidang, this.page.giangvien, this.page.theodoi, this.page.baocao, this.page.tongket, this.page.tinnhan],
         1: [this.page.trangchu, this.page.hocvien, this.page.tinnhan],
         2: [this.page.trangchu, this.page.baidang, this.page.theodoi, this.page.tinnhan],
         3: [],

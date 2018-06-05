@@ -20,6 +20,7 @@ import Partner from '../Partner/Partner';
 import GiangVien from '../GiangVien/GiangVien';
 import MailForm from '../TinNhan/MailForm';
 import MailUI from '../TinNhan/MailUI';
+import TongKetPage from '../Page/Tongket';
 
 class RouteName extends Component {
     constructor(props) {
@@ -46,6 +47,7 @@ class RouteName extends Component {
                     <Route exact path='/giangvien' component={GiangVienPage} />
                     <Route exact path='/hocvien' component={HocVienPage} />
                     <Route exact path='/baocao' component={BaoCaoPage} />
+                    <Route exact path='/tongket' component={TongKetPage} />
                     <Route exact path='/tinnhan' component={TinNhanPage} />
                     <Route exact path='/guitinnhan' component={MailForm} />
                     <Route exact path='/tinnhan/:id' component={MailUI} />
