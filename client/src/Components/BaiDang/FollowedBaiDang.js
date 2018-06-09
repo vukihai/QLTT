@@ -34,6 +34,12 @@ const styles = theme => ({
     avatar: {
         backgroundColor: red[500],
     },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
 });
 
 class FollowedBaiDang extends React.Component {
@@ -50,13 +56,6 @@ class FollowedBaiDang extends React.Component {
         return (
             <div>
                 <Card className={classes.card}>
-                    <Link to={"/baidang/1"} >
-                    <CardContent>
-                        <Typography variant="headline">
-                            Bầu Trời Xa Corporation tuyển nhân viên chụp ảnh các món ăn ngon trong nhà hàng để đăng lên fanpage, in lên trên thực đơn
-                        </Typography>                        
-                    </CardContent>
-                    </Link>
                     <CardHeader
                         avatar={
                             <Avatar aria-label="Recipe" className={classes.avatar}>
@@ -65,23 +64,20 @@ class FollowedBaiDang extends React.Component {
                         }
                         action={
                             <div>
-                                <Button size={SMALL} disabled style={{ minWidth: '0', padding: 0 }}>
+                                <Button variant="contained" size={SMALL} disabled={this.props.status != 1} className={classes.button}>
                                     {
-                                        this.props.status==0?"Không trúng tuyển":
-                                        this.props.status==1?"Đã theo dõi":
-                                        this.props.status==2?"Chờ phỏng vấn":
-                                        this.props.status==3?"Đã trúng tuyển":"ERR"
+                                        this.props.status == 1 ? <FavoriteIcon className={classes.leftIcon} color={this.state.followed ? "secondary" : "primary"} />:""
+                                    }
+                                    {
+                                        this.props.status == 0 ? "Không trúng tuyển" :
+                                            this.props.status == 1 ? "Đã theo dõi" :
+                                                this.props.status == 2 ? "Chờ phỏng vấn" :
+                                                    this.props.status == 3 ? "Đã trúng tuyển" : "ERR"
                                     }
                                 </Button>
-                                <IconButton onClick={this.handleFollowClick}>
-                                {
-                                        (this.props.status==0 || this.props.status==3)?"":<FavoriteIcon color="primary" color={this.state.followed ? "secondary" : "primary"} />
-                                }
-                                </IconButton>
                             </div>
                         }
-                        title="Bầu Trời Xa Corporation"
-                        subheader="April 26, 2018"
+                        title={<Link to={"/baidang/1"} ><Typography variant="title">Bầu Trời Xa Corporation tuyển nhân viên chụp ảnh các món ăn ngon trong nhà hàng để đăng lên fanpage, in lên trên thực đơn</Typography></Link>}
                     />
 
                 </Card>

@@ -48,7 +48,13 @@ class GiangVien extends React.Component {
             </div>
             <div style={{ textAlign: 'right' }}>
                 <Button variant="raised" className={classes.button}>
-                  Lựa chọn
+                  NCKH
+                </Button>
+                <Button variant="raised" className={classes.button}>
+                  Thực tập
+                </Button>
+                <Button variant="raised" color="primary" className={classes.button}>
+                  Nhắn tin
                 </Button>
             </div>
           </div>
