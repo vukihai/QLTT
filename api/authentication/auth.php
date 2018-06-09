@@ -16,7 +16,7 @@ class Auth {
             try {
                 $this->tokenContent = $this->decode($token);
             } catch(Exception $e) {
-                // chưa fix dc
+                // ****
                 die();
             }
         }
@@ -53,25 +53,41 @@ class Auth {
         } else {
             $ip_address = $_SERVER['REMOTE_ADDR'];
         }
-        if($user_agent == $this->tokenContent["user-agent"] && $ip_address == $this->tokenContent["ip"]) {
-            return true;
-        } else {
+        if(!($user_agent == $this->tokenContent["user-agent"] && $ip_address == $this->tokenContent["ip"])) {
             return false;
         }
+        return true;
     }
-    public function proc() {
-        // phân tích uri và xác minh quyền tại đây
-        if(isset($_GET["accessToken"])) {
-            if($this->validateToken()) {
-                echo 'token is valid';
-            } else {
-                echo 'token is invalid';
+    private function validateId() {
+        // xác minh id
+        $id;
+        $nodePathArr = explode('/', trim($_SERVER['PATH_INFO'],'/'));
+        foreach($nodePathArr as $node) {
+            if(is_numeric($node)) {
+                $id = $node;
+                break;
             }
         }
-        
-        
-        
-        
-        
+        if(!($id == $this->tokenContent["id"])) {
+            return false;
+        }
+        return true;
+    }
+    public function proc() {
+        if(!($_SERVER['PATH_INFO'] =="/login/")) {
+            if(isset($_GET["accessToken"])) {
+                if(!$this->validateToken()) {
+                    echo '{"token": "token invalid"}';
+                    die();
+                }
+                if(!$this->validateId()) {
+                    echo '{"token": "access denied"}';
+                    die();
+                }
+            } else {
+                echo '{"token": "token not found"}';
+                die();
+            }
+        }
     }
 }

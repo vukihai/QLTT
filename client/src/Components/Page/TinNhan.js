@@ -21,6 +21,7 @@ const styles = theme => ({
 class TinNhanPage extends React.Component {
     state = {
         id: localStorage.getItem('id'),
+        token: localStorage.getItem('token'),
         items: []
     }
 
@@ -32,7 +33,7 @@ class TinNhanPage extends React.Component {
     }
 
     getMail() {
-        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id)
+        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id +"?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {

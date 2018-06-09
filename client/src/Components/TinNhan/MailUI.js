@@ -11,7 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
 import ReplyIcon from '@material-ui/icons/Reply';
-
+import {NavLink } from "react-router-dom";
 
 
 import ExpansionPanel, {
@@ -50,9 +50,8 @@ const styles = theme => ({
     },
     avatar: {
         backgroundColor: red[500],
-    },
+    }
 });
-
 class MailUI extends React.Component {
     constructor(props){
         super(props);
@@ -60,6 +59,7 @@ class MailUI extends React.Component {
             expanded: false,
             followed: false,
             id: localStorage.getItem('id'),
+            token: localStorage.getItem('token'),
             items: [],
             expanded: 'panel' + this.props.match.params.id
         };
@@ -71,7 +71,7 @@ class MailUI extends React.Component {
         }, 5000);
     }
     getMail() {
-        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id + "/m/" + this.props.match.params.id)
+        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id + "/m/" + this.props.match.params.id +"?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {
@@ -139,7 +139,17 @@ class MailUI extends React.Component {
         const { classes } = this.props;
         return (
             <div>
+                <h1>
+                    &nbsp;
+                    <NavLink to={"/tinnhan/" + this.props.match.params.id + "/reply"}>
+                        <Button variant="raised" color="primary" className={classes.button} style={{"float": "right"}}>
+                        Trả lời
+                        </Button>
+                    </NavLink>
+                </h1>
+                <div className={classes.root}>
                     {this.MailView()}
+                </div>
             </div>
         );
     }
