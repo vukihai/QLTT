@@ -20,7 +20,7 @@ class RouteName extends Component {
                     <Route path='/baocao' render={() => { document.title = "Báo cáo - Quản lí thực tập"; return <div>Báo cáo</div>} } />
                     <Route path='/tinnhan' render={() => { document.title = "Tin nhắn - Quản lí thực tập"; return <div>Tin nhắn</div>} } />
                     <Route path='/guitinnhan' render={() => { document.title = "Gửi tin nhắn - Quản lí thực tập"; return <div>Gửi tin nhắn</div>} } />
-                    <Route path='/xemtinnhan' render={() => { document.title = "Xem tin nhắn - Quản lí thực tập"; return <div>Xem tin nhắn</div>} } />
+                    <Route path='/tinnhan' render={() => { document.title = "Tin nhắn - Quản lí thực tập"; return <div>Tin nhắn</div>} } />
                     <Route path='/profile' render={() => { document.title = "Hồ sơ - Quản lí thực tập"; return <div>Hồ sơ</div>} } />
                 </Switch>
             </div>

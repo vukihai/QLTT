@@ -65,9 +65,12 @@ class TinNhanPage extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <h1> Hộp thư <Button variant="raised" color="primary" className={classes.button} style={{"float": "right"}}>
-            Soạn thư mới
-                </Button>
+                <h1> Hộp thư 
+                <NavLink to={"/guitinnhan/"}>
+                    <Button variant="raised" color="primary" className={classes.button} style={{"float": "right"}}>
+                        Soạn thư mới
+                    </Button>
+                </NavLink>
             </h1>
                 <div className={classes.root}>
                     <List>

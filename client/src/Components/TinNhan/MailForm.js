@@ -7,7 +7,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import { TextField, Button, IconButton } from 'material-ui';
 import AttachmentFIle from './AttachmentFIle';
-
+import SimpleSnackbar from'./SimpleSnackbar';
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
@@ -21,15 +21,65 @@ const styles = theme => ({
 
 class MailForm extends React.Component {
   state = {
-    receiver : "16020925",
-    subject: "Hỏi về cách gửi mail",
-    content: "GỬi thế nào nhỉ?",
+    id: localStorage.getItem('id'),
+    receiver : "",
+    parent: null,
+    subject: "",
+    content: "",
+    attachment: "",
+    items: "",
+    snackbar: ""
   }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
+  send() {
+    var data = new FormData();
+    data.append("receiver", this.state.receiver);
+      data.append("subject", this.state.subject);
+      data.append("content", this.state.content);
+      data.append("parent", this.state.parent);
+    fetch("http://localhost:80/QLTT/api/messages/" + this.state.id.toString(), {
+          method: 'POST',
+          body: data
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+         if(!("error" in this.state.items)) {
+                this.setState({
+                    snackbar: null
+                  });
+                 this.setState({
+                    snackbar: <SimpleSnackbar mess={"gửi thành công"}/>
+                  });
+                setTimeout(function() {
+                    1+1;
+                }, 2000);
+                this.props.history.push('/tinnhan');
+            } else {
+                this.setState({
+                    snackbar: null
+                  });
+                 this.setState({
+                    snackbar: <SimpleSnackbar mess={this.state.items.error}/>
+                  });
+            }
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -67,7 +117,7 @@ class MailForm extends React.Component {
                 fullWidth
             />
             <AttachmentFIle fileName="attachment.docx" fileSize="12kb"/>
-          <Button variant="raised" color="primary" className={classes.button}>
+          <Button variant="raised" color="primary" className={classes.button} onClick={() => {this.send()}}>
             Gửi
           </Button>
           <input
@@ -85,6 +135,7 @@ class MailForm extends React.Component {
         </form>
 
         </Paper>
+        {this.state.snackbar}
       </div>
     );
   }

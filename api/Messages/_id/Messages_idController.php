@@ -5,7 +5,11 @@ require_once("messages/MessagesModel.php");
 
     class Messages_idController extends NodeController {
         protected function _POST() {
-            
+            $std_id = intval($this->nodeIds[0]);
+            $messageBody = array("receiver" => $_POST[receiver], "subject" => $_POST[subject], "content" =>$_POST[content], "parent" => intval($_POST[parent]));
+            $model = new MessagesModel();
+            $res = $model->newMessage($std_id, $messageBody);
+            $this->response('200', $res);
         }
         protected function _GET() {
             // xử lí input
