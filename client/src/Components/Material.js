@@ -140,7 +140,7 @@ class MaterialDrawer extends React.Component {
         const open = Boolean(anchorEl);
 
         return (
-            <Router>
+            <Router onUpdate={() => window.scrollTo(0, 0)}>
                 <div className={classes.root}>
                     {/* Top bar */}
                     <AppBar
