@@ -60,7 +60,7 @@ class Auth {
     }
     private function validateId() {
         // xác minh id
-        $id;
+        $id = -1;
         $nodePathArr = explode('/', trim($_SERVER['PATH_INFO'],'/'));
         foreach($nodePathArr as $node) {
             if(is_numeric($node)) {
@@ -68,6 +68,7 @@ class Auth {
                 break;
             }
         }
+        if($id == -1) return true;
         if(!($id == $this->tokenContent["id"])) {
             return false;
         }
