@@ -13,7 +13,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 // định danh và phân quyền
 $auth = new \authentication\Auth;
-$auth->proc();
+//$auth->proc();
 
 
 // định tuyến

@@ -42,12 +42,15 @@ class Notification extends React.Component {
             id: localStorage.getItem('id'),
             token: localStorage.getItem('token'),
             items: [],
+            numOfUnread: []
         };
     }
     componentDidMount() {
         this.getNoti();
+        this.getNumOfUnread();
         var interval = setInterval(()=>{
             this.getNoti();
+            this.getNumOfUnread();
         }, 50000);
     }
     getNoti() {
@@ -66,13 +69,51 @@ class Notification extends React.Component {
             });
             })
     }
-
+    getNumOfUnread() {
+        fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"/NumOfUnread?accessToken=" + this.state.token)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    numOfUnread: result
+                });
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+            });
+            })
+    }
+    read() {
+        var data = new FormData();
+        data.append("readID", 0);
+        fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"/?accessToken=" + this.state.token, {
+          method: 'POST',
+          body: data
+        })
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    numOfUnread: result
+                });
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+            });
+            })
+        this.getNoti();
+        this.getNumOfUnread();
+    }
     notiView() {
         let notiView = [];
         for(var i=0; i< this.state.items.length; i++) {
             var item = this.state.items[i];
                  notiView.push(
-                    <NavLink to={item.url}>
+                    <NavLink to={item.url} onClick={() =>{this.read()}}>
                         <ListItem button>
                             <ListItemAvatar>
                               <Avatar>
@@ -120,7 +161,7 @@ class Notification extends React.Component {
                 onClick={this.handleToggle}
                 color="inherit"
               >
-                <Badge className={classes.margin} badgeContent={this.state.items.length} color="secondary">
+                <Badge className={classes.margin} badgeContent={this.state.numOfUnread.numOfUnread} color="secondary">
                   <NotificationsIcon />
                 </Badge>
 
