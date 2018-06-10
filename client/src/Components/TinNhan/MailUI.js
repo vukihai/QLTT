@@ -68,7 +68,7 @@ class MailUI extends React.Component {
         this.getMail();
         var interval = setInterval(()=>{
             this.getMail();
-        }, 5000);
+        }, 50000);
     }
     getMail() {
         fetch("http://localhost:80/QLTT/api/messages/" + this.state.id + "/m/" + this.props.match.params.id +"?accessToken=" + this.state.token)

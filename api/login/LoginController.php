@@ -19,10 +19,12 @@ require_once("LoginModel.php");
                 $role = $loginModel->getUserRole();
 		        $id = $loginModel->getId();
                 $lastLogin = $loginModel->getLastLogin();
+                $fullName = $loginModel->getfullName();
                 $responseContent = array("id" => $id,
 					"role" => $role,
                                         "lastLogin" =>$lastLogin,
-                                         "accessToken" => $accessToken
+                                         "accessToken" => $accessToken,
+                                         "fullName" => $fullName
                                         );
                 $this->response("200", $responseContent);
             }  

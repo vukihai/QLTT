@@ -35,6 +35,13 @@ const styles = theme => ({
 });
 
 class AccountPanel extends React.Component {
+  constructor(props){
+        super(props);
+        this.state = {
+            fullName: localStorage.getItem("fullName"),
+            username: localStorage.getItem("username"),
+        };
+    }
   state = {
     open: false,
   };
@@ -92,8 +99,8 @@ class AccountPanel extends React.Component {
                         </Avatar>
                     </div>
                     <div style={{ flex: '1' }}>
-                      <Typography variant="subheading" style={{ fontWeight: 'bold' }}>Phạm Ngọc Duy</Typography>
-                      <Typography>16020925@vnu.edu.vn</Typography>
+                      <Typography variant="subheading" style={{ fontWeight: 'bold' }}>{this.state.fullName}</Typography>
+                      <Typography>{this.state.username}@vnu.edu.vn</Typography>
                     </div>
                   </div>
                   <MenuList role="menu">

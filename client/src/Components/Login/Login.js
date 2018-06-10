@@ -36,6 +36,8 @@ class LoginPage extends React.Component {
           localStorage.setItem('lastLogin', this.state.items.lastLogin);
           localStorage.setItem('id', this.state.items.id);
           localStorage.setItem('logedin', true);
+          localStorage.setItem('fullName', this.state.items.fullName);
+          localStorage.setItem('username', this.state.username);
       } else {
           this.state.errorMessage = this.state.items.error;
       }

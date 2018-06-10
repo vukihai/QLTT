@@ -10,6 +10,7 @@ import Paper from 'material-ui/Paper';
 import Portal from 'material-ui/Portal';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import { withStyles } from 'material-ui/styles';
+import {NavLink } from "react-router-dom";
 
 import IconButton from 'material-ui/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -34,10 +35,60 @@ const styles = theme => ({
 });
 
 class Notification extends React.Component {
-  state = {
-    open: false,
-  };
+    constructor(props){
+        super(props);
+        this.state = {
+            open: false,
+            id: localStorage.getItem('id'),
+            token: localStorage.getItem('token'),
+            items: [],
+        };
+    }
+    componentDidMount() {
+        this.getNoti();
+        var interval = setInterval(()=>{
+            this.getNoti();
+        }, 50000);
+    }
+    getNoti() {
+        fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"?accessToken=" + this.state.token)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    items: result
+                });
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+            });
+            })
+    }
 
+    notiView() {
+        let notiView = [];
+        for(var i=0; i< this.state.items.length; i++) {
+            var item = this.state.items[i];
+                 notiView.push(
+                    <NavLink to={item.url}>
+                        <ListItem button>
+                            <ListItemAvatar>
+                              <Avatar>
+                                <NotificationsIcon />
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={item.content}
+                              secondary={item.time}
+                            />
+                          </ListItem>
+                    </NavLink>
+            );
+        }
+        return notiView;
+    }
   handleToggle = () => {
     this.setState({ open: !this.state.open });
   };
@@ -69,7 +120,7 @@ class Notification extends React.Component {
                 onClick={this.handleToggle}
                 color="inherit"
               >
-                <Badge className={classes.margin} badgeContent={4} color="secondary">
+                <Badge className={classes.margin} badgeContent={this.state.items.length} color="secondary">
                   <NotificationsIcon />
                 </Badge>
 
@@ -96,28 +147,7 @@ class Notification extends React.Component {
                   </div>
                   <div>
                     <List dense={false}>
-                      <ListItem button>
-                        <ListItemAvatar>
-                          <Avatar>
-                            <NotificationsIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary="Bạn đã trúng tuyển vào thực tập cho Bầu Trời Xa Corporation trong 6 tháng"
-                          secondary="12:59 22/05/2018"
-                        />
-                      </ListItem>
-                      <ListItem button>
-                        <ListItemAvatar>
-                          <Avatar>
-                            <NotificationsIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary="Giảng viên Lê Đình Thanh đã xác nhận bạn làm học viên của mình"
-                          secondary="12:29 22/05/2018"
-                        />
-                      </ListItem>
+                      {this.notiView()}
                     </List>
                   </div>
                   <MenuList role="menu">

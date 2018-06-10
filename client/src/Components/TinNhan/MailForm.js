@@ -22,6 +22,7 @@ const styles = theme => ({
 class MailForm extends React.Component {
   state = {
     id: localStorage.getItem('id'),
+    token: localStorage.getItem('token'),
     receiver : "",
     parent: null,
     subject: "",
@@ -41,7 +42,7 @@ class MailForm extends React.Component {
       data.append("subject", this.state.subject);
       data.append("content", this.state.content);
       data.append("parent", this.state.parent);
-    fetch("http://localhost:80/QLTT/api/messages/" + this.state.id.toString(), {
+    fetch("http://localhost:80/QLTT/api/messages/" + this.state.id.toString() +"?accessToken=" + this.state.token, {
           method: 'POST',
           body: data
       })

@@ -29,11 +29,11 @@ class TinNhanPage extends React.Component {
         this.getMail();
         var interval = setInterval(()=>{
             this.getMail();
-        }, 5000);
+        }, 50000);
     }
 
     getMail() {
-        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id +"?accessToken=" + this.state.token)
+        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id  +"?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {

@@ -12,6 +12,7 @@
         private $userRole;
         private $lastLogin;
         private $id;
+        private $fullName;
         public function __construct() {
 			$this->db = new core\data\model\PDOData();
         }
@@ -25,7 +26,7 @@
         */
         public function login($userName, $encrypted_password) {
             $userAccount = array($userName, $encrypted_password);
-            $data = $this->db->doPreparedQuery("SELECT vnuID, role, lastLogin FROM VNUaccount WHERE username = ? AND password = ?",$userAccount);
+            $data = $this->db->doPreparedQuery("SELECT vnuID, role, lastLogin, fullName FROM VNUaccount WHERE username = ? AND password = ?",$userAccount);
             if(count($data) == 1) {
                 $tokenData = array();
                 $tokenData["id"] = $data[0][vnuID];
@@ -39,6 +40,7 @@
                 $this->id = $data[0][vnuID];
                 $this->userRole = $data[0]["role"];
                 $this->lastLogin = $data[0]["lastLogin"];
+                $this->fullName = $data[0]["fullName"];
             } else {
                 return false;
                 exit();
@@ -57,6 +59,9 @@
         }
         public function getLastLogin() {
             return $this->lastLogin;
+        }
+        public function getfullName() {
+            return $this->fullName;
         }
         /*
         *   Hàm này trả lại IP của client.
