@@ -9,7 +9,7 @@ import Button from 'material-ui/Button';
 
 import Typography from 'material-ui/Typography';
 
-const color = ['#00887a', '#3F51B5','#778f9b','#414141', '#eb3f79', '#1d87e4','#a900ff', '#378d3b', '#e53935', '#00abc0', '#ff6f42'];
+const color = ['#00887a', '#3F51B5', '#778f9b', '#414141', '#eb3f79', '#1d87e4', '#a900ff', '#378d3b', '#e53935', '#00abc0', '#ff6f42'];
 const styles = theme => ({
     media: {
         height: 0,
@@ -20,16 +20,16 @@ const styles = theme => ({
     }
 });
 
-class ThumbnailGiangVien extends React.Component { 
-    constructor(props){
+class ThumbnailGiangVien extends React.Component {
+    constructor(props) {
         super(props);
     }
     render() {
         const { classes } = this.props;
         return (
             <div>
-                
-                <Card style={{width: this.props.fixedWidth? '230px':'100%', backgroundColor: color[parseInt(this.props.lecturerID)%11]}}>
+
+                <Card style={{ width: this.props.fixedWidth ? '230px' : '100%', backgroundColor: color[parseInt(this.props.lecturerID) % 11] }}>
                     <CardMedia
                         className={classes.media}
                         image="http://anhdep.pro/wp-content/uploads/2015/09/phong-canh-rung-nui-2.jpg"
@@ -40,18 +40,16 @@ class ThumbnailGiangVien extends React.Component {
                             {this.props.lecturerName}
                         </Typography>
                     </CardContent>
-                    <CardActions style={{color: 'yellow'}}>
-                        <Button size="small" color="inherit" onClick={() => alert('Bạn đã chọn '+this.props.lecturerName)}>
-                            Lựa chọn
-                        </Button>
-                        <Link to={'/giangvien/'+this.props.lecturerID} style={{color: 'white'}}>
-                            <Button size="small" color="inherit">
-                                Xem thông tin
-                            </Button>
+                    <CardActions style={{ color: 'yellow' }}>
+                        <Link to={'/giangvien/' + this.props.lecturerID} style={{ color: 'yellow' }}>
+                            <Button size="small" color="inherit">Lựa chọn </Button>
+                        </Link>
+                        <Link to={'/giangvien/' + this.props.lecturerID} style={{ color: 'white' }}>
+                            <Button size="small" color="inherit">Xem thông tin</Button>
                         </Link>
                     </CardActions>
                 </Card>
-                
+
             </div>
         );
     }

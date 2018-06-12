@@ -21,6 +21,7 @@ import GiangVien from '../GiangVien/GiangVien';
 import MailForm from '../TinNhan/MailForm';
 import MailUI from '../TinNhan/MailUI';
 import TongKetPage from '../Page/Tongket';
+import FileUpload from '../Test/FIleUpload';
 
 class RouteName extends Component {
     constructor(props) {
@@ -33,18 +34,19 @@ class RouteName extends Component {
         return (
             <div>
                 <Switch>
+                    <Route exact path='/fileupload' component={FileUpload} />
                     <Route exact path='/' component={HomePage} />
                     <Route exact path='/timkiem' component={SearchPage} />
-                    <Route exact path='/baidang' component={this.state.role ==0 ? BaiDangPage : this.state.role ==2 ? BaiDangPartnerPage : NotFound} />
-                    <Route exact path='/baidang/new' component={this.state.role ==2 ? NewPostForm: NotFound} />
+                    <Route exact path='/baidang' component={this.state.role == 0 ? BaiDangPage : this.state.role == 2 ? BaiDangPartnerPage : NotFound} />
+                    <Route exact path='/baidang/new' component={this.state.role == 2 ? NewPostForm : NotFound} />
                     <Route exact path='/baidang/partner' component={PartnerList} />
-                    <Route exact path='/baidang/:id' render={(props) => <BaiDang {...props} /> } />
-                    <Route exact path='/theodoi' component={this.state.role ==0 ? StudentTheoDoiPage : HocVienPage} />
-                    <Route exact path='/partner/:id/tab-:tab' render={(props) => <Partner {...props} /> } />
-                    <Route exact path='/partner/:id' render={(props) => <Redirect to= {'/partner/' +props.match.params.id+ '/tab-0'} /> } />
-                    <Route exact path='/giangvien/:id/tab-:tab' render={(props) => <GiangVien {...props} /> } />
-                    <Route exact path='/giangvien/:id' render={(props) => <Redirect to= {'/giangvien/' +props.match.params.id+ '/tab-0'} /> } />
-                    <Route exact path='/sinhvien/:id/tab-:tab' render={(props) => <StudentProfileForm {...props} /> } />
+                    <Route exact path='/baidang/:id' render={(props) => <BaiDang {...props} />} />
+                    <Route exact path='/theodoi' component={this.state.role == 0 ? StudentTheoDoiPage : HocVienPage} />
+                    <Route exact path='/partner/:id/tab-:tab' render={(props) => <Partner {...props} />} />
+                    <Route exact path='/partner/:id' render={(props) => <Redirect to={'/partner/' + props.match.params.id + '/tab-0'} />} />
+                    <Route exact path='/giangvien/:id/tab-:tab' render={(props) => <GiangVien {...props} />} />
+                    <Route exact path='/giangvien/:id' render={(props) => <Redirect to={'/giangvien/' + props.match.params.id + '/tab-0'} />} />
+                    <Route exact path='/sinhvien/:id/tab-:tab' render={(props) => <StudentProfileForm {...props} />} />
                     <Route exact path='/giangvien' component={GiangVienPage} />
                     <Route exact path='/hocvien' component={HocVienPage} />
                     <Route exact path='/baocao' component={BaoCaoPage} />
@@ -55,8 +57,8 @@ class RouteName extends Component {
                     <Route exact path='/guitinnhan/:receiver/:subject' component={MailForm} />
                     <Route exact path='/tinnhan/:id' component={MailUI} />
                     <Route exact path='/profile/changepass' component={ChangePassForm} />
-                    <Route exact path='/profile/tab-:tab' render={(props) => this.state.role==0?<StudentProfileForm {...props} />:this.state.role==1?<GiangVien {...props} />:this.state.role==2?<Partner {...props} />: <NotFound />} />
-                    <Route exact path='/profile' render={() => <Redirect to= '/profile/tab-0'/> } />
+                    <Route exact path='/profile/tab-:tab' render={(props) => this.state.role == 0 ? <StudentProfileForm {...props} /> : this.state.role == 1 ? <GiangVien {...props} /> : this.state.role == 2 ? <Partner {...props} /> : <NotFound />} />
+                    <Route exact path='/profile' render={() => <Redirect to='/profile/tab-0' />} />
                 </Switch>
             </div>
         );

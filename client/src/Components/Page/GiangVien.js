@@ -31,7 +31,7 @@ class GiangVienPage extends Component {
         {this.state.selected?(
           <Redirect to= {'/giangvien/1/tab-0'} />
         ): (
-          <LecturerList selectLecturer={this.selectLecturer}/>
+          <LecturerList/>
         )}
         
       </div>

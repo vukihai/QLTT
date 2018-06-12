@@ -7,6 +7,7 @@ class StudentTheoDoiPage extends Component {
     super(props);
     this.state = {
       tab: 0,
+      id: localStorage.getItem("id"),
       data: [],
     }
   }
@@ -51,32 +52,13 @@ class StudentTheoDoiPage extends Component {
           </Tabs>
         </div>
         <div>
-
-          {(this.state.tab == 0 || this.state.tab == 1) &&
-            <div>
-              <FollowedBaiDang status={1} id={1} partnerName={"Bầu Trời Xa"} title="tuyển nhân viên giặt là ủi" />
-              {/*more here*/}
-            </div>
+          {
+            this.state.data.map(post => (this.state.tab == 0 || this.state.tab == post.status || (this.state.tab == 4 && post.status == 0)) &&
+              <div>
+                <FollowedBaiDang status={post.status} id={post.postId} partnerName={post.partnerName} title={post.title} />
+                {/*more here*/}
+              </div>)
           }
-          {(this.state.tab == 0 || this.state.tab == 2) &&
-            <div>
-              <FollowedBaiDang status={2} id={2} partnerName={"SAMSUNG"} title="tuyển sinh viên thử độ bền điện thoại"/>
-              {/*more here*/}
-            </div>
-          }
-          {(this.state.tab == 0 || this.state.tab == 3) &&
-            <div>
-              <FollowedBaiDang status={3} id={3} partnerName={"SAMSUNG"} title="tuyển sinh viên thử độ bền điện thoại"/>
-              {/*more here*/}
-            </div>
-          }
-          {(this.state.tab == 0 || this.state.tab == 4) &&
-            <div>
-              <FollowedBaiDang status={0} id={4} partnerName={"SAMSUNG"} title="tuyển sinh viên thử độ bền điện thoại"/>
-              {/*more here*/}
-            </div>
-          }
-
         </div>
       </div>
     );

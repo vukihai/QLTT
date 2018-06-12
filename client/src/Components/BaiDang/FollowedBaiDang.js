@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import StarIcon from '@material-ui/icons/Star';
 import { Button } from 'material-ui';
 import { SMALL } from 'material-ui/utils/withWidth';
 
@@ -45,6 +46,7 @@ const styles = theme => ({
 class FollowedBaiDang extends React.Component {
     state = {
         followed: true,
+        selected: false,
     };
 
     handleFollowClick = () => {
@@ -64,15 +66,18 @@ class FollowedBaiDang extends React.Component {
                         }
                         action={
                             <div>
-                                <Button variant="contained" size={SMALL} disabled={this.props.status != 1} className={classes.button}>
+                                <Button variant="contained" size={SMALL} disabled={this.props.status == 0} className={classes.button}>
                                     {
-                                        this.props.status == 1 ? <FavoriteIcon className={classes.leftIcon} color={this.state.followed ? "secondary" : "primary"} />:""
+                                        this.props.status == 1 ? <StarIcon className={classes.leftIcon} color={this.state.followed ? "primary" : "action"} />:""
+                                    }
+                                    {
+                                        this.props.status == 3 ? <FavoriteIcon className={classes.leftIcon} color={this.state.selected ? "primary" : "action"} />:""
                                     }
                                     {
                                         this.props.status == 0 ? "Không trúng tuyển" :
-                                            this.props.status == 1 ? "Đã theo dõi" :
+                                            this.props.status == 1 ? (this.state.followed?"Đã theo dõi":"Theo dõi") :
                                                 this.props.status == 2 ? "Chờ phỏng vấn" :
-                                                    this.props.status == 3 ? "Đã trúng tuyển" : "ERR"
+                                                    this.props.status == 3 ? (this.state.selected?"Đã lựa chọn":"Lựa chọn thực tập") : "ERR"
                                     }
                                 </Button>
                             </div>
