@@ -33,7 +33,7 @@ class HobbiesInfoForm extends React.Component {
         this.update = this.update.bind(this);
     }
     componentDidMount() {
-        return fetch('http://localhost/QLTT/api/student/' + localStorage.getItem('id') + '/')
+        return fetch('http://localhost/QLTT/api/student/' + this.props.id + '/?accessToken=' + localStorage.getItem("token"))
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -54,7 +54,7 @@ class HobbiesInfoForm extends React.Component {
         for (var k in sendData) {
             formData.append(k, sendData[k]);
         }
-        return fetch('http://localhost/QLTT/api/student/' + localStorage.getItem('id') + '/', {
+        return fetch('http://localhost/QLTT/api/student/' + this.props.id + '/?accessToken=' + localStorage.getItem("token"), {
             method: 'POST',
             headers: {
             },
@@ -70,14 +70,16 @@ class HobbiesInfoForm extends React.Component {
     }
 
     handleChange = name => event => {
-        const ATTname = name;
-        const ATTvalue = event.target.value;
-        this.setState(prevState => ({
-            data: {
-                ...prevState.data,
-                [ATTname]: ATTvalue,
-            }
-        }));
+        if (this.props.editable) {
+            const ATTname = name;
+            const ATTvalue = event.target.value;
+            this.setState(prevState => ({
+                data: {
+                    ...prevState.data,
+                    [ATTname]: ATTvalue,
+                }
+            }));
+        }
     };
     render() {
         const { classes } = this.props;
@@ -105,17 +107,19 @@ class HobbiesInfoForm extends React.Component {
                         <TextField
                             id="note"
                             label="note"
-                            multiLine
-                            rows="6"
                             value={this.state.data.note}
                             onChange={this.handleChange('note')}
+                            multiline
+                            rows="10"
                             margin="normal"
                             fullWidth
                         />
                     </form>
-                    <Button variant="raised" color="primary" className={classes.button} onClick={this.update}>
-                        Cập nhật
-          </Button>
+                    {
+                        this.props.editable?
+                        <Button variant="raised" color="primary" className={classes.button} onClick={this.update}>Cập nhật</Button>
+                        : ""
+                    }
 
                 </Paper>
             </div>

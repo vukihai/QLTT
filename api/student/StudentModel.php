@@ -41,7 +41,7 @@
         }
         public function updatePassword($id,$oldPassword,$newPassword){
             //return $this->db->doPreparedSql("UPDATE vnuaccount SET password = ? WHERE vnuaccount.vnuID = ?",array($newPassword,$id));
-            return $this->db->doSql("UPDATE vnuaccount SET password = ".$newPassword." WHERE vnuaccount.vnuID = ".$id." AND vnuaccount.password = ".$oldPassword);
+            return $this->db->doSql("UPDATE vnuaccount SET password = '".$newPassword."' WHERE vnuaccount.vnuID = ".$id." AND vnuaccount.password = '".$oldPassword."'");
         }
     }
 ?>

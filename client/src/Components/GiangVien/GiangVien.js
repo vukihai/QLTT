@@ -23,10 +23,67 @@ class GiangVien extends React.Component {
     this.state = {
       isLoading: true,
       tab: this.props.match.params.tab ? parseInt(this.props.match.params.tab) : 0,
+      id: this.props.match.params.id ? this.props.match.params.id : localStorage.getItem("id"),
+      updateButtonEnable: this.props.match.params.id ? (this.props.match.params.id == localStorage.getItem("id") ? true : false) : true,
+      data: {
+        name: "LECTURER NOT AVAILABLE",
+        VNUmail: "API GET: /api/lecturer/:id/ FAILED",
+        gmail: "loading...",
+        note: "loading...",
+      }
     }
+    this.update = this.update.bind(this);
+  }
+  componentDidMount() {
+    return fetch('http://localhost/QLTT/api/lecturer/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"))
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          data: responseJson,
+        }, function () {
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  update() {
+    var formData = new FormData();
+    var sendData = this.state.data;
+    for (var k in sendData) {
+      formData.append(k, sendData[k]);
+    }
+    return fetch('http://localhost/QLTT/api/lecturer/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"), {
+      method: 'POST',
+      headers: {
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson.success ? "success" : responseJson.err)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   handleTabChange = (event, value) => {
     this.setState({ tab: value });
+  };
+  handleChange = name => event => {
+    if (this.state.updateButtonEnable) {
+      const ATTname = name;
+      const ATTvalue = event.target.value;
+      this.setState(prevState => ({
+        data: {
+          ...prevState.data,
+          [ATTname]: ATTvalue,
+        }
+      }));
+    }
   };
   componentWillReceiveProps(nextProps) {
     nextProps.match.params.tab ? this.setState({ tab: parseInt(nextProps.match.params.tab) }) : 0;
@@ -39,23 +96,29 @@ class GiangVien extends React.Component {
           <div style={{ display: 'flex', padding: '16px', alignItems: 'center' }}>
             <div style={{ marginRight: '16px' }}>
               <Avatar style={{ backgroundColor: red[500], width: '80px', height: '80px' }}>
-                L
+                {this.state.data.name.substr(0, 1)}
               </Avatar>
             </div>
             <div style={{ flex: '1' }}>
-              <Typography variant="display1" style={{ fontWeight: 'bold' }}>Lê Đình Thanh</Typography>
-              <Typography>Giảng viên trường Đại học Công Nghệ </Typography>
+              <Typography variant="display1" style={{ fontWeight: 'bold' }}>{this.state.data.name}</Typography>
+              <Typography> {this.state.data.VNUmail}</Typography>
             </div>
             <div style={{ textAlign: 'right' }}>
-                <Button variant="raised" className={classes.button}>
-                  NCKH
-                </Button>
-                <Button variant="raised" className={classes.button}>
-                  Thực tập
-                </Button>
-                <Button variant="raised" color="primary" className={classes.button}>
-                  Nhắn tin
-                </Button>
+              {
+                this.state.updateButtonEnable ? (
+                  <Link to="/profile/changepass">
+                    <Button variant="raised" color="primary" className={classes.button}>
+                      Đổi mật khẩu tài khoản
+                      </Button>
+                  </Link>
+                ) : (
+                    <div>
+                      <Button variant="raised" color="primary" className={classes.button}> NCKH </Button>
+                      <Button variant="raised" color="primary" className={classes.button}>Thực tập</Button>
+                      <Button variant="raised" className={classes.button}>Nhắn tin</Button>
+                    </div>
+                  )
+              }
             </div>
           </div>
           <div>
@@ -67,32 +130,60 @@ class GiangVien extends React.Component {
               scrollable
               scrollButtons="auto"
             >
-              <Link to={'/giangvien/'+this.props.match.params.id+'/tab-0'}>
-                <Tab label="Thông tin" />
+              <Link to={'tab-0'}>
+                <Tab label="Thông tin liên hệ" />
               </Link>
-              <Link to={'/giangvien/'+this.props.match.params.id+'/tab-1'}>
-                <Tab label="Liên hệ" />
+              <Link to={'tab-1'}>
+                <Tab label="Giới thiệu" />
               </Link>
             </Tabs>
           </div>
         </div>
         <div>
-          {
-            this.state.tab === 0 && (
-                <Paper className={classes.root} elevation={4}>
-                    Các thông tin cơ bản về thầy chẳng hạn :3
-                    + Chuyên ngành
-                    + Giải thưởng
-                </Paper>
-            )
-          }
-          {
-            this.state.tab === 1 && (
-                <Paper className={classes.root} elevation={4}>
-                    Các thông tin ở đây: VNUmail, gmail, SĐT, ...
-                </Paper>
-            )
-          }
+          <Paper className={classes.root} elevation={4}>
+            {
+              this.state.tab === 0 && (
+                <form>
+                  <TextField
+                    id="VNUmail"
+                    label="Địa chỉ VNUmail"
+                    value={this.state.data.VNUmail}
+                    onChange={this.handleChange('VNUmail')}
+                    margin="normal"
+                    fullWidth
+                  />
+                  <TextField
+                    id="gmail"
+                    label="Địa chỉ Gmail"
+                    value={this.state.data.gmail}
+                    onChange={this.handleChange('gmail')}
+                    margin="normal"
+                    fullWidth
+                  />
+                </form>
+
+              )
+            }
+            {
+              this.state.tab === 1 && (
+                <TextField
+                  id="note"
+                  label="Giới thiệu"
+                  value={this.state.data.note}
+                  onChange={this.handleChange('note')}
+                  multiline
+                  rows="10"
+                  margin="normal"
+                  fullWidth
+                />
+              )
+            }
+            {
+              this.state.updateButtonEnable ?
+                <Button variant="raised" color="primary" className={classes.button} onClick={this.update}>Cập nhật</Button>
+                : ""
+            }
+          </Paper>
         </div>
       </div>
     );
