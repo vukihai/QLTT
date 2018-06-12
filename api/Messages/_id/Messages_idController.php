@@ -5,6 +5,16 @@ require_once("messages/MessagesModel.php");
 
     class Messages_idController extends NodeController {
         protected function _POST() {
+            $data = $_POST;
+            $ret = array();
+            foreach ($_POST as $key => $value) {
+                if (!isset($value) || $value =="") {
+                    $ret = array("error"=>"chưa đủ thông tin");
+                    $this->response('200', $ret);
+                    return;
+                }
+            }
+            
             $std_id = intval($this->nodeIds[0]);
             $messageBody = array("receiver" => $_POST[receiver], "subject" => $_POST[subject], "content" =>$_POST[content], "parent" => intval($_POST[parent]));
             $model = new MessagesModel();

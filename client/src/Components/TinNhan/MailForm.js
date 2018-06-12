@@ -23,14 +23,15 @@ class MailForm extends React.Component {
   state = {
     id: localStorage.getItem('id'),
     token: localStorage.getItem('token'),
-    receiver : "",
+    receiver : this.props.match.params.receiver,
     parent: null,
-    subject: "",
+    subject: this.props.match.params.subject,
     content: "",
     attachment: "",
     items: "",
     snackbar: ""
   }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,

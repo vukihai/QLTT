@@ -141,7 +141,7 @@ class MailUI extends React.Component {
             <div>
                 <h1>
                     &nbsp;
-                    <NavLink to={"/tinnhan/" + this.props.match.params.id + "/reply"}>
+                    <NavLink to={"/guitinnhan/"}>
                         <Button variant="raised" color="primary" className={classes.button} style={{"float": "right"}}>
                         Trả lời
                         </Button>

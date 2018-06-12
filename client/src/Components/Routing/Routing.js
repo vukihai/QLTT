@@ -51,8 +51,9 @@ class RouteName extends Component {
                     <Route exact path='/tongket' component={TongKetPage} />
                     <Route exact path='/tinnhan' component={TinNhanPage} />
                     <Route exact path='/guitinnhan' component={MailForm} />
+                    <Route exact path='/guitinnhan/:receiver' component={MailForm} />
+                    <Route exact path='/guitinnhan/:receiver/:subject' component={MailForm} />
                     <Route exact path='/tinnhan/:id' component={MailUI} />
-                    <Route path='/tinnhan/:id/reply' component={MailForm} />
                     <Route exact path='/profile/changepass' component={ChangePassForm} />
                     <Route exact path='/profile/tab-:tab' render={(props) => this.state.role==0?<StudentProfileForm {...props} />:this.state.role==1?<GiangVien {...props} />:this.state.role==2?<Partner {...props} />: <NotFound />} />
                     <Route exact path='/profile' render={() => <Redirect to= '/profile/tab-0'/> } />
