@@ -57,9 +57,9 @@ class LeftPanel extends React.Component {
         baocao: ["/baocao", false, <AssignmentIcon />, "Nộp báo cáo"],
         tongket: ["/tongket", false, <VerifiedUserIcon />, "Tổng kết"],
         tinnhan: ["/tinnhan", false, <MailIcon />, "Tin nhắn"],
-        hocvien: ["hocvien", false, <SchoolIcon />, "Học viên"],
-        setting: ["setting", false, <SettingsIcon />, "Cài đặt"],
-        help: ["help", false, <HelpIcon />, "Trợ giúp"],
+        hocvien: ["/hocvien", false, <SchoolIcon />, "Học viên"],
+        setting: ["/setting", false, <SettingsIcon />, "Cài đặt"],
+        help: ["/help", false, <HelpIcon />, "Trợ giúp"],
     }
     pageForRole = {
         0: [this.page.trangchu, this.page.baidang, this.page.giangvien, this.page.theodoi, this.page.baocao, this.page.tongket, this.page.tinnhan],

@@ -7,27 +7,45 @@ import Grid from '@material-ui/core/Grid';
 import ThumbnailPartner from '../Partner/ThumbnailPartner';
 
 const styles = theme => ({
-    
+
 });
 
 class PartnerList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            data: [],
+        }
+    }
+    componentDidMount() {
+        return fetch('http://web.bautroixa.vn/api/partner/?accessToken=' + localStorage.getItem("token"))
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                    isLoading: false,
+                    data: responseJson,
+                }, function () {
+                });
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
     render() {
         const { classes } = this.props;
         return (
             <div>
                 <Grid container spacing={8}>
-                    <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={1} partnerName="Bầu Trời Xa Corp" />
-                    </Grid>
-                    <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={2} partnerName="Bầu Trời Xa Corp" />
-                    </Grid>
-                    <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={3} partnerName="Bầu Trời Xa Corp" />
-                    </Grid>
-                    <Grid item lg={3} md={4} sm={6} xs={12}>
-                        <ThumbnailPartner partnerID={4} partnerName="Bầu Trời Xa Corp" />
-                    </Grid>
+                    {
+                        this.state.data.map(partner => (
+                            <Grid item lg={3} md={4} sm={6} xs={12}>
+                                <ThumbnailPartner partnerID={partner.id} partnerName={partner.name} />
+                            </Grid>
+                        ))
+                    }
                 </Grid>
             </div>
         );

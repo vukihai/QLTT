@@ -9,7 +9,7 @@ import GiangVienPage from '../Page/GiangVien';
 import BaoCaoPage from '../Page/BaoCao';
 import TinNhanPage from '../Page/TinNhan';
 import HomePage from '../Page/Home';
-import ProfileForm from '../Profile/Profile';
+import StudentProfileForm from '../Profile/Profile';
 import ChangePassForm from '../Profile/ChangePass';
 import BaiDang from '../BaiDang/BaiDang';
 import HocVienPage from '../Page/HocVien';
@@ -45,6 +45,7 @@ class RouteName extends Component {
                     <Route exact path='/partner/:id' render={(props) => <Redirect to= {'/partner/' +props.match.params.id+ '/tab-0'} /> } />
                     <Route exact path='/giangvien/:id/tab-:tab' render={(props) => <GiangVien {...props} /> } />
                     <Route exact path='/giangvien/:id' render={(props) => <Redirect to= {'/giangvien/' +props.match.params.id+ '/tab-0'} /> } />
+                    <Route exact path='/sinhvien/:id/tab-:tab' render={(props) => <StudentProfileForm {...props} /> } />
                     <Route exact path='/giangvien' component={GiangVienPage} />
                     <Route exact path='/hocvien' component={HocVienPage} />
                     <Route exact path='/baocao' component={BaoCaoPage} />
@@ -54,7 +55,7 @@ class RouteName extends Component {
                     <Route exact path='/tinnhan/:id' component={MailUI} />
                     <Route path='/tinnhan/:id/reply' component={MailForm} />
                     <Route exact path='/profile/changepass' component={ChangePassForm} />
-                    <Route exact path='/profile/tab-:tab' render={(props) => <ProfileForm {...props} /> } />
+                    <Route exact path='/profile/tab-:tab' render={(props) => this.state.role==0?<StudentProfileForm {...props} />:this.state.role==1?<GiangVien {...props} />:this.state.role==2?<Partner {...props} />: <NotFound />} />
                     <Route exact path='/profile' render={() => <Redirect to= '/profile/tab-0'/> } />
                     <Route path='/a' component={MyEditor} />
                 </Switch>

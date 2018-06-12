@@ -21,18 +21,40 @@ const styles = theme => ({
   }),
 });
 
-class ProfileForm extends React.Component {
+class StudentProfileForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
+      id: this.props.match.params.id ? parseInt(this.props.match.params.id) : localStorage.getItem("id"),
+      updateButtonEnable: this.props.match.params.id ? (this.props.match.params.id == localStorage.getItem("id") ? true : false) : true,
       tab: this.props.match.params.tab ? parseInt(this.props.match.params.tab) : 0,
+      data: {
+        hoten: "",
+        VNUmail: "",
+      },
     }
   }
   handleTabChange = (event, value) => {
     this.setState({ tab: value });
   };
+  componentDidMount() {
+    return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/fixed_info?accessToken=' + localStorage.getItem("token"))
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          data: responseJson,
+        }, function () {
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   componentWillReceiveProps(nextProps) {
     nextProps.match.params.tab ? this.setState({ tab: parseInt(nextProps.match.params.tab) }) : 0;
   }
@@ -48,12 +70,12 @@ class ProfileForm extends React.Component {
               </Avatar>
             </div>
             <div style={{ flex: '1' }}>
-              <Typography variant="display1" style={{ fontWeight: 'bold' }}>Phạm Ngọc Duy</Typography>
-              <Typography>16020925@vnu.edu.vn</Typography>
+              <Typography variant="display1" style={{ fontWeight: 'bold' }}>{this.state.data.hoten}</Typography>
+              <Typography>{this.state.data.VNUmail}</Typography>
             </div>
             <div style={{ textAlign: 'right' }}>
               <Link to="/profile/changepass">
-                <Button variant="raised" className={classes.button}>
+                <Button variant="raised" color="primary" className={classes.button}>
                   Đổi mật khẩu tài khoản
                       </Button>
               </Link>
@@ -68,16 +90,16 @@ class ProfileForm extends React.Component {
               scrollable
               scrollButtons="auto"
             >
-              <Link to="/profile/tab-0">
+              <Link to="tab-0">
                 <Tab label="Thông tin chung" />
               </Link>
-              <Link to="/profile/tab-1">
+              <Link to="tab-1">
                 <Tab label="Liên hệ" />
               </Link>
-              <Link to="/profile/tab-2">
+              <Link to="tab-2">
                 <Tab label="Kỹ năng" />
               </Link>
-              <Link to="/profile/tab-3">
+              <Link to="tab-3">
                 <Tab label="Sở thích" />
               </Link>
             </Tabs>
@@ -86,22 +108,22 @@ class ProfileForm extends React.Component {
         <div>
           {
             this.state.tab === 0 && (
-              <GeneralInfoForm />
+              <GeneralInfoForm id={this.state.id} editable={this.state.updateButtonEnable} />
             )
           }
           {
             this.state.tab === 1 && (
-              <ContactInfoForm />
+              <ContactInfoForm id={this.state.id} editable={this.state.updateButtonEnable} />
             )
           }
           {
             this.state.tab === 2 && (
-              <SkillInfoForm />
+              <SkillInfoForm id={this.state.id} editable={this.state.updateButtonEnable} />
             )
           }
           {
             this.state.tab === 3 && (
-              <HobbiesInfoForm />
+              <HobbiesInfoForm id={this.state.id} editable={this.state.updateButtonEnable} />
             )
           }
         </div>
@@ -110,8 +132,8 @@ class ProfileForm extends React.Component {
   }
 }
 
-ProfileForm.propTypes = {
+StudentProfileForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProfileForm);
+export default withStyles(styles)(StudentProfileForm);

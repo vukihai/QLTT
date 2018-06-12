@@ -15,6 +15,7 @@ class RouteName extends Component {
                     <Route path='/baidang' render={() => { document.title = "Bài Đăng - Quản lí thực tập"; return <div>Bài Đăng</div>} } />
                     <Route path='/theodoi' render={() => {document.title = "Đang theo dõi - Quản lí thực tập"; return <div>Theo dõi</div>} } />
                     <Route path='/giangvien' render={() => { document.title = "Giảng viên - Quản lí thực tập"; return <div>Giảng viên</div>} } />
+                    <Route path='/sinhvien' render={() => { document.title = "Sinh viên - Quản lí thực tập"; return <div>Sinh viên</div>} } />
                     <Route path='/partner' render={() => { document.title = "Partner - Quản lí thực tập"; return <div>Partner</div>} } />
                     <Route path='/hocvien' render={() => { document.title = "Học viên - Quản lí thực tập"; return <div>Học viên</div>} } />
                     <Route path='/baocao' render={() => { document.title = "Báo cáo - Quản lí thực tập"; return <div>Báo cáo</div>} } />

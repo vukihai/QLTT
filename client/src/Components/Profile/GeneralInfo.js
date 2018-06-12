@@ -24,6 +24,7 @@ class GeneralInfoForm extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
+            id: this.props.id,
             data: {
                 studentID: "",
                 msv: "",
@@ -40,7 +41,7 @@ class GeneralInfoForm extends React.Component {
         }
     }
     componentDidMount() {
-        return fetch('http://localhost/QLTT/api/student/' + localStorage.getItem('id') + '/fixed_info?accessToken='+localStorage.getItem("token"))
+        return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/fixed_info?accessToken='+localStorage.getItem("token"))
             .then((response) => response.json())
             .then((responseJson) => {
 
