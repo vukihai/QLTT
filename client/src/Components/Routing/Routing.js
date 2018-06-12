@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
 import BaiDangPage from '../Page/BaiDang';
+import MyEditor from '../BaiDang/MyEditor.js';
 import BaiDangPartnerPage from '../PartnerPage/BaiDang';
 import TheoDoiPage from '../Page/TheoDoi';
 import GiangVienPage from '../Page/GiangVien';
@@ -55,6 +56,7 @@ class RouteName extends Component {
                     <Route exact path='/profile/changepass' component={ChangePassForm} />
                     <Route exact path='/profile/tab-:tab' render={(props) => <ProfileForm {...props} /> } />
                     <Route exact path='/profile' render={() => <Redirect to= '/profile/tab-0'/> } />
+                    <Route path='/a' component={MyEditor} />
                 </Switch>
             </div>
         );

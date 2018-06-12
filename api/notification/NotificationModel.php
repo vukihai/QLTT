@@ -12,10 +12,10 @@
             return $data;
         }
         public function readID($id, $notiID) {
-            $data = $this->db->doPreparedQuery("UPDATE notifications SET seen = 1 WHERE receiverID = ?",array( $id));
+            $data = $this->db->doPreparedQuery("UPDATE notifications SET seen = 1 WHERE id = ? ANDreceiverID = ?",array($notiID, $id));
         }
         public function getNumOfUnread($id) {
-            $data = $this->db->doPreparedQuery("select count_noti FROM (SELECT *,COUNT(*) AS count_noti FROM notifications GROUP BY receiverID) as R1 WHERE receiverID = ? AND seen = 0 ",array($id));
+            $data = $this->db->doPreparedQuery("select count_noti FROM (SELECT *,COUNT(*) AS count_noti FROM notifications GROUP BY receiverID, seen ) as R1 WHERE receiverID = ? AND seen = 0 ",array($id));
             $numOfNoti = $data[0]['count_noti'];
             if($numOfNoti == null) return 0;
             return $numOfNoti;

@@ -86,8 +86,10 @@ class Notification extends React.Component {
             })
     }
     read() {
+        alert(JSON.parse(this.props));
+        var _id = 0;
         var data = new FormData();
-        data.append("readID", 0);
+        data.append("readID", _id);
         fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"/?accessToken=" + this.state.token, {
           method: 'POST',
           body: data
@@ -113,7 +115,7 @@ class Notification extends React.Component {
         for(var i=0; i< this.state.items.length; i++) {
             var item = this.state.items[i];
                  notiView.push(
-                    <NavLink to={item.url} onClick={() =>{this.read()}}>
+                    <NavLink to={item.url} onClick={() =>{this.read()}} >
                         <ListItem button>
                             <ListItemAvatar>
                               <Avatar>
