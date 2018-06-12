@@ -36,7 +36,7 @@ class BaiDang extends React.Component {
             postTime: "",
             exp: "",
             title: "Not found",
-            content: "Bài viết bạn đang tìm kiếm hiện không có",
+            content: "<p>Bài viết bạn đang tìm kiếm hiện không có</p>",
             image: ""
         }
     }
@@ -94,7 +94,7 @@ class BaiDang extends React.Component {
                     />
                     <CardContent>
                         <Typography variant="subheading">
-                            {this.state.content}
+                            <div dangerouslySetInnerHTML={{__html: this.state.content}} />
                         </Typography>
                     </CardContent>
                 </Card>
