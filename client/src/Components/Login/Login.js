@@ -47,7 +47,7 @@ class LoginPage extends React.Component {
       var data = new FormData();
       data.append("username", this.state.username);
       data.append("password", this.state.password);
-      fetch("http://localhost:80/QLTT/api/login/", {
+      fetch("http://qltt.vn/api/login/", {
           method: 'POST',
           body: data
       })

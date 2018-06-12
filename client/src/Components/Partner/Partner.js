@@ -37,7 +37,7 @@ class Partner extends React.Component {
     this.update = this.update.bind(this);
   }
   componentDidMount() {
-    fetch('http://localhost/QLTT/api/partner/' + this.state.id + '/info')
+    fetch('http://qltt.vn/api/partner/' + this.state.id + '/info')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -52,7 +52,7 @@ class Partner extends React.Component {
         });
         console.error(error);
       });
-    fetch('http://localhost/QLTT/api/partner/' + this.state.id + '/feed?fields=id,partnerName,image,title,postTime,exp')
+    fetch('http://qltt.vn/api/partner/' + this.state.id + '/feed?fields=id,partnerName,image,title,postTime,exp')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -70,7 +70,7 @@ class Partner extends React.Component {
     for (var k in sendData) {
       formData.append(k, sendData[k]);
     }
-    return fetch('http://web.bautroixa.vn/api/partner/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"), {
+    return fetch('http://qltt.vn/api/partner/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"), {
       method: 'POST',
       headers: {
       },

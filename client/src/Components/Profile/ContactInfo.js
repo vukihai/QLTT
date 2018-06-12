@@ -36,7 +36,7 @@ class ContactInfoForm extends React.Component {
         this.update = this.update.bind(this);
     }
     componentDidMount() {
-        return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"))
+        return fetch('http://qltt.vn/api/student/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"))
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -58,7 +58,7 @@ class ContactInfoForm extends React.Component {
         for (var k in sendData) {
             formData.append(k, sendData[k]);
         }
-        return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"), {
+        return fetch('http://qltt.vn/api/student/' + this.state.id + '/?accessToken=' + localStorage.getItem("token"), {
             method: 'POST',
             headers: {
             },

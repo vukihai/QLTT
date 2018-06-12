@@ -54,7 +54,7 @@ class Notification extends React.Component {
         }, 50000);
     }
     getNoti() {
-        fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"?accessToken=" + this.state.token)
+        fetch("http://qltt.vn/api/notification/" + this.state.id +"?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {
@@ -70,7 +70,7 @@ class Notification extends React.Component {
             })
     }
     getNumOfUnread() {
-        fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"/NumOfUnread?accessToken=" + this.state.token)
+        fetch("http://qltt.vn/api/notification/" + this.state.id +"/NumOfUnread?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {
@@ -90,7 +90,7 @@ class Notification extends React.Component {
         var _id = 0;
         var data = new FormData();
         data.append("readID", _id);
-        fetch("http://localhost:80/QLTT/api/notification/" + this.state.id +"/?accessToken=" + this.state.token, {
+        fetch("http://qltt/api/notification/" + this.state.id +"/?accessToken=" + this.state.token, {
           method: 'POST',
           body: data
         })

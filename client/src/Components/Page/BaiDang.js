@@ -29,7 +29,7 @@ class BaiDangPage extends Component {
     }
   }
   componentDidMount() {
-    fetch('http://localhost/QLTT/api/post/?fields=id,partnerName,image,title,postTime,exp')
+    fetch('http://qltt.vn/api/post/?fields=id,partnerName,image,title,postTime,exp')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -40,7 +40,7 @@ class BaiDangPage extends Component {
       .catch((error) => {
         console.error(error);
       });
-    fetch('http://localhost/QLTT/api/partner/')
+    fetch('http://qltt.vn/api/partner/')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

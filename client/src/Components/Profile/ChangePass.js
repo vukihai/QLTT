@@ -40,7 +40,7 @@ class ChangePassForm extends React.Component {
     var formData = new FormData();
     formData.append("password", this.state.password);
     formData.append("newPassword", this.state.newPass);
-    return fetch('http://localhost/QLTT/api/student/' + localStorage.getItem("id") + '/my_account', {
+    return fetch('http://qltt.vn/api/student/' + localStorage.getItem("id") + '/my_account', {
       method: 'POST',
       headers: {
       },

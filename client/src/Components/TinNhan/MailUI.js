@@ -71,7 +71,7 @@ class MailUI extends React.Component {
         }, 50000);
     }
     getMail() {
-        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id + "/m/" + this.props.match.params.id +"?accessToken=" + this.state.token)
+        fetch("http://qltt.vn/api/messages/" + this.state.id + "/m/" + this.props.match.params.id +"?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {

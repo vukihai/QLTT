@@ -59,7 +59,7 @@ class FollowedBaiDang extends React.Component {
                     <CardHeader
                         avatar={
                             <Avatar aria-label="Recipe" className={classes.avatar}>
-                                B
+                                { (''+this.props.partnerName).substr(0,1) }
                             </Avatar>
                         }
                         action={
@@ -77,7 +77,7 @@ class FollowedBaiDang extends React.Component {
                                 </Button>
                             </div>
                         }
-                        title={<Link to={"/baidang/1"} ><Typography variant="title">Bầu Trời Xa Corporation tuyển nhân viên chụp ảnh các món ăn ngon trong nhà hàng để đăng lên fanpage, in lên trên thực đơn</Typography></Link>}
+                        title={<Link to={"/baidang/"+this.props.id} ><Typography variant="title">{this.props.title}</Typography></Link>}
                     />
 
                 </Card>

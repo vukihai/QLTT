@@ -9,6 +9,7 @@ import 'react-quill/dist/quill.snow.css';
 
 import { TextField, Button, IconButton } from 'material-ui';
 import AttachmentFIle from '../TinNhan/AttachmentFIle';
+
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
@@ -50,7 +51,7 @@ class NewPostForm extends React.Component {
     for (var k in sendData) {
       formData.append(k, sendData[k]);
     }
-    return fetch('http://localhost/QLTT/api/partner/' + localStorage.getItem('id') + '/feed', {
+    return fetch('http://qltt.vn/api/partner/' + localStorage.getItem('id') + '/feed', {
       method: 'POST',
       headers: {
       },

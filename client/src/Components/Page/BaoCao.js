@@ -49,7 +49,7 @@ class BaoCaoPage extends React.Component {
     return this.resetHMS(thisDate);
   }
   componentDidMount() {
-    return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/reports?accessToken=' + localStorage.getItem("token") + '&fields=id,weekStart,content,attachment')
+    return fetch('http://qltt.vn/api/student/' + this.state.id + '/reports?accessToken=' + localStorage.getItem("token") + '&fields=id,weekStart,content,attachment')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -58,7 +58,7 @@ class BaoCaoPage extends React.Component {
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
   }
 
@@ -70,7 +70,6 @@ class BaoCaoPage extends React.Component {
   renderReportList() {
     const { classes } = this.props;
     const { expanded } = this.state;
-    console.log(this.state.reportList[0])
     var ret = [], count = 0;
     var weekCount = (this.weekStartConvert(new Date().toString(), 0) - this.weekStartConvert(this.state.periodStart, 0)) / 604800000;
     for (var i = 0; i <= weekCount; i++) {

@@ -41,7 +41,7 @@ class BaiDang extends React.Component {
         }
     }
     componentDidMount() {
-        return fetch('http://localhost/QLTT/api/post/' + this.props.match.params.id)
+        return fetch('http://qltt.vn/api/post/' + this.props.match.params.id)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({

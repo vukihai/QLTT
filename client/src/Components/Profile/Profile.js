@@ -40,7 +40,7 @@ class StudentProfileForm extends React.Component {
     this.setState({ tab: value });
   };
   componentDidMount() {
-    return fetch('http://localhost/QLTT/api/student/' + this.state.id + '/fixed_info?accessToken=' + localStorage.getItem("token"))
+    return fetch('http://qltt.vn/api/student/' + this.state.id + '/fixed_info?accessToken=' + localStorage.getItem("token"))
       .then((response) => response.json())
       .then((responseJson) => {
 

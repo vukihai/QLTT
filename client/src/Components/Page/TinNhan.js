@@ -33,7 +33,7 @@ class TinNhanPage extends React.Component {
     }
 
     getMail() {
-        fetch("http://localhost:80/QLTT/api/messages/" + this.state.id  +"?accessToken=" + this.state.token)
+        fetch("http://qltt.vn/api/messages/" + this.state.id  +"?accessToken=" + this.state.token)
         .then(res => res.json())
         .then(
             (result) => {

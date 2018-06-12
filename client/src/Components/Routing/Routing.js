@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 
 import BaiDangPage from '../Page/BaiDang';
 import BaiDangPartnerPage from '../PartnerPage/BaiDang';
-import TheoDoiPage from '../Page/TheoDoi';
+import StudentTheoDoiPage from '../Page/TheoDoi';
 import GiangVienPage from '../Page/GiangVien';
 import BaoCaoPage from '../Page/BaoCao';
 import TinNhanPage from '../Page/TinNhan';
@@ -39,7 +39,7 @@ class RouteName extends Component {
                     <Route exact path='/baidang/new' component={this.state.role ==2 ? NewPostForm: NotFound} />
                     <Route exact path='/baidang/partner' component={PartnerList} />
                     <Route exact path='/baidang/:id' render={(props) => <BaiDang {...props} /> } />
-                    <Route exact path='/theodoi' component={this.state.role ==0 ? TheoDoiPage : HocVienPage} />
+                    <Route exact path='/theodoi' component={this.state.role ==0 ? StudentTheoDoiPage : HocVienPage} />
                     <Route exact path='/partner/:id/tab-:tab' render={(props) => <Partner {...props} /> } />
                     <Route exact path='/partner/:id' render={(props) => <Redirect to= {'/partner/' +props.match.params.id+ '/tab-0'} /> } />
                     <Route exact path='/giangvien/:id/tab-:tab' render={(props) => <GiangVien {...props} /> } />
