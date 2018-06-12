@@ -21,18 +21,44 @@ function createData(name, msv, dateOfBirth, GPA, baoCaoLink) {
     return { id, name, msv, dateOfBirth, GPA, baoCaoLink };
 }
 
-const data = [
-    createData('Phạm Nguyên', 10000001, '13/11/1998', 3.75, 'xem'),
-    createData('Phạm Nguyên', 10000002, '13/11/1998', 3.75, 'xem'),
-    createData('Phạm Nguyên', 10000003, '13/11/1998', 3.75, 'xem'),
-    createData('Phạm Nguyên', 10000004, '13/11/1998', 3.75, 'xem'),
-    createData('Phạm Nguyên', 10000005, '13/11/1998', 3.75, 'xem'),
-    createData('Phạm Nguyên', 10000006, '13/11/1998', 3.75, 'xem'),
-    createData('Phạm Nguyên', 10000007, '13/11/1998', 3.75, 'xem'),
-];
-
 class TableSinhVien extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          id:localStorage.getItem('id'),
+          isLoading: false,
+          jsonData: [],
+          data: [
+          ]
+        }
+    }
+    dumbData() {
+        var dat = [];
+        for(var i = 0; i<this.state.jsonData.length; i++) {
+            var stu = this.state.jsonData[i];
+            dat.push(createData(stu.fullName, stu.username, stu.ngaysinh, stu.diemTB, 'xem'));
+        }
+        this.setState({
+          data: dat
+        })
+    }
+    componentDidMount() {
+        fetch('http://qltt.vn/api/lecturer/' + this.state.id + '/liststudent/?accessToken=' + localStorage.getItem("token"))
+          .then((response) => response.json())
+          .then((responseJson) => {
 
+            this.setState({
+              isLoading: false,
+              jsonData: responseJson,
+            }, function () {
+            });
+                    this.dumbData();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        
+    }
     render() {
         const { classes } = this.props;
 
@@ -50,7 +76,7 @@ class TableSinhVien extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map(n => {
+                        {this.state.data.map(n => {
                             return (
                                 <TableRow key={n.id}>
                                     <TableCell>{n.id}</TableCell>
