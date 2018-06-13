@@ -22,16 +22,20 @@ const styles = theme => ({
 });
 
 class NewPostForm extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       title: "Bầu Trời Xa tuyển thực tập code php",
       content: "<br><br><br><br><br><br>",
+      imageFile: '',
+      imageSize: '',
     };
     this.create = this.create.bind(this);
+    this.upload = this.upload.bind(this);
+    this.deleteImage = this.deleteImage.bind(this);
     this.contentChange = this.contentChange.bind(this)
   }
-  
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -39,6 +43,39 @@ class NewPostForm extends React.Component {
   };
   contentChange(value) {
     this.setState({ content: value });
+  }
+  deleteImage(){
+    this.setState({
+      imageFile: '',
+      imageSize: '',
+    })
+  }
+  handleFileChange(selectorFiles) {
+    this.setState({
+      imageFile: "Đang tải lên",
+      imageSize: '...',
+    })
+    this.upload(selectorFiles[0]);
+  }
+  upload(upFile) {
+    var formData = new FormData();
+    formData.append("upfile", upFile);
+    return fetch('http://qltt.vn/api/upload/?accessToken=' + localStorage.getItem("token"), {
+      method: 'POST',
+      headers: {
+      },
+      body: formData,
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        responseJson.err?alert(responseJson.err):null;
+        this.setState({
+          imageFile: responseJson.data.name,
+          imageSize: responseJson.data.size,
+        })
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   create() {
     var formData = new FormData();
@@ -83,29 +120,32 @@ class NewPostForm extends React.Component {
               margin="normal"
               fullWidth
             />
-            <div style={{"color": "rgba(0, 0, 0, 0.54)", "font-size": 13}}>nội dung</div>
-            <ReactQuill 
-                theme="snow"
-                modules={{
+            <div style={{ "color": "rgba(0, 0, 0, 0.54)", "font-size": 13 }}>Nội dung</div>
+            <ReactQuill
+              theme="snow"
+              modules={{
                 toolbar: [
                   [{ 'header': [1, 2, false] }],
-                  ['bold', 'italic', 'underline','strike', 'blockquote'],
-                  [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                  ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                  [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
                   ['link', 'image'],
                   ['clean']
-                        ],
-                      }}
-                formats={[
-                        'header',
-                        'bold', 'italic', 'underline', 'strike', 'blockquote',
-                        'list', 'bullet', 'indent',
-                        'link', 'image'
-                      ]
-                    }
-                value={this.state.content}
-                onChange = {this.contentChange}
-                />
-            <AttachmentFIle fileName="banner.png" fileSize="12kb" />
+                ],
+              }}
+              formats={[
+                'header',
+                'bold', 'italic', 'underline', 'strike', 'blockquote',
+                'list', 'bullet', 'indent',
+                'link', 'image'
+              ]
+              }
+              value={this.state.content}
+              onChange={this.contentChange}
+            />
+            {
+              this.state.imageFile?<AttachmentFIle fileName={this.state.imageFile} fileSize={this.state.imageSize} deleteAction={this.deleteImage} />:""
+            }
+            
             <Button variant="raised" color="primary" className={classes.button} onClick={this.create}>
               Đăng
           </Button>
@@ -113,6 +153,7 @@ class NewPostForm extends React.Component {
               accept="image/*"
               style={{ display: 'none' }}
               id="att-file"
+              onChange={(e) => this.handleFileChange(e.target.files)}
               multiple
               type="file"
             />

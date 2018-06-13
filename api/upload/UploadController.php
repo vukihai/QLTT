@@ -13,19 +13,20 @@ require_once("core/abstract/NodeController.php");
                 mkdir($uploaddir);         
             } 
             // rename file
-            $uploadfile = $uploaddir.time().basename($_FILES['upfile']['name']);
+            $uploadFileName = time().basename($_FILES['upfile']['name']);
+            $uploadfile = $uploaddir.$uploadFileName;
 
             // check if file exists, if not you can upload
             if (!file_exists($uploadfile)) {     
                 //upload
                 if (move_uploaded_file($_FILES['upfile']['tmp_name'], $uploadfile)) {
-                    $this->response(200, array("success" => true));
+                    $this->response(200, array("success" => true, "data" => array("name" => $uploadFileName, "size" => $_FILES['upfile']['size'].' bytes')));
                     return;
                 }else{
-                    $ret['message'] = "Possible file upload attack!";
+                    $ret['message'] = "Có lỗi đã xảy ra, thử lại sau!";
                 } 
             } else {
-                $ret['message'] = "File name is exists, please try again now!";
+                $ret['message'] = "Tên file trùng lặp, thử lại sau!";
             }
             
 

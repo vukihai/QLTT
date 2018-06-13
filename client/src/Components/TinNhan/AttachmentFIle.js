@@ -27,7 +27,7 @@ class AttachmentFile extends React.Component {
                     </Typography>
                 </div>
                 <div style={{ flex: 1, textAlign: 'right' }}>
-                    <IconButton>
+                    <IconButton onClick={() => {this.props.deleteAction()}}>
                         <DeleteIcon />
                     </IconButton>
                 </div>
