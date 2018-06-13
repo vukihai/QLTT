@@ -39,11 +39,12 @@ class BaiDang extends React.Component {
             content: "<p>Bài viết bạn đang tìm kiếm hiện không có</p>",
             image: "",
             item: [],
-            snackbar: ""
+            snackbar: "",
+            
         }
     }
     componentDidMount() {
-        return fetch('http://qltt.vn/api/post/' + this.props.match.params.id)
+        fetch('http://qltt.vn/api/post/' + this.props.match.params.id)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -54,7 +55,18 @@ class BaiDang extends React.Component {
                     exp: responseJson.exp,
                     title: responseJson.title,
                     content: responseJson.content,
-                    image: responseJson.image
+                    image: responseJson.image,
+                    followed: 0,
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        fetch('http://qltt.vn/api/student/' + localStorage.getItem('id')+"/follows/"+ this.props.match.params.id +"?accessToken=" + localStorage.getItem('token'))
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    followed: responseJson.follow
                 });
             })
             .catch((error) => {
@@ -98,6 +110,7 @@ class BaiDang extends React.Component {
           });
         }
       )
+    this.componentDidMount();
     }
     render() {
         const { classes } = this.props;
@@ -123,8 +136,9 @@ class BaiDang extends React.Component {
                                         <IconButton onClick={this.handleFollowClick}>
                                             <MoreVertIcon color="primary" />
                                         </IconButton>
-                                    ) : (
-                                            <Button variant="raised" color="primary" onClick = {() => {this.follow()}}>Theo dõi</Button>
+                                    ) : (this.state.followed == 0 ?
+                                            <Button variant="raised" color="primary" onClick = {() => {this.follow()}}>Theo dõi</Button>:
+                                            <Button variant="raised" color="primary">Đã theo dõi</Button>
                                         )
                                 }
 

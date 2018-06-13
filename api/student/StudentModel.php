@@ -43,6 +43,10 @@
             $data = $this->db->doPreparedQuery("SELECT * FROM stu_fixed_info WHERE stu_fixed_info.studentID=?",array($id));
             return $this->fieldsFilter($fieldsArr, $data[0]);
         }
+        public function getStuFollow($std_id, $post_id) {
+            $data = $this->db->doPreparedQuery("SELECT * FROM stu_follow WHERE studentID=? AND postid = ?",array($std_id, $post_id));
+            return $data;
+        }
         public function updatePassword($id,$oldPassword,$newPassword){
             //return $this->db->doPreparedSql("UPDATE vnuaccount SET password = ? WHERE vnuaccount.vnuID = ?",array($newPassword,$id));
             return $this->db->doSql("UPDATE vnuaccount SET password = '".$newPassword."' WHERE vnuaccount.vnuID = ".$id." AND vnuaccount.password = '".$oldPassword."'");
