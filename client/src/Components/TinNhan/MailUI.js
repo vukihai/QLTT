@@ -52,6 +52,7 @@ const styles = theme => ({
         backgroundColor: red[500],
     }
 });
+var item;
 class MailUI extends React.Component {
     constructor(props){
         super(props);
@@ -61,7 +62,9 @@ class MailUI extends React.Component {
             id: localStorage.getItem('id'),
             token: localStorage.getItem('token'),
             items: [],
-            expanded: 'panel' + this.props.match.params.id
+            expanded: 'panel' + this.props.match.params.id,
+            senderusername: "",
+            rootSubject: ""
         };
     }
     componentDidMount() {
@@ -77,6 +80,11 @@ class MailUI extends React.Component {
             (result) => {
                 this.setState({
                     items: result
+                });
+                item = this.state.items[this.state.items.length - 1];
+                this.setState({
+                    senderusername: item.senderusename,
+                    rootSubject: item.subject
                 });
             },
             (error) => {
@@ -94,7 +102,7 @@ class MailUI extends React.Component {
     MailView() {
         let mailView = [];
         for(var i=0; i< this.state.items.length; i++) {
-            var item = this.state.items[i];
+            item = this.state.items[i];
                  mailView.push(
                     <Card>
                         <ExpansionPanel expanded={this.state.expanded === 'panel' + item.id.toString()} onChange={this.handleChange('panel' + item.id.toString())}>
@@ -132,6 +140,7 @@ class MailUI extends React.Component {
                     </Card>
             );
         }
+
         return mailView;
     }
     
@@ -141,7 +150,7 @@ class MailUI extends React.Component {
             <div>
                 <h1>
                     &nbsp;
-                    <NavLink to={"/guitinnhan/"}>
+                    <NavLink to={"/guitinnhan/" +this.state.senderusername + "/re: " + this.state.rootSubject}>
                         <Button variant="raised" color="primary" className={classes.button} style={{"float": "right"}}>
                         Trả lời
                         </Button>

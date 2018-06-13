@@ -13,14 +13,14 @@
         }
         public function newMessage($id, $mess) {
             $result = array("status" => "gửi thành công");
-            $receiver = $this->db->doPreparedQuery("SELECT * FROM VNUAccount WHERE username=?",array($mess[receiver]));
+            $receiver = $this->db->doPreparedQuery("SELECT * FROM vnuaccount WHERE username=?",array($mess[receiver]));
             if(!(count($receiver) == 1)) {
                 $result = array("error"=> "người nhận không tồn tại");
                 return $result;
                 
             }
             try{
-                $this->db->doPreparedQuery("INSERT INTO message (parentID, senderID, receiverID, subject, content, sendTime, seen) VALUES (?, ?, ?, ?, ?, NOW(), 1)",array($mess[parentID],$id, $mess[receiver], $mess[subject], $mess[content]));
+                $this->db->doPreparedQuery("INSERT INTO message (parentID, senderID, receiverID, subject, content, sendTime, seen) VALUES (?, ?, ?, ?, ?, NOW(), 1)",array($mess[parentID],$id, intval($receiver[0]["vnuID"]), $mess[subject], $mess[content]));
             } catch(Exception $e) {
                 $result = array("error" => "gửi tin nhắn thất bại");
             }
@@ -36,12 +36,12 @@
                 $root = $thisMessage[0]["id"];
             }
             // lay cac thu cung root
-            $re = $this->db->doPreparedQuery("SELECT message.id, vnuaccount.fullName as sender, message.subject,  message.content, message.attachment, message.sendTime, message.seen FROM message join vnuaccount on message.senderID=vnuaccount.VNUid WHERE message.parentID=? ORDER BY message.sendTime DESC limit 20",array($root));
+            $re = $this->db->doPreparedQuery("SELECT message.id, vnuaccount.username as senderusename, vnuaccount.fullName as sender, message.subject,  message.content, message.attachment, message.sendTime, message.seen FROM message join vnuaccount on message.senderID=vnuaccount.VNUid WHERE message.parentID=? ORDER BY message.sendTime DESC limit 20",array($root));
             foreach($re as $i) {
                 array_push($data, $i);
             }
             // lay root
-            $rootMess = $this->db->doPreparedQuery("SELECT message.id, vnuaccount.fullName as sender, message.subject,  message.content, message.attachment, message.sendTime, message.seen FROM message join vnuaccount on message.senderID=vnuaccount.VNUid WHERE message.id=?",array($root));
+            $rootMess = $this->db->doPreparedQuery("SELECT message.id, vnuaccount.username as senderusename, vnuaccount.fullName as sender, message.subject,  message.content, message.attachment, message.sendTime, message.seen FROM message join vnuaccount on message.senderID=vnuaccount.VNUid WHERE message.id=?",array($root));
             array_push($data, $rootMess[0]);
             return $data;
         }
