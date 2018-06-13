@@ -63,7 +63,7 @@ class BaiDangPage extends Component {
             </Typography>
           </div>
           <div style={{ flex: 1, textAlign: 'right' }}>
-            <Link to="/baidang/partner">
+            <Link to="/partner">
               <Button color="primary"> Xem tất cả </Button>
             </Link>
           </div>

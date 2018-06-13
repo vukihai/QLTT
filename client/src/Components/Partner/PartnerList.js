@@ -19,7 +19,7 @@ class PartnerList extends Component {
         }
     }
     componentDidMount() {
-        return fetch('http://web.bautroixa.vn/api/partner/?accessToken=' + localStorage.getItem("token"))
+        return fetch('http://qltt.vn/api/partner/?accessToken=' + localStorage.getItem("token"))
             .then((response) => response.json())
             .then((responseJson) => {
 
