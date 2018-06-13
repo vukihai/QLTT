@@ -19,7 +19,7 @@
             return $this->db->doSql($query);
         }
         public function getListStudent($id) {
-            $data = $this->db->doPreparedQuery("SELECT vnuaccount.username, vnuaccount.fullName, DATE(stu_fixed_info.ngaysinh) as                       ngaysinh,stu_fixed_info.diemTB FROM 
+            $data = $this->db->doPreparedQuery("SELECT vnuaccount.VNUID as id, vnuaccount.username, vnuaccount.fullName, DATE(stu_fixed_info.ngaysinh) as                       ngaysinh,stu_fixed_info.diemTB FROM 
                 lecture_studentlist join student on lecture_studentlist.studentID = student.id
                 JOIN vnuaccount on student.id = vnuaccount.vnuID
                 JOIN stu_fixed_info on student.id = stu_fixed_info.studentID

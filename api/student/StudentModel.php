@@ -19,6 +19,10 @@
             $query = "UPDATE student SET ".$this->fieldsFilterForSettingData($data)." WHERE student.id = ".$id.";";
             return $this->db->doSql($query);
         }
+        public function followPost($id, $postId){
+            $query = "INSERT INTO stu_follow (studentId, postId, status, comment) VALUES (". $id . ",". $postId.",1,'')";
+            return $this->db->doSql($query);
+        }
         public function getFollows($fieldsArr, $id){
             $data = $this->db->doPreparedQuery("SELECT * FROM stu_follow WHERE stu_follow.studentID=?",array($id));
             return $this->fieldsFilterForArray($fieldsArr, $data);

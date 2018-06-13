@@ -22,7 +22,6 @@ import MailForm from '../TinNhan/MailForm';
 import MailUI from '../TinNhan/MailUI';
 import TongKetPage from '../Page/Tongket';
 import FileUpload from '../Test/FIleUpload';
-
 class RouteName extends Component {
     constructor(props) {
         super(props);
@@ -49,6 +48,7 @@ class RouteName extends Component {
                     <Route exact path='/sinhvien/:id/tab-:tab' render={(props) => <StudentProfileForm {...props} />} />
                     <Route exact path='/giangvien' component={GiangVienPage} />
                     <Route exact path='/hocvien' component={HocVienPage} />
+                    <Route exact path='/hocvien/:id' component={StudentProfileForm} />
                     <Route exact path='/baocao' component={BaoCaoPage} />
                     <Route exact path='/tongket' component={TongKetPage} />
                     <Route exact path='/tinnhan' component={TinNhanPage} />
@@ -59,6 +59,7 @@ class RouteName extends Component {
                     <Route exact path='/profile/changepass' component={ChangePassForm} />
                     <Route exact path='/profile/tab-:tab' render={(props) => this.state.role == 0 ? <StudentProfileForm {...props} /> : this.state.role == 1 ? <GiangVien {...props} /> : this.state.role == 2 ? <Partner {...props} /> : <NotFound />} />
                     <Route exact path='/profile' render={() => <Redirect to='/profile/tab-0' />} />
+                    
                 </Switch>
             </div>
         );

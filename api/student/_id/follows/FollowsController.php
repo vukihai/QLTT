@@ -5,7 +5,15 @@ require_once("student/StudentModel.php");
 
     class FollowsController extends NodeController {
         protected function _POST() {
-            
+            $std_id = intval($this->nodeIds[0]);
+            $post = $_POST['postId'];
+            $model = new StudentModel();
+            $data = $model->followPost($std_id, $post);
+            if(sizeof($data) == 1) {
+                $this->response('200', array("success" => "theo dõi thành công"));
+            } else {
+                $this->response('302', array("error" => "thất bại"));
+            }
         }
         protected function _GET() {
             // xử lí input

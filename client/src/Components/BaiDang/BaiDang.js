@@ -12,7 +12,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Button } from 'material-ui';
 import { SMALL } from 'material-ui/utils/withWidth';
-
+import SimpleSnackbar from'../TinNhan/SimpleSnackbar';
 
 const styles = theme => ({
     card: {
@@ -37,7 +37,9 @@ class BaiDang extends React.Component {
             exp: "",
             title: "Not found",
             content: "<p>Bài viết bạn đang tìm kiếm hiện không có</p>",
-            image: ""
+            image: "",
+            item: [],
+            snackbar: ""
         }
     }
     componentDidMount() {
@@ -58,6 +60,44 @@ class BaiDang extends React.Component {
             .catch((error) => {
                 console.error(error);
             });
+    }
+    follow() {
+        var data = new FormData();
+        data.append("postId", this.props.match.params.id);
+        fetch("http://qltt.vn/api/student/" + localStorage.getItem('id') +"/follows?accessToken=" + localStorage.getItem('token'), {
+              method: 'POST',
+              body: data
+          })
+          .then(res => res.json())
+          .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+         if(!("error" in this.state.items)) {
+                this.setState({
+                    snackbar: null
+                  });
+                 this.setState({
+                    snackbar: <SimpleSnackbar mess={"theo dõi thành công"}/>
+                  });
+            } else {
+                this.setState({
+                    snackbar: null
+                  });
+                 this.setState({
+                    snackbar: <SimpleSnackbar mess={"theo dõi thất bại"}/>
+                  });
+            }
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
     }
     render() {
         const { classes } = this.props;
@@ -84,7 +124,7 @@ class BaiDang extends React.Component {
                                             <MoreVertIcon color="primary" />
                                         </IconButton>
                                     ) : (
-                                            <Button variant="raised" color="primary">Theo dõi</Button>
+                                            <Button variant="raised" color="primary" onClick = {() => {this.follow()}}>Theo dõi</Button>
                                         )
                                 }
 
@@ -98,6 +138,7 @@ class BaiDang extends React.Component {
                         </Typography>
                     </CardContent>
                 </Card>
+                {this.state.snackbar}
             </div>
         );
     }
