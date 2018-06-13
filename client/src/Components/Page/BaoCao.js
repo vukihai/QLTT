@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import ExpansionPanel, {
@@ -8,7 +9,7 @@ import ExpansionPanel, {
 import Typography from 'material-ui/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AttachmentView from '../TinNhan/AttachmentView';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, TextField } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -34,6 +35,8 @@ class BaoCaoPage extends React.Component {
       id: localStorage.getItem("id"),
       expanded: null,
       reportList: [],
+      submitContent: "Nội dung báo cáo",
+      editContent: "",
     };
     this.renderReportList = this.renderReportList.bind(this);
   }
@@ -49,13 +52,19 @@ class BaoCaoPage extends React.Component {
     return this.resetHMS(thisDate);
   }
   componentDidMount() {
-    return fetch('http://qltt.vn/api/student/' + this.state.id + '/reports?accessToken=' + localStorage.getItem("token") + '&fields=id,weekStart,content,attachment')
+    return fetch('http://qltt.vn/api/student/' + this.state.id + '/reports?accessToken=' + localStorage.getItem("token") + '&fields=id,messageID,weekStart,content,attachment')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           isLoading: false,
           reportList: responseJson,
         });
+      })
+      .then((res) => {
+        var weekCount = (this.weekStartConvert(new Date().toString(), 0) - this.weekStartConvert(this.state.periodStart, 0)) / 604800000;
+        if (this.weekStartConvert(this.state.periodStart, weekCount * 7).getTime() == this.weekStartConvert(this.state.reportList[this.state.reportList.length - 1].weekStart, 0).getTime()) {
+          this.setState({ editContent: this.state.reportList[this.state.reportList.length - 1].content });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -67,6 +76,13 @@ class BaoCaoPage extends React.Component {
       expanded: expanded ? panel : false,
     });
   };
+
+  handleNewReportChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   renderReportList() {
     const { classes } = this.props;
     const { expanded } = this.state;
@@ -79,18 +95,61 @@ class BaoCaoPage extends React.Component {
         count++;
         content = (
           <div>
-            <Typography> {report.content} </Typography>
-            <Button variant="raised">Xem nhận xét</Button>
+            {
+              i != weekCount ? (
+                <div style={{ minHeight: '150px' }}>
+                  <Typography variant="body1"> {report.content} </Typography>
+                </div>
+              ) :
+                (
+                  <span>
+                    <TextField
+                      id="lastcontent"
+                      label="Nội dung paragraph"
+                      value={this.state.editContent}
+                      onChange={this.handleNewReportChange('editContent')}
+                      multiline
+                      rows="8"
+                      margin="normal"
+                      fullWidth
+                      style={{ marginTop: 0 }}
+                    />
+                    <Button variant="raised">Chỉnh sửa</Button>
+                  </span>
+                )
+            }
+
+            <Link to={'/tinnhan/' + report.messageID}><Button variant="raised">Xem nhận xét</Button></Link>
           </div>
         );
-        attachmentFileName = report.attachment;
+        attachmentFileName = (
+          <AttachmentView fileName={report.attachment} fileLink={"public/" + report.attachment} />
+        );
+      } else if (i == weekCount) {
+        content = (
+          <div>
+            <TextField
+              id="submitContent"
+              label="Nhập paragraph"
+              value={this.state.submitContent}
+              onChange={this.handleNewReportChange('submitContent')}
+              multiline
+              rows="8"
+              margin="normal"
+              fullWidth
+              style={{ marginTop: 0 }}
+            />
+            <Button variant="raised">Nộp báo cáo</Button>
+          </div>
+        );
+        attachmentFileName = (<Button variant="raised"> Tải lên đính kèm </Button>);
       } else {
         content = (
           <div>
-            <Button variant="raised">Nộp báo cáo</Button><Typography> Bạn chưa nộp báo cáo nào</Typography>
+            <Typography variant="title"> Bạn chưa nộp báo cáo tuần này! </Typography>
           </div>
         );
-        attachmentFileName = "";
+        attachmentFileName = (<div></div>);
       }
       ret.push(
         <ExpansionPanel expanded={expanded === 'panel' + i} onChange={this.handleChange('panel' + i)}>
@@ -103,13 +162,11 @@ class BaoCaoPage extends React.Component {
               <Grid item xs>
                 {content}
               </Grid>
-              {
-                attachmentFileName != "" ? (
-                  <Grid item>
-                    <AttachmentView fileName={attachmentFileName} fileLink={"public/" + attachmentFileName} />
-                  </Grid>
-                ) : ""
-              }
+              <Grid item>
+                {
+                  attachmentFileName
+                }
+              </Grid>
 
             </Grid>
           </ExpansionPanelDetails>

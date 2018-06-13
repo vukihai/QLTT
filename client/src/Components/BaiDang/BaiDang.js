@@ -39,12 +39,11 @@ class BaiDang extends React.Component {
             content: "<p>Bài viết bạn đang tìm kiếm hiện không có</p>",
             image: "",
             item: [],
-            snackbar: "",
-            
+            snackbar: ""
         }
     }
     componentDidMount() {
-        fetch('http://qltt.vn/api/post/' + this.props.match.params.id)
+        return fetch('http://qltt.vn/api/post/' + this.props.match.params.id)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
