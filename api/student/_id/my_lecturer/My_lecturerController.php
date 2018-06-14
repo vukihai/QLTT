@@ -6,25 +6,18 @@ require_once("student/StudentModel.php");
 
     class My_lecturerController extends NodeController {
         protected function _POST() {
-            // input
-            $data = $_POST;
-            $ret = array();
-            foreach ($_POST as $key => $value) {
-                if (!isset($value)) {
-                    $ret = array("err"=>"chưa đủ thông tin");
-                    return;
-                }
-            }
             $std_id = intval($this->nodeIds[0]);
-             
-            // lưu vào CSDL
+            $lectureID = $_POST[lectureID];
+            $type= $_POST[type];
             $model = new StudentModel();
-            if ($model->setStudentInfo($std_id, $data) > 0){
-                $ret = array("success"=>true);
-            } else {
-                $ret = array("err"=>"no change is made");
+            
+            $data = $model->getLecturer($std_id);
+            if(sizeof($data) >0) {
+                $this->response('200', array("err"=>"bạn đã có giảng viên hướng dẫn rồi"));
+                return;
             }
-            $this->response('200', $ret);
+            $data = $model->setLecturer($std_id, $lectureID, $type);
+            $this->response('200',$data);
         }
         protected function _GET() {
             $std_id = intval($this->nodeIds[0]);

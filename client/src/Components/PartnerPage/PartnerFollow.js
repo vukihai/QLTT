@@ -43,7 +43,7 @@ class PartnerFollow extends React.Component {
         })
     }
     componentDidMount() {
-        fetch('http://localhost/api/partner/' + localStorage.getItem('id') + '/follow/?accessToken=' + localStorage.getItem("token"))
+        fetch('http://qltt.vn/api/partner/' + localStorage.getItem('id') + '/follow/?accessToken=' + localStorage.getItem("token"))
           .then((response) => response.json())
           .then((responseJson) => {
 

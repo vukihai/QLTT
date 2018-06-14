@@ -9,7 +9,7 @@ import Tabs from '@material-ui/core/Tabs';
 
 import { TextField, Button, Grid, Avatar } from 'material-ui';
 import red from 'material-ui/colors/red';
-
+import {NavLink } from "react-router-dom";
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
@@ -88,6 +88,42 @@ class GiangVien extends React.Component {
   componentWillReceiveProps(nextProps) {
     nextProps.match.params.tab ? this.setState({ tab: parseInt(nextProps.match.params.tab) }) : 0;
   }
+  nckh() {
+      var formData = new FormData();
+      formData.append('lectureID', this.state.id);
+      formData.append('type', "nckh");
+      fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + '/my_lecturer/?accessToken=' + localStorage.getItem("token"), {
+      method: 'POST',
+      headers: {
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson.success ? "success" : responseJson.err)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  thuctap() {
+      var formData = new FormData();
+      formData.append('lectureID', this.state.id);
+      formData.append('type', "thuctap");
+      fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + '/my_lecturer/?accessToken=' + localStorage.getItem("token"), {
+      method: 'POST',
+      headers: {
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson.success ? "success" : responseJson.err)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -113,9 +149,9 @@ class GiangVien extends React.Component {
                   </Link>
                 ) : (
                     <div>
-                      <Button variant="raised" color="primary" className={classes.button}> NCKH </Button>
-                      <Button variant="raised" color="primary" className={classes.button}>Thực tập</Button>
-                      <Button variant="raised" className={classes.button}>Nhắn tin</Button>
+                      <Button variant="raised" color="primary" className={classes.button} onClick={() => this.nckh()}> NCKH </Button>
+                      <Button variant="raised" color="primary" className={classes.button} onClick={() => this.thuctap()}>Thực tập</Button>
+                      <NavLink to={/guitinnhan/+this.state.data.username}><Button variant="raised" className={classes.button}>Nhắn tin</Button></NavLink>
                     </div>
                   )
               }

@@ -9,7 +9,7 @@
     class LecturerModel extends Model {
         
         public function getLecturerProfile($fieldsArr, $id){
-            $data = $this->db->doPreparedQuery("SELECT * FROM lecturer WHERE id=?",array($id));
+            $data = $this->db->doPreparedQuery("SELECT lecturer.id, lecturer.name, lecturer.VNUmail, lecturer.gmail, lecturer.note, vnuaccount.username FROM lecturer join vnuaccount on lecturer.id = vnuaccount.vnuID WHERE lecturer.id=?",array($id));
             if(sizeof($data) ==1)
                 return $this->fieldsFilter($fieldsArr, $data[0]);
             else return array("error" => "lecturer profile not found");
