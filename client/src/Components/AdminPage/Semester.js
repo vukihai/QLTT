@@ -43,7 +43,7 @@ function getSteps() {
   return ['Mở đợt đăng kí thực tập', 'Kết thúc đăng kí, Bắt đầu kì thực tập', 'Kết thúc kì thực tập'];
 }
 
-class PeriodStepper extends React.Component {
+class SemesterStepper extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -305,8 +305,8 @@ class PeriodStepper extends React.Component {
   }
 }
 
-PeriodStepper.propTypes = {
+SemesterStepper.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(PeriodStepper);
+export default withStyles(styles)(SemesterStepper);

@@ -22,7 +22,7 @@ import MailForm from '../TinNhan/MailForm';
 import MailUI from '../TinNhan/MailUI';
 import TongKetPage from '../Page/Tongket';
 import FileUpload from '../Test/FIleUpload';
-import PeriodStepper from '../AdminPage/Period';
+import SemesterStepper from '../AdminPage/Semester';
 
 class RouteName extends Component {
     constructor(props) {
@@ -36,15 +36,16 @@ class RouteName extends Component {
             <div>
                 <Switch>
                     <Route exact path='/fileupload' component={FileUpload} />
-                    <Route exact path='/' render={() =>this.state.role == 0?<HomePage />:this.state.role == 1?<Redirect to='/hocvien'/>:this.state.role == 2?<Redirect to='/baidang'/>:this.state.role == 3?<Redirect to='/period'/>:<NotFound />} />
+                    <Route exact path='/' render={() =>this.state.role == 0?<HomePage />:this.state.role == 1?<Redirect to='/hocvien'/>:this.state.role == 2?<Redirect to='/baidang'/>:this.state.role == 3?<Redirect to='/semester'/>:<NotFound />} />
                     <Route exact path='/timkiem' component={SearchPage} />
 
-                    <Route exact path='/period' component={this.state.role == 3?PeriodStepper:NotFound} />
+                    <Route exact path='/semester' component={this.state.role == 3?SemesterStepper:NotFound} />
                     
                     <Route exact path='/baidang' component={(this.state.role == 0 || this.state.role == 3) ? BaiDangPage : this.state.role == 2 ? BaiDangPartnerPage : NotFound} />
                     <Route exact path='/baidang/new' component={this.state.role == 2 ? NewPostForm : NotFound} />
                     <Route exact path='/baidang/partner' component={PartnerList} />
                     <Route exact path='/baidang/:id' render={(props) => <BaiDang {...props} />} />
+                    <Route exact path='/baidang/:id/edit' render={(props) => this.state.role == 2 ? <NewPostForm {...props} />: <NotFound />} />
                     
                     <Route exact path='/theodoi' component={this.state.role == 0 ? StudentTheoDoiPage : HocVienPage} />
                     

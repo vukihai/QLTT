@@ -13,10 +13,13 @@ require_once("partner/PartnerModel.php");
             if (isset($_GET['fields'])){
                 $fieldsArr = explode(",",$_GET['fields']);
             }
-
+            $limit = 50;
+            if (isset($_GET["limit"])){
+                $limit = $_GET["limit"];
+            }
             // get từ CSDL
             $model = new PartnerModel();
-            $data = $model->getPartnerList($fieldsArr);
+            $data = $model->getPartnerList($fieldsArr, $limit);
 
             // res về client
             $this->response('200', $data );

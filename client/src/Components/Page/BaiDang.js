@@ -40,7 +40,7 @@ class BaiDangPage extends Component {
       .catch((error) => {
         console.error(error);
       });
-    fetch('http://qltt.vn/api/partner/')
+    fetch('http://qltt.vn/api/partner/?limit=10')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -87,7 +87,7 @@ class BaiDangPage extends Component {
                   partnerAvatar=""
                   image={post.image}
                   partnerName={post.partnerName}
-                  postTime={post.postTime}
+                  expTime={post.exp}
                 />
               </ColGrid>
             ))

@@ -9,8 +9,9 @@ require_once("partner/PartnerModel.php");
             $data = $_POST;
             $ret = array();
             foreach ($_POST as $key => $value) {
-                if (!isset($value)) {
+                if (!isset($value) || ($key!= 'image' && $value == '')) {
                     $ret = array("err"=>"chưa đủ thông tin");
+                    $this->response('200', $ret);
                     return;
                 }
             }
