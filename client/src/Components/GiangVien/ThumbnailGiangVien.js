@@ -42,9 +42,6 @@ class ThumbnailGiangVien extends React.Component {
                     </CardContent>
                     <CardActions style={{ color: 'yellow' }}>
                         <Link to={'/giangvien/' + this.props.lecturerID} style={{ color: 'yellow' }}>
-                            <Button size="small" color="inherit">Lựa chọn </Button>
-                        </Link>
-                        <Link to={'/giangvien/' + this.props.lecturerID} style={{ color: 'white' }}>
                             <Button size="small" color="inherit">Xem thông tin</Button>
                         </Link>
                     </CardActions>

@@ -26,5 +26,9 @@
                 WHERE lecture_studentlist.lectureID = ?",array($id));
             return $data;
         }
+        public function getLecturerList($limit) {
+            $data = $this->db->doQuery("SELECT * FROM lecturer LIMIT 0,".$limit);
+            return $this->fieldsFilterForArray($fieldsArr, $data);
+        }
     }
 ?>

@@ -30,22 +30,43 @@ const styles = theme => ({
     },
 });
 
-function getSteps() {
-    return ['2018-06-01 Mở đợt đăng kí thực tập', '2018-06-10 Kết thúc đăng kí, Bắt đầu kì thực tập', 'Kết thúc kì thực tập'];
-}
-
 
 
 class HomePageStepper extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeStep: 3,
+            registerStart: '',
+            startSeme: '',
+            endSeme: '',
+            partner: "",
+            lecturer: "",
+        };
     }
-    state = {
-        activeStep: 0,
-        partner: "",
-        lecturer: "",
-    };
+
     componentDidMount() {
+        fetch('http://qltt.vn/api/admin/' + localStorage.getItem('id') + "/semester/?accessToken=" + localStorage.getItem('token'))
+            .then((response) => response.json())
+            .then((rJ) => {
+                this.setState({
+                    registerStart: rJ.registerStart,
+                    startSeme: rJ.startSeme,
+                    endSeme: rJ.endSeme,
+                });
+                if (new Date().getTime() - new Date(rJ.registerStart).getTime() < 0) {
+                    this.setState({activeStep: 3});
+                } else if (new Date().getTime() - new Date(rJ.registerStart).getTime() > 0 && new Date(rJ.startSeme).getTime() - new Date().getTime() > 0){
+                    this.setState({activeStep: 0});
+                } else if (new Date(rJ.endSeme).getTime() - new Date().getTime() > 0){
+                    this.setState({activeStep: 1});
+                } else if (new Date(rJ.endSeme).getTime() - new Date().getTime() < 0){
+                    this.setState({activeStep: 2});
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + '/my_Lecturer')
             .then((response) => response.json())
             .then((responseJson) => {
@@ -109,6 +130,9 @@ class HomePageStepper extends React.Component {
                 return 'Lỗi đã xảy ra';
         }
     }
+    getSteps() {
+        return [this.state.registerStart+'Mở đợt đăng kí thực tập', this.state.startSeme+'Bắt đầu kì thực tập', this.state.endSeme+'Kết thúc kì thực tập'];
+    }
     handleNext = () => {
         const { activeStep } = this.state;
         this.setState({
@@ -131,7 +155,7 @@ class HomePageStepper extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const steps = getSteps();
+        const steps = this.getSteps();
         const { activeStep } = this.state;
 
         return (
@@ -149,25 +173,12 @@ class HomePageStepper extends React.Component {
                     {this.state.activeStep === steps.length ? (
                         <div>
                             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                <Typography variant="headline"> Hãy chuẩn bị cho học kì mới </Typography>
+                                <Typography variant="headline"> Ngoài thời gian đăng kí</Typography>
                             </div>
-                            <Button onClick={this.handleReset}>Reset</Button>
                         </div>
                     ) : (
                             <div>
                                 <Paper className={classes.instructions}>{this.getStepContent(activeStep)}</Paper>
-                                <div>
-                                    <Button
-                                        disabled={activeStep === 0}
-                                        onClick={this.handleBack}
-                                        className={classes.backButton}
-                                    >
-                                        Back
-                </Button>
-                                    <Button variant="contained" color="primary" onClick={this.handleNext}>
-                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                    </Button>
-                                </div>
                             </div>
                         )}
                 </div>

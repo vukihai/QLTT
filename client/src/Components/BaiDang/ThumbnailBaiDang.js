@@ -22,7 +22,7 @@ const styles = theme => ({
 class ThumbnailBaiDang extends React.Component { 
     render() {
         const { classes } = this.props;
-        const remainTime = new Date(this.props.expTime).getSeconds() - new Date().getSeconds();
+        const remainTime = new Date(this.props.expTime).getTime() - new Date().getTime();
         return (
             <div>
                 <Link to={'/baidang/'+this.props.postID}>

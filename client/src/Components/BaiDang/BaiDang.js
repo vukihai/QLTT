@@ -64,16 +64,16 @@ class BaiDang extends React.Component {
             .catch((error) => {
                 console.error(error);
             });
-        fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + "/follows/" + this.props.match.params.id + "?accessToken=" + localStorage.getItem('token'))
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    followed: responseJson.follow
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + "/follows/" + this.props.match.params.id + "?accessToken=" + localStorage.getItem('token'))
+        //     .then((response) => response.json())
+        //     .then((responseJson) => {
+        //         this.setState({
+        //             followed: responseJson.follow
+        //         });
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
     }
     follow() {
         var data = new FormData();
@@ -117,7 +117,7 @@ class BaiDang extends React.Component {
     }
     render() {
         const { classes } = this.props;
-        const remainTime = new Date(this.state.exp).getSeconds() - new Date().getSeconds();
+        const remainTime = new Date(this.state.exp).getTime() - new Date().getTime();
         return (
             <div>
                 <Card className={classes.card}>

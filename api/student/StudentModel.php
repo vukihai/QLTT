@@ -59,5 +59,9 @@
             $data = $this->db->doPreparedQuery("INSERT INTO lecture_studentlist (lectureID, studentID) value (?, ?)",array($std_id,$lec_id));
             return $data;
         }
+        public function getPartner($std_id) {
+            $data = $this->db->doPreparedQuery("SELECT pa.id, pa.name FROM stu_follow sf JOIN post p ON sf.postId = p.id JOIN partner pa ON p.partnerID = pa.id WHERE sf.studentId=? AND sf.status = 4",array($std_id));
+            return $data;
+        }
     }
 ?>
