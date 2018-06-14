@@ -35,10 +35,11 @@ class BaoCaoPage extends React.Component {
       id: localStorage.getItem("id"),
       expanded: null,
       reportList: [],
-      submitContent: "Nội dung báo cáo",
-      editContent: "",
+      newContent: "",
+      lecturer: null,
     };
     this.renderReportList = this.renderReportList.bind(this);
+    this.send = this.send.bind(this);
   }
   resetHMS(date) {
     date.setHours(0);
@@ -52,7 +53,7 @@ class BaoCaoPage extends React.Component {
     return this.resetHMS(thisDate);
   }
   componentDidMount() {
-    return fetch('http://qltt.vn/api/student/' + this.state.id + '/reports?accessToken=' + localStorage.getItem("token") + '&fields=id,messageID,weekStart,content,attachment')
+    fetch('http://qltt.vn/api/student/' + this.state.id + '/reports?accessToken=' + localStorage.getItem("token") + '&fields=id,messageID,weekStart,content,attachment')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -63,11 +64,21 @@ class BaoCaoPage extends React.Component {
       .then((res) => {
         var weekCount = (this.weekStartConvert(new Date().toString(), 0) - this.weekStartConvert(this.state.periodStart, 0)) / 604800000;
         if (this.weekStartConvert(this.state.periodStart, weekCount * 7).getTime() == this.weekStartConvert(this.state.reportList[this.state.reportList.length - 1].weekStart, 0).getTime()) {
-          this.setState({ editContent: this.state.reportList[this.state.reportList.length - 1].content });
+          this.setState({ newContent: this.state.reportList[this.state.reportList.length - 1].content });
         }
       })
       .catch((error) => {
         console.log(error);
+      });
+    fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + '/my_Lecturer')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          lecturer: responseJson,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 
@@ -82,6 +93,27 @@ class BaoCaoPage extends React.Component {
       [name]: event.target.value,
     });
   };
+  send() {
+    var weekCount = (this.weekStartConvert(new Date().toString(), 0) - this.weekStartConvert(this.state.periodStart, 0)) / 604800000;
+    var data = new FormData();
+    data.append("receiver", this.state.lecturer[0].username);
+    data.append("subject", "Báo cáo tuần");
+    data.append("content", this.state.newContent);
+    data.append("parent", null);
+    console.log(this.state.newContent);
+    console.log(this.state.lecturer[0].id);
+    fetch("http://qltt.vn/api/messages/" + localStorage.getItem('id') + "?accessToken=" + localStorage.getItem('token'), {
+      method: 'POST',
+      body: data
+    })
+      .then(res => res.json())
+      .then(res => {
+        alert("done");
+        console.log(res);
+      }
+
+      )
+  }
 
   renderReportList() {
     const { classes } = this.props;
@@ -106,8 +138,8 @@ class BaoCaoPage extends React.Component {
                     <TextField
                       id="lastcontent"
                       label="Nội dung paragraph"
-                      value={this.state.editContent}
-                      onChange={this.handleNewReportChange('editContent')}
+                      value={this.state.newContent}
+                      onChange={this.handleNewReportChange('newContent')}
                       multiline
                       rows="8"
                       margin="normal"
@@ -129,17 +161,17 @@ class BaoCaoPage extends React.Component {
         content = (
           <div>
             <TextField
-              id="submitContent"
+              id="newContent"
               label="Nhập paragraph"
-              value={this.state.submitContent}
-              onChange={this.handleNewReportChange('submitContent')}
+              value={this.state.newContent}
+              onChange={this.handleNewReportChange('newContent')}
               multiline
               rows="8"
               margin="normal"
               fullWidth
               style={{ marginTop: 0 }}
             />
-            <Button variant="raised">Nộp báo cáo</Button>
+            <Button variant="raised" onClick={this.send}>Nộp báo cáo</Button>
           </div>
         );
         attachmentFileName = (<Button variant="raised"> Tải lên đính kèm </Button>);

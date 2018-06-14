@@ -36,7 +36,7 @@
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
         public function getReports($fieldsArr, $id){
-            $data = $this->db->doPreparedQuery("SELECT * FROM reports WHERE r.studentID=?",array($id));
+            $data = $this->db->doPreparedQuery("SELECT * FROM reports r JOIN message m ON r.messageID = m.id WHERE r.studentID=?",array($id));
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
         public function getFixedInfo($fieldsArr, $id){
@@ -52,21 +52,21 @@
             return $this->db->doSql("UPDATE vnuaccount SET password = '".$newPassword."' WHERE vnuaccount.vnuID = ".$id." AND vnuaccount.password = '".$oldPassword."'");
         }
         public function getLecturer($std_id) {
-            $data = $this->db->doPreparedQuery("SELECT * FROM lecture_studentlist join lecturer on lecture_studentlist.lectureID = lecturer.id WHERE lecture_studentlist.studentID=?",array($std_id));
+            $data = $this->db->doPreparedQuery("SELECT * FROM lecture_studentlist join lecturer on lecture_studentlist.lectureID = lecturer.id join vnuaccount on lecturer.id = vnuaccount.VNUid  WHERE lecture_studentlist.studentID=?",array($std_id));
             return $data;
         }
-        public function setLecturer($std_id, $lec_id, $type) {
-            $lt = $this->db->doPreparedQuery("SELECT * FROM lecture_studentlist WHERE lecturerID=?",array($lec_id));
-            if(sizeof($lt) > 20) {
-                return array("err" => "giảng viên này đã có đủ sinh viên");
-            }
-            $query = "INSERT INTO lecture_studentlist (lectureID, studentID, type) values (".$lec_id.",".$std_id.",'".$type."')";
-            $data = $this->db->doPreparedQuery($query,array());
-            return array("success" => "thành công");
+        public function setLecturer($std_id, $lec_id) {
+            $data = $this->db->doPreparedQuery("INSERT INTO lecture_studentlist (lectureID, studentID) value (?, ?)",array($std_id,$lec_id));
+            return $data;
         }
         public function getPartner($std_id) {
             $data = $this->db->doPreparedQuery("SELECT pa.id, pa.name FROM stu_follow sf JOIN post p ON sf.postId = p.id JOIN partner pa ON p.partnerID = pa.id WHERE sf.studentId=? AND sf.status = 4",array($std_id));
             return $data;
         }
+        public function newReport($id, $data){
+            $query = "INSERT INTO reports (id, lecturerID, weekStart, studentID, messageID) VALUES (". $data["lecturerID"].",'".$data["weekStart"]."',".$data["studentID"].",".$data["messageID"].")";
+            return $this->db->doSql($query);
+        }
+        
     }
 ?>

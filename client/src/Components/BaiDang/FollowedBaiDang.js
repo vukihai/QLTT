@@ -44,14 +44,34 @@ const styles = theme => ({
 });
 
 class FollowedBaiDang extends React.Component {
-    state = {
-        followed: true,
-        selected: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            followed: true,
+            selected: false,
+        };
+        this.luachon = this.luachon.bind(this);
+    }
 
     handleFollowClick = () => {
         this.setState({ followed: !this.state.followed });
     };
+    luachon() {
+        if (this.props.status == 3) {
+            return fetch('http://qltt.vn/api/partner/0/follow/' + localStorage.getItem('id') + '/?postID=' + this.props.id + '&status=' + this.props.status + '&accessToken=' + localStorage.getItem("token"))
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    alert("ok");
+                    this.setState({
+                        selected: true,
+                    })
+
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }
 
     render() {
         const { classes } = this.props;
@@ -61,28 +81,28 @@ class FollowedBaiDang extends React.Component {
                     <CardHeader
                         avatar={
                             <Avatar aria-label="Recipe" className={classes.avatar}>
-                                { (''+this.props.partnerName).substr(0,1) }
+                                {('' + this.props.partnerName).substr(0, 1)}
                             </Avatar>
                         }
                         action={
                             <div>
-                                <Button variant="contained" size={SMALL} disabled={this.props.status == 0} className={classes.button}>
+                                <Button variant="contained" size={SMALL} disabled={this.props.status == 0} className={classes.button} onClick={this.luachon}>
                                     {
-                                        this.props.status == 1 ? <StarIcon className={classes.leftIcon} color={this.state.followed ? "primary" : "action"} />:""
+                                        this.props.status == 1 ? <StarIcon className={classes.leftIcon} color={this.state.followed ? "primary" : "action"} /> : ""
                                     }
                                     {
-                                        this.props.status == 3 ? <FavoriteIcon className={classes.leftIcon} color={this.state.selected ? "primary" : "action"} />:""
+                                        (this.props.status == 3 || this.props.status == 4)? <FavoriteIcon className={classes.leftIcon} color={(this.state.selected|| this.props.status == 4) ? "primary" : "action"} /> : ""
                                     }
                                     {
                                         this.props.status == 0 ? "Không trúng tuyển" :
-                                            this.props.status == 1 ? (this.state.followed?"Đã theo dõi":"Theo dõi") :
+                                            this.props.status == 1 ? (this.state.followed ? "Đã theo dõi" : "Theo dõi") :
                                                 this.props.status == 2 ? "Chờ phỏng vấn" :
-                                                    this.props.status == 3 ? (this.state.selected?"Đã lựa chọn":"Lựa chọn thực tập") : "ERR"
+                                                    (this.props.status == 3 || this.props.status == 4) ? ((this.state.selected || this.props.status == 4) ? "Đã lựa chọn" : "Lựa chọn thực tập") : "ERR"
                                     }
                                 </Button>
                             </div>
                         }
-                        title={<Link to={"/baidang/"+this.props.id} ><Typography variant="title">{this.props.title}</Typography></Link>}
+                        title={<Link to={"/baidang/" + this.props.id} ><Typography variant="title">{this.props.title}</Typography></Link>}
                     />
 
                 </Card>

@@ -53,7 +53,7 @@ class StudentTheoDoiPage extends Component {
         </div>
         <div>
           {
-            this.state.data.map(post => (this.state.tab == 0 || this.state.tab == post.status || (this.state.tab == 4 && post.status == 0)) &&
+            this.state.data.map(post => (this.state.tab == 0 || (this.state.tab == post.status && post.status !=4) || (this.state.tab == 4 && post.status == 0) || (this.state.tab == 3 && post.status == 4)) &&
               <div>
                 <FollowedBaiDang status={post.status} id={post.postId} partnerName={post.partnerName} title={post.title} />
                 {/*more here*/}

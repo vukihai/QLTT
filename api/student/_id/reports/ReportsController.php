@@ -5,7 +5,25 @@ require_once("student/StudentModel.php");
 
     class ReportsController extends NodeController {
         protected function _POST() {
-            
+            $data = $this->data;
+            $ret = array();
+            foreach ($_POST as $key => $value) {
+                if (!isset($value) || ($value == '')) {
+                    $ret = array("err"=>"chưa đủ thông tin");
+                    $this->response('200', $ret);
+                    return;
+                }
+            }
+            $std_id = intval($this->nodeIds[0]);
+             
+            // lưu vào CSDL
+            $model = new StudentModel();
+            if ($model->newReport($std_id, $data) > 0){
+                $ret = array("success"=>true);
+            } else {
+                $ret = array("err"=>"no change is made");
+            }
+            $this->response('200', $ret);
         }
         protected function _GET() {
             // xử lí input
