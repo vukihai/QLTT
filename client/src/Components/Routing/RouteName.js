@@ -11,7 +11,7 @@ class RouteName extends Component {
             <div>
                 <Switch>
                     <Route exact path='/' render={() => { document.title = "Trang chủ - Quản lí thực tập"; return <div>Trang chủ</div>} } />
-                    <Route path='/period' render={() => { document.title = "Học kì - Quản lí thực tập"; return <div>Học kì</div>} } />
+                    <Route path='/semester' render={() => { document.title = "Học kì - Quản lí thực tập"; return <div>Học kì</div>} } />
                     <Route path='/timkiem' render={() => { document.title = "Tìm kiếm - Quản lí thực tập"; return <div>Tìm kiếm</div>} } />
                     <Route path='/baidang' render={() => { document.title = "Bài Đăng - Quản lí thực tập"; return <div>Bài Đăng</div>} } />
                     <Route path='/theodoi' render={() => {document.title = "Đang theo dõi - Quản lí thực tập"; return <div>Theo dõi</div>} } />

@@ -4,11 +4,21 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css';
 
+import moment from 'moment';
+import 'moment/locale/vi'; // this is the important bit, you have to import the locale your'e trying to use.
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import DateTimePicker from 'material-ui-pickers/DateTimePicker';
+
 import { TextField, Button, IconButton } from 'material-ui';
 import AttachmentFIle from '../TinNhan/AttachmentFIle';
+import { Grid } from '@material-ui/core';
+
+moment.locale('vi');
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -18,6 +28,9 @@ const styles = theme => ({
   bigAvatar: {
     width: 60,
     height: 60,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -29,8 +42,11 @@ class NewPostForm extends React.Component {
       content: "<br><br><br><br><br><br>",
       imageFile: '',
       imageSize: '',
+      exp: new Date(),
     };
     this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
     this.upload = this.upload.bind(this);
     this.deleteImage = this.deleteImage.bind(this);
     this.contentChange = this.contentChange.bind(this)
@@ -44,7 +60,10 @@ class NewPostForm extends React.Component {
   contentChange(value) {
     this.setState({ content: value });
   }
-  deleteImage(){
+  handleExpTime = (date) => {
+    this.setState({ exp: date });
+  }
+  deleteImage() {
     this.setState({
       imageFile: '',
       imageSize: '',
@@ -67,9 +86,9 @@ class NewPostForm extends React.Component {
       body: formData,
     }).then((response) => response.json())
       .then((responseJson) => {
-        responseJson.err?alert(responseJson.err):null;
+        responseJson.err ? alert(responseJson.err) : null;
         this.setState({
-          imageFile: responseJson.data.name,
+          imageFile: 'http://qltt.vn/public/' + responseJson.data.name,
           imageSize: responseJson.data.size,
         })
       })
@@ -81,9 +100,9 @@ class NewPostForm extends React.Component {
     var formData = new FormData();
     var sendData = {
       title: this.state.title,
-      image: "",
+      image: this.state.imageFile,
       content: this.state.content,
-      exp: "",
+      exp: this.state.exp.toISOString(),
     };
     for (var k in sendData) {
       formData.append(k, sendData[k]);
@@ -101,6 +120,68 @@ class NewPostForm extends React.Component {
       .catch((error) => {
         console.error(error);
       });
+  }
+  update() {
+    var formData = new FormData();
+    var sendData = {
+      title: this.state.title,
+      image: this.state.imageFile,
+      content: this.state.content,
+      exp: this.state.exp.toISOString(),
+    };
+    for (var k in sendData) {
+      formData.append(k, sendData[k]);
+    }
+    return fetch('http://qltt.vn/api/post/' + this.props.match.params.id, {
+      method: 'POST',
+      headers: {
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson.success ? "success" : responseJson.err)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  delete() {
+    var r = window.confirm("Bạn chắc chắn muốn xóa chưa?");
+    if (r) {
+      return fetch('http://qltt.vn/api/post/' + this.props.match.params.id + '/delete', {
+        method: 'GET',
+        headers: {
+        },
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          alert(responseJson.success ? "success" : responseJson.err);
+          this.props.history.push('/baidang');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      return fetch('http://qltt.vn/api/post/' + this.props.match.params.id)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+            isLoading: false,
+            exp: new Date(responseJson.exp),
+            title: responseJson.title,
+            content: responseJson.content,
+            imageFile: responseJson.image,
+            imageSize: '',
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
   render() {
     const { classes } = this.props;
@@ -142,26 +223,60 @@ class NewPostForm extends React.Component {
               value={this.state.content}
               onChange={this.contentChange}
             />
-            {
-              this.state.imageFile?<AttachmentFIle fileName={this.state.imageFile} fileSize={this.state.imageSize} deleteAction={this.deleteImage} />:""
-            }
-            
-            <Button variant="raised" color="primary" className={classes.button} onClick={this.create}>
-              Đăng
-          </Button>
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="att-file"
-              onChange={(e) => this.handleFileChange(e.target.files)}
-              multiple
-              type="file"
-            />
-            <label htmlFor="att-file">
-              <IconButton component="span">
-                <PhotoCameraIcon />
-              </IconButton>
-            </label>
+            <Grid container style={{ marginTop: '30px' }}>
+              <Grid item>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  {
+                    this.state.imageFile ?
+                      <img src={this.state.imageFile} style={{ height: '90px', width: '160px' }} />
+                      : ""
+                  }
+                  <input
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="att-file"
+                    onChange={(e) => this.handleFileChange(e.target.files)}
+                    multiple
+                    type="file"
+                  />
+                  <label htmlFor="att-file">
+                    <Button variant="contained" className={classes.button} component="span">
+                      <PhotoCameraIcon className={classes.leftIcon} />Chọn ảnh bìa
+                </Button>
+                  </label>
+                </div>
+              </Grid>
+              <Grid item md>
+                {
+                  this.state.imageFile ?
+                    <AttachmentFIle fileName={this.state.imageFile} fileSize={this.state.imageSize} deleteAction={this.deleteImage} />
+                    : ""
+                }
+              </Grid>
+            </Grid>
+
+
+            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              {
+                this.props.match.params.id ?
+                  <div>
+                    <Button variant="raised" color="primary" className={classes.button} onClick={this.update}> Cập nhật</Button>
+                    <Button variant="contained" className={classes.button} component="span" onClick={this.delete}><DeleteIcon className={classes.leftIcon} />Xóa</Button>
+                  </div> :
+                  <Button variant="raised" color="primary" className={classes.button} onClick={this.create}> Đăng</Button>
+              }
+
+              <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale="vi">
+                <DateTimePicker
+                  disablePast
+                  format="HH:mm DD/MM/YYYY"
+                  value={this.state.exp}
+                  onChange={this.handleExpTime}
+                  showTodayButton
+                  label="hết hạn"
+                />
+              </MuiPickersUtilsProvider>
+            </div>
           </form>
 
         </Paper>

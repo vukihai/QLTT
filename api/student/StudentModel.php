@@ -20,7 +20,7 @@
             return $this->db->doSql($query);
         }
         public function followPost($id, $postId){
-            $query = "INSERT INTO stu_follow (studentId, postId, status, comment) VALUES (". $id . ",". $postId.",1,'')";
+            $query = "INSERT INTO stu_follow (studentId, postId, status, phongVanDate, finalSemeComment) VALUES (". $id . ",". $postId.",1,'','')";
             return $this->db->doSql($query);
         }
         public function getFollows($fieldsArr, $id){

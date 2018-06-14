@@ -22,15 +22,19 @@ const styles = theme => ({
 class ThumbnailBaiDang extends React.Component { 
     render() {
         const { classes } = this.props;
+        const remainTime = new Date(this.props.expTime).getSeconds() - new Date().getSeconds();
         return (
             <div>
                 <Link to={'/baidang/'+this.props.postID}>
                 <Card className={classes.card}>
+                    {
+                        this.props.image!=''?
                     <CardMedia
                         className={classes.media}
                         image={this.props.image}
                         title={this.props.image}
-                    />
+                    />:""
+                    }
                     <CardContent>
                         <Typography variant="title">
                             {this.props.title}
@@ -51,7 +55,11 @@ class ThumbnailBaiDang extends React.Component {
                         //     </div>
                         // }
                         title={this.props.partnerName}
-                        subheader={this.props.postTime}
+                        subheader={
+                            remainTime > 0?
+                                <div>{this.props.expTime}</div>:
+                                <div style={{color: 'red'}}>{this.props.expTime}</div>
+                        }
                     />
                 </Card>
                 </Link>

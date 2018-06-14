@@ -9,7 +9,7 @@ require_once("student/StudentModel.php");
             $post = $_POST['postId'];
             $model = new StudentModel();
             $data = $model->followPost($std_id, $post);
-            if(sizeof($data) == 1) {
+            if($data > 0) {
                 $this->response('200', array("success" => "theo dõi thành công"));
             } else {
                 $this->response('302', array("error" => "thất bại"));
