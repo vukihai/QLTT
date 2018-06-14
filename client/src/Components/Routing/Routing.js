@@ -23,7 +23,7 @@ import MailUI from '../TinNhan/MailUI';
 import TongKetPage from '../Page/Tongket';
 import FileUpload from '../Test/FIleUpload';
 import SemesterStepper from '../AdminPage/Semester';
-
+import PartnerFollow from '../PartnerPage/PartnerFollow';
 class RouteName extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +47,7 @@ class RouteName extends Component {
                     <Route exact path='/baidang/:id' render={(props) => <BaiDang {...props} />} />
                     <Route exact path='/baidang/:id/edit' render={(props) => this.state.role == 2 ? <NewPostForm {...props} />: <NotFound />} />
                     
-                    <Route exact path='/theodoi' component={this.state.role == 0 ? StudentTheoDoiPage : HocVienPage} />
+                    <Route exact path='/theodoi' component={this.state.role == 0 ? StudentTheoDoiPage : (this.state.role == 2? PartnerFollow: HocVienPage)} />
                     
                     <Route exact path='/partner/:id/tab-:tab' render={(props) => <Partner {...props} />} />
                     <Route exact path='/partner/:id' render={(props) => <Redirect to={'/partner/' + props.match.params.id + '/tab-0'} />} />

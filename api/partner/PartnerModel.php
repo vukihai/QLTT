@@ -23,5 +23,9 @@
             $query = "INSERT INTO post (id, partnerID, title, image, content, postTime, exp, priorityOrder) VALUES (NULL, '".$id."', '".$data['title']."', '".$data['image']."', '".$data['content']."',  NOW(), '".$data['exp']."', '0');";
             return $this->db->doSql($query);
         }
+         public function getFollows($id){
+            $data = $this->db->doPreparedQuery("SELECT * FROM stu_follow sf JOIN stu_fixed_info sfi ON sf.studentId = sfi.studentID JOIN post p ON sf.postID = p.id WHERE p.partnerID = ?",array($id));
+            return $this->fieldsFilterForArray($fieldsArr, $data);
+        }
     }
 ?>

@@ -1,3 +1,4 @@
 RewriteEngine on
+RewriteRule /uploads/(.)* uploads/$0
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .* api.php/$0 [L]
