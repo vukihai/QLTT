@@ -60,7 +60,7 @@ class LeftPanel extends React.Component {
         tongket: ["/tongket", false, <VerifiedUserIcon />, "Tổng kết"],
         tinnhan: ["/tinnhan", false, <MailIcon />, "Tin nhắn"],
         hocvien: ["/hocvien", false, <SchoolIcon />, "Học viên"],
-        period: ["/period", false, <HomeIcon />, "Học kì"],
+        semester: ["/semester", false, <HomeIcon />, "Học kì"],
         setting: ["/setting", false, <SettingsIcon />, "Cài đặt"],
         help: ["/help", false, <HelpIcon />, "Trợ giúp"],
     }
@@ -68,7 +68,7 @@ class LeftPanel extends React.Component {
         0: [this.page.trangchu, this.page.baidang, this.page.giangvien, this.page.theodoi, this.page.baocao, this.page.tongket, this.page.tinnhan],
         1: [this.page.hocvien, this.page.tinnhan],
         2: [this.page.baidang, this.page.theodoi, this.page.tinnhan],
-        3: [this.page.period, this.page.baidang, this.page.partner, this.page.giangvien, this.page.sinhvien],
+        3: [this.page.semester, this.page.baidang, this.page.partner, this.page.giangvien, this.page.sinhvien],
         default: [this.page.setting, this.page.help],
     }
     render() {

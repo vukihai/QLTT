@@ -32,7 +32,7 @@ function getSteps() {
     return ['2018-06-01 Mở đợt đăng kí thực tập', '2018-06-10 Kết thúc đăng kí, Bắt đầu kì thực tập', 'Kết thúc kì thực tập'];
 }
 
- 
+
 
 class HomePageStepper extends React.Component {
     constructor(props) {
@@ -40,63 +40,73 @@ class HomePageStepper extends React.Component {
     }
     state = {
         activeStep: 0,
-        lecturer: ""
+        partner: "",
+        lecturer: "",
     };
     componentDidMount() {
-    fetch('http://localhost/api/student/'+localStorage.getItem('id')+'/my_Lecturer')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          lecturer: responseJson,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + '/my_Lecturer')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    lecturer: responseJson,
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        fetch('http://qltt.vn/api/student/' + localStorage.getItem('id') + '/my_Partner')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    partner: responseJson,
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
 
-  }
-    getStepContent(stepIndex) {
-    switch (stepIndex) {
-        case 0:
-            return (
-                <Grid container>
-                    <Grid item xs={12} md={6}>
-                        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                            <Typography variant="headline"> Partner của bạn </Typography>
-                            <ErrorOutlineIcon style={{fontSize: '80px',margin: '20px 0'}}/>
-                            <Typography variant="subheading"> Bạn chưa chọn partner nào </Typography>
-                            <Link to='/baidang'><Button variant="raised" color="primary">Đăng kí</Button></Link>
-                        </div>
-                    </Grid>
-                    <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                            <Typography variant="headline"> Giảng viên của bạn </Typography>
-                            {(this.state.lecturer == "" )?<ErrorOutlineIcon style={{fontSize: '80px',margin: '20px 0'}}/>:<Avatar style={{width: '70px',height: '70px',margin: '30px 0'}}>{this.state.lecturer[0].name[0]}</Avatar>}
-                            <Typography variant="subheading"> {(this.state.lecturer == "" )? <div><div>Bạn chưa chọn giảng viên nào</div> <Link to='/giangvien'><Button variant="raised" color="primary">Đăng kí</Button></Link></div>:this.state.lecturer[0].name}</Typography>
-                        </div>
-                    </Grid>
-                </Grid>
-            );
-        case 1:
-            return (
-                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                    <AssignmentIcon style={{fontSize: '100px'}}/>
-                    <Typography variant="headline"> Bạn chưa nộp báo cáo tuần này </Typography>
-                    <Link to='/baocao'><Button variant="raised" color="primary"> Nộp ngay </Button> </Link>
-                </div>
-            );
-        case 2:
-            return (
-                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <VerifiedUserIcon style={{fontSize: '100px'}}/>
-                    <Typography variant="headline"> Đã kết thúc học kì, đã đến lúc để tổng kết </Typography>
-                    <Link to='/tongket'><Button variant="raised" color="primary"> Xem điểm </Button></Link>
-                </div>
-            );
-        default:
-            return 'Lỗi đã xảy ra';
     }
-}
+    getStepContent(stepIndex) {
+        switch (stepIndex) {
+            case 0:
+                return (
+                    <Grid container>
+                        <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                <Typography variant="headline"> Partner của bạn </Typography>
+                                {(this.state.partner == "") ? <ErrorOutlineIcon style={{ fontSize: '80px', margin: '20px 0' }} /> : <Avatar style={{ width: '70px', height: '70px', margin: '30px 0' }}>{this.state.partner[0].name[0]}</Avatar>}
+                                <Typography variant="subheading"> {(this.state.partner == "") ? <div><div>Bạn chưa chọn partner nào</div> <Link to='/giangvien'><Button variant="raised" color="primary">Đăng kí</Button></Link></div> : this.state.partner[0].name}</Typography>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                <Typography variant="headline"> Giảng viên của bạn </Typography>
+                                {(this.state.lecturer == "") ? <ErrorOutlineIcon style={{ fontSize: '80px', margin: '20px 0' }} /> : <Avatar style={{ width: '70px', height: '70px', margin: '30px 0' }}>{this.state.lecturer[0].name[0]}</Avatar>}
+                                <Typography variant="subheading"> {(this.state.lecturer == "") ? <div><div>Bạn chưa chọn giảng viên nào</div> <Link to='/giangvien'><Button variant="raised" color="primary">Đăng kí</Button></Link></div> : this.state.lecturer[0].name}</Typography>
+                            </div>
+                        </Grid>
+                    </Grid>
+                );
+            case 1:
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                        <AssignmentIcon style={{ fontSize: '100px' }} />
+                        <Typography variant="headline"> Bạn chưa nộp báo cáo tuần này </Typography>
+                        <Link to='/baocao'><Button variant="raised" color="primary"> Nộp ngay </Button> </Link>
+                    </div>
+                );
+            case 2:
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                        <VerifiedUserIcon style={{ fontSize: '100px' }} />
+                        <Typography variant="headline"> Đã kết thúc học kì, đã đến lúc để tổng kết </Typography>
+                        <Link to='/tongket'><Button variant="raised" color="primary"> Xem điểm </Button></Link>
+                    </div>
+                );
+            default:
+                return 'Lỗi đã xảy ra';
+        }
+    }
     handleNext = () => {
         const { activeStep } = this.state;
         this.setState({
