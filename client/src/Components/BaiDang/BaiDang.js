@@ -117,6 +117,7 @@ class BaiDang extends React.Component {
     }
     render() {
         const { classes } = this.props;
+        const remainTime = new Date(this.props.expTime).getSeconds() - new Date().getSeconds();
         return (
             <div>
                 <Card className={classes.card}>
@@ -149,10 +150,10 @@ class BaiDang extends React.Component {
                                                 <IconButton><EditIcon color="primary" /></IconButton>
                                             </Link>
                                         :''
-                                    ) : (this.state.followed == 0 ?
+                                    ) : remainTime > 0?(this.state.followed == 0 ?
                                         <Button variant="raised" color="primary" onClick={() => { this.follow() }}>Theo dõi</Button> :
                                         <Button variant="raised" color="primary">Đã theo dõi</Button>
-                                        )
+                                        ): ''
                                 }
 
                             </div>
