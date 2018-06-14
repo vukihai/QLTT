@@ -8,6 +8,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Avatar } from '@material-ui/core';
 
@@ -23,8 +24,9 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
     },
     instructions: {
-        marginTop: theme.spacing.unit,
-        marginBottom: theme.spacing.unit,
+        paddingTop: theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
+        boxShadow: 'none',
     },
 });
 
@@ -91,7 +93,7 @@ class HomePageStepper extends React.Component {
                 return (
                     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                         <AssignmentIcon style={{ fontSize: '100px' }} />
-                        <Typography variant="headline"> Bạn chưa nộp báo cáo tuần này </Typography>
+                        <Typography variant="headline"> Hãy báo cáo tuần này </Typography>
                         <Link to='/baocao'><Button variant="raised" color="primary"> Nộp ngay </Button> </Link>
                     </div>
                 );
@@ -153,7 +155,7 @@ class HomePageStepper extends React.Component {
                         </div>
                     ) : (
                             <div>
-                                <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
+                                <Paper className={classes.instructions}>{this.getStepContent(activeStep)}</Paper>
                                 <div>
                                     <Button
                                         disabled={activeStep === 0}

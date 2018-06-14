@@ -117,7 +117,7 @@ class BaiDang extends React.Component {
     }
     render() {
         const { classes } = this.props;
-        const remainTime = new Date(this.props.expTime).getSeconds() - new Date().getSeconds();
+        const remainTime = new Date(this.state.exp).getSeconds() - new Date().getSeconds();
         return (
             <div>
                 <Card className={classes.card}>
