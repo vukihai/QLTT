@@ -19,5 +19,9 @@
             $data = $this->db->doPreparedQuery("SELECT p.id, p.partnerID, pa.name as partnerName, p.image, p.title, p.content, p.postTime, p.exp FROM post p JOIN partner pa ON p.partnerID = pa.id WHERE pa.id=?",array($id));
             return $this->fieldsFilterForArray($fieldsArr, $data);
         }
+        public function newPost($id, $data) {
+            $query = "INSERT INTO post (partnerID, title,image, content, postTime,exp,priorityOrder) Value() ";
+            return $this->db->doSql($query);
+        }
     }
 ?>

@@ -51,5 +51,13 @@
             //return $this->db->doPreparedSql("UPDATE vnuaccount SET password = ? WHERE vnuaccount.vnuID = ?",array($newPassword,$id));
             return $this->db->doSql("UPDATE vnuaccount SET password = '".$newPassword."' WHERE vnuaccount.vnuID = ".$id." AND vnuaccount.password = '".$oldPassword."'");
         }
+        public function getLecturer($std_id) {
+            $data = $this->db->doPreparedQuery("SELECT * FROM lecture_studentlist join lecturer on lecture_studentlist.lectureID = lecturer.id WHERE lecture_studentlist.studentID=?",array($std_id));
+            return $data;
+        }
+        public function setLecturer($std_id, $lec_id) {
+            $data = $this->db->doPreparedQuery("INSERT INTO lecture_studentlist (lectureID, studentID) value (?, ?)",array($std_id,$lec_id));
+            return $data;
+        }
     }
 ?>

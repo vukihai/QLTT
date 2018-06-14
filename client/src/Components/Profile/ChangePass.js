@@ -21,9 +21,9 @@ class ChangePassForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: "123456",
-      newPass: "123456789",
-      repeatPass: "123456789",
+      password: "",
+      newPass: "",
+      repeatPass: "",
     }
     this.update = this.update.bind(this);
   }
@@ -48,7 +48,11 @@ class ChangePassForm extends React.Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        alert(responseJson.success ? "success" : responseJson.err)
+        alert(responseJson.success ? "success" : responseJson.err);
+        if(responseJson.success) {
+            localStorage.setItem("lastLogin", 0);
+            this.props.rerenderCallback();
+        }
       })
       .catch((error) => {
         console.error(error);

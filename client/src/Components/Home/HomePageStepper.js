@@ -32,7 +32,30 @@ function getSteps() {
     return ['2018-06-01 Mở đợt đăng kí thực tập', '2018-06-10 Kết thúc đăng kí, Bắt đầu kì thực tập', 'Kết thúc kì thực tập'];
 }
 
-function getStepContent(stepIndex) {
+ 
+
+class HomePageStepper extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    state = {
+        activeStep: 0,
+        lecturer: ""
+    };
+    componentDidMount() {
+    fetch('http://localhost/api/student/'+localStorage.getItem('id')+'/my_Lecturer')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          lecturer: responseJson,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }
+    getStepContent(stepIndex) {
     switch (stepIndex) {
         case 0:
             return (
@@ -48,8 +71,8 @@ function getStepContent(stepIndex) {
                     <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                             <Typography variant="headline"> Giảng viên của bạn </Typography>
-                            <Avatar style={{width: '70px',height: '70px',margin: '30px 0'}}>L</Avatar>
-                            <Typography variant="subheading"> Lê Đình Thanh </Typography>
+                            {(this.state.lecturer == "" )?<ErrorOutlineIcon style={{fontSize: '80px',margin: '20px 0'}}/>:<Avatar style={{width: '70px',height: '70px',margin: '30px 0'}}>{this.state.lecturer[0].name[0]}</Avatar>}
+                            <Typography variant="subheading"> {(this.state.lecturer == "" )? <div><div>Bạn chưa chọn giảng viên nào</div> <Link to='/giangvien'><Button variant="raised" color="primary">Đăng kí</Button></Link></div>:this.state.lecturer[0].name}</Typography>
                         </div>
                     </Grid>
                 </Grid>
@@ -74,15 +97,6 @@ function getStepContent(stepIndex) {
             return 'Lỗi đã xảy ra';
     }
 }
-
-class HomePageStepper extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    state = {
-        activeStep: 0,
-    };
-
     handleNext = () => {
         const { activeStep } = this.state;
         this.setState({
@@ -129,7 +143,7 @@ class HomePageStepper extends React.Component {
                         </div>
                     ) : (
                             <div>
-                                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                                <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
                                 <div>
                                     <Button
                                         disabled={activeStep === 0}

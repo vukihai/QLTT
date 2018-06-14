@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
 import { TextField, Button, Grid } from 'material-ui';
-
+import {browserHistory,withRouter} from "react-router-dom";
 const styles = theme => ({
   root: theme.mixins.gutters({
     padding: 40 + 'px',
@@ -33,11 +33,11 @@ class LoginPage extends React.Component {
       if(!("error" in this.state.items)) {
           localStorage.setItem('token', this.state.items.accessToken);
           localStorage.setItem('role', this.state.items.role);
-          localStorage.setItem('lastLogin', this.state.items.lastLogin);
           localStorage.setItem('id', this.state.items.id);
           localStorage.setItem('logedin', true);
           localStorage.setItem('fullName', this.state.items.fullName);
           localStorage.setItem('username', this.state.username);
+          localStorage.setItem('lastLogin', this.state.items.lastLogin);
       } else {
           this.state.errorMessage = this.state.items.error;
       }

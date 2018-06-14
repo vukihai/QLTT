@@ -12,7 +12,7 @@ import Material from './Components/Material'
 import LoginPage from './Components/Login/Login';
 
 import './App.css';
-
+import ChangePass from'./Components/Profile/ChangePass.js';
 //themes
 const theme = createMuiTheme({
   palette: {
@@ -45,12 +45,14 @@ class App extends Component {
     render() {
         return (
             <div style={{height: 100 + '%'}}>
-                {(this.state.logedin) ? (
+                {(this.state.logedin && localStorage.getItem('lastLogin') != -1) ? (
                 <MuiThemeProvider theme={theme}>
                     <Material rerenderCallback={this.updateState.bind(this)} />
                 </MuiThemeProvider>
-               ): "Please relogin"}
-
+               ): ""}
+               {(this.state.logedin && localStorage.getItem('lastLogin') == -1) ? (
+                    <ChangePass rerenderCallback={this.updateState.bind(this)}/>
+               ): ""}
                {!this.state.logedin ? (
                    <div style={{height: 100 + '%'}}>
                         <LoginPage rerenderCallback={this.updateState.bind(this)}/>

@@ -28,6 +28,7 @@
             $userAccount = array($userName, $encrypted_password);
             $data = $this->db->doPreparedQuery("SELECT vnuID, role, lastLogin, fullName FROM VNUaccount WHERE username = ? AND password = ?",$userAccount);
             if(count($data) == 1) {
+                $this->db->doPreparedQuery("UPDATE VNUaccount SET lastlogin = 0 WHERE username = ? AND password = ?",$userAccount);
                 $tokenData = array();
                 $tokenData["id"] = $data[0][vnuID];
                 $tokenData["ip"] = $this->getIP();

@@ -25,7 +25,7 @@ class NewPostForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      title: "Bầu Trời Xa tuyển thực tập code php",
+      title: "",
       content: "<br><br><br><br><br><br>",
     };
     this.create = this.create.bind(this);

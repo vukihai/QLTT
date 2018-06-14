@@ -76,7 +76,9 @@ class Auth {
     }
     public function proc() {
         $nodePathArr = explode('/', trim($_SERVER['PATH_INFO'],'/'));
-        if(!($nodePathArr[0] =="login" ||$nodePathArr[0] =="post" )) {
+        if(!($nodePathArr[0] =="login" 
+             ||$nodePathArr[0] =="post" 
+            || $nodePathArr[0] =="lecture" && $nodePathArr[2] !="profile")) {
             if(isset($_GET["accessToken"])) {
                 if(!$this->validateToken()) {
                     echo '{"token": "token invalid"}';

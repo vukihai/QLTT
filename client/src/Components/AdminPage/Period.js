@@ -39,7 +39,7 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ['2018-06-01 Mở đợt đăng kí thực tập', '2018-06-10 Kết thúc đăng kí, Bắt đầu kì thực tập', 'Kết thúc kì thực tập'];
+  return ['Mở đợt đăng kí thực tập', 'Kết thúc đăng kí, Bắt đầu kì thực tập', 'Kết thúc kì thực tập'];
 }
 
 class PeriodStepper extends React.Component {
@@ -47,7 +47,9 @@ class PeriodStepper extends React.Component {
     super(props);
     this.state = {
       activeStep: 0,
-      selectedDate: new Date(),
+      registerStart: new Date(),
+      semeStart: new Date(),
+      semeEnd: new Date()
     };
     this.getStepContent = this.getStepContent.bind(this);
   }
@@ -67,8 +69,8 @@ class PeriodStepper extends React.Component {
                     <DateTimePicker
                       disablePast
                       format="HH:mm DD/MM/YYYY"
-                      value={this.state.selectedDate}
-                      onChange={this.handleDateChange}
+                      value={this.state.registerStart}
+                      onChange={this.handleRegisterStart}
                       showTodayButton
                     />
                   </MuiPickersUtilsProvider>
@@ -93,8 +95,8 @@ class PeriodStepper extends React.Component {
                   <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale="vi"> 
                     <DateTimePicker
                       format="HH:mm DD/MM/YYYY"
-                      value={this.state.selectedDate}
-                      onChange={this.handleDateChange}
+                      value={this.state.semeStart}
+                      onChange={this.handleSemeStartChange}
                       showTodayButton
                     />
                   </MuiPickersUtilsProvider>
@@ -117,8 +119,8 @@ class PeriodStepper extends React.Component {
                   <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale="vi"> 
                     <DateTimePicker
                       format="HH:mm DD/MM/YYYY"
-                      value={this.state.selectedDate}
-                      onChange={this.handleDateChange}
+                      value={this.state.semeEnd}
+                      onChange={this.handleSemeEndChange}
                       showTodayButton
                     />
                   </MuiPickersUtilsProvider>
@@ -132,17 +134,30 @@ class PeriodStepper extends React.Component {
         return 'Unknown step';
     }
   }
-
-  handleDateChange = (date) => {
-    this.setState({ selectedDate: date });
+  send() {
+            //ajax here
+            alert('1');
+        }
+  handleSemeEndChange = (date) => {
+    this.setState({ semeEnd: date });
   }
-
+  handleSemeStartChange = (date) => {
+    this.setState({ semeStart: date });
+  }
+  handleRegisterStart = (date) => {
+    this.setState({ registerStart: date });
+  }
   handleNext = () => {
     this.setState({
       activeStep: this.state.activeStep + 1,
     });
   };
-
+  handlefinalNext= () => {
+    this.setState({
+      activeStep: this.state.activeStep + 1,
+    });
+    this.send();
+  };
   handleBack = () => {
     this.setState({
       activeStep: this.state.activeStep - 1,
@@ -178,14 +193,21 @@ class PeriodStepper extends React.Component {
                       >
                         Back
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={this.handleNext}
-                        className={classes.button}
-                      >
-                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                      </Button>
+                        {activeStep === steps.length - 1 ? 
+                            <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handlefinalNext}
+                            className={classes.button}
+                            >
+                            Finish</Button> : <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleNext}
+                            className={classes.button}
+                            >
+                            Next</Button>}
+                      
                     </div>
                   </div>
                 </StepContent>
