@@ -19,6 +19,7 @@ import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import SimpleSnackbar from '../TinNhan/SimpleSnackbar';
 
 moment.locale('vi');
 
@@ -49,7 +50,10 @@ class PeriodStepper extends React.Component {
       activeStep: 0,
       registerStart: new Date(),
       semeStart: new Date(),
-      semeEnd: new Date()
+      semeEnd: new Date(),
+      items: "",
+      hasCurrentSeme: false,
+      change: false
     };
     this.getStepContent = this.getStepContent.bind(this);
   }
@@ -134,9 +138,72 @@ class PeriodStepper extends React.Component {
         return 'Unknown step';
     }
   }
+  componentDidMount() {
+    fetch("http://qltt.vn/api/admin/" + localStorage.getItem('id') +"/semester?accessToken=" + localStorage.getItem('token'))
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          items: responseJson,
+        });
+        this.itemToDate();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  itemToDate() {
+      if(this.state.items != null) {
+          this.setState({
+              hasCurrentSeme: true,
+              activeStep: 3,
+              registerStart: new Date(this.state.items.registerStart),
+              semeStart: new Date(this.state.items.startSeme),
+              semeEnd: new Date(this.state.items.endSeme),
+          })
+      }else {
+          this.setState({
+              hasCurrentSeme: true,
+              activeStep: 0
+          })
+      }
+  }
   send() {
-            //ajax here
-            alert('1');
+        if(this.state.change == true) {
+            alert('Bạn cần tạo học kì mới!');
+            return;
+        }
+        var data = new FormData();
+        data.append("registerStart", this.state.registerStart.toISOString());
+        data.append("semeStart", this.state.semeStart.toISOString());
+        data.append("semeEnd", this.state.semeEnd.toISOString());
+    fetch("http://qltt.vn/api/admin/" + localStorage.getItem('id') +"/semester?accessToken=" + localStorage.getItem('token'), {
+          method: 'POST',
+          body: data
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+         if(!("error" in this.state.items)) {
+                this.setState({
+                    snackbar: null
+                  });
+                 this.setState({
+                    snackbar: <SimpleSnackbar mess={"tạo học kì mới thành công"}/>
+                  });
+            }
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
         }
   handleSemeEndChange = (date) => {
     this.setState({ semeEnd: date });
@@ -167,6 +234,13 @@ class PeriodStepper extends React.Component {
   handleReset = () => {
     this.setState({
       activeStep: 0,
+      change: false
+    });
+  };
+  handleChange = () => {
+    this.setState({
+      activeStep: 0,
+      change: true
     });
   };
 
@@ -219,7 +293,10 @@ class PeriodStepper extends React.Component {
           <Paper square elevation={0} className={classes.resetContainer}>
             <Typography>Đã kết thúc học kì, Sẵn sàng cho học kì mới?</Typography>
             <Button onClick={this.handleReset} className={classes.button}>
-              Reset
+              Tạo học kì mới
+            </Button>
+            <Button onClick={this.handleChange} className={classes.button}>
+              Xem lại học kì hiện tại
             </Button>
           </Paper>
         )}
